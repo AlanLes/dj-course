@@ -1,5 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk/index.js';
-import { countTokens } from '@anthropic-ai/tokenizer';
+import { countTokens, getTokenizer } from '@anthropic-ai/tokenizer';
 
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -32,8 +32,17 @@ const response = await client.messages.create({
     model,
 });
 
+const tokenizer = getTokenizer();
+const input = "ELO ELO MORDO.";
+const encodedInput = tokenizer.encode(input.normalize('NFKC'), 'all');
+
+// const inputTokens = conversationHistory.reduce((sum, msg) => sum + msg.content, 0);
+
 const inputTokens = conversationHistory.reduce((sum, msg) => sum + countTokens(msg.content), 0);
+console.log('> input: ', input)
+console.log('> tokenized input: ', encodedInput)
 const outputTokens = countTokens(response.content[0].text);
 console.log({ inputTokens, outputTokens, usage: response.usage })
 
 console.log(response.content[0].text);
+// tokenizer.free();

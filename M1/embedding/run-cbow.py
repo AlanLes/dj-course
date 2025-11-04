@@ -16,7 +16,7 @@ logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=lo
 # files = CORPORA_FILES["PAN_TADEUSZ"]
 files = CORPORA_FILES["ALL"]
 
-TOKENIZER_FILE = "../tokenizer/tokenizers/custom_bpe_tokenizer.json"
+TOKENIZER_FILE = "../tokenizer/tokenizers/custom_bpe_tokenizer-py.json"
 # TOKENIZER_FILE = "../tokenizer/tokenizers/bielik-v1-tokenizer.json"
 # TOKENIZER_FILE = "../tokenizer/tokenizers/bielik-v3-tokenizer.json"
 
