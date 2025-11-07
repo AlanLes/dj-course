@@ -14,20 +14,25 @@ import { displayVector, displayMatrix } from "./display";
 
 // PROŚBA: jeśli znasz rozwiązanie, to nie spamuj discorda - a przynajmniej nie od razu. Pozwól innym pomóżdżyć 😎
 
-const { WK_Matrix, WQ_Matrix, X_Input_Matrix } = fromJSONFile(jsonFilePath('case-1.json'));
-// const { WK_Matrix, WQ_Matrix, X_Input_Matrix } = fromJSONFile(jsonFilePath('case-2.json'));
-// const { WK_Matrix, WQ_Matrix, X_Input_Matrix } = fromJSONFile(jsonFilePath('case-3.json'));
-// const { WK_Matrix, WQ_Matrix, X_Input_Matrix } = fromJSONFile(jsonFilePath('case-4.json'));
+const cases = [
+  'case-1.json',
+  'case-2.json',
+  'case-3.json',
+  'case-4.json'
+];
+const Q_Matrices: Matrix[] = [];
+const K_Matrices: Matrix[] = [];
+const S_Matrices: Matrix[] = [];  // S_Matrix[i][j] = dotProduct(Q_Matrix[i], K_Matrix[j])
+for (const [index, filename] of cases.entries()) {
+  const { WK_Matrix, WQ_Matrix, X_Input_Matrix } = fromJSONFile(jsonFilePath(filename));
+  Q_Matrices.push(multiplyMatrices(X_Input_Matrix, WQ_Matrix));
+  K_Matrices.push(multiplyMatrices(X_Input_Matrix, WK_Matrix));
+  S_Matrices.push(multiplyMatrices(Q_Matrices[index], transpose(K_Matrices[index])));
 
-console.log('WK_Matrix');
-console.log(displayMatrix(WK_Matrix, -1));
-console.log('WQ_Matrix');
-console.log(displayMatrix(WQ_Matrix, -1));
-console.log('X_Input_Matrix');
-console.log(displayMatrix(X_Input_Matrix, -1));
-
-const x1_vector = X_Input_Matrix[0];
-console.log('x1_vector');
-console.log(displayVector(x1_vector, -1));
-
-// przypomnienie zadania: naley policzyć "attention matrix S"
+  // console.log(`Q_Matrix ${index + 1}`);
+  // console.log(displayMatrix(Q_Matrices[index], -1));
+  // console.log(`K_Matrix ${index + 1}`);
+  // console.log(displayMatrix(K_Matrices[index], -1));
+  console.log(`S_Matrix ${index + 1}`);
+  console.log(displayMatrix(S_Matrices[index], -1));
+}
