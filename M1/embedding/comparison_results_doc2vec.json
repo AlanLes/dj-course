@@ -1,0 +1,1042 @@
+[
+    {
+        "params": {
+            "vector_length": 10,
+            "window_size": 3,
+            "min_count": 1,
+            "workers": 2,
+            "epochs": 10,
+            "dm_mode": 0
+        },
+        "training_time": 59.42,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "— Masz tu — mówił bóg — rzeźbione łoże, pięć stolików i dziesięć krzeseł. Masz tu haftowane szaty, stągwie i szklanki na wino, masz tu oliwną lampę i lektykę…",
+                        "similarity": 0.9864594340324402
+                    },
+                    {
+                        "sentence": "Zawżdy z wawrzynów drzewo wolności wykwita.",
+                        "similarity": 0.9861310124397278
+                    },
+                    {
+                        "sentence": "Kalypso pięknowłosej, a córki Atlasa.",
+                        "similarity": 0.9856361746788025
+                    },
+                    {
+                        "sentence": "Pomnę — w zwierciadle czarów zamglone widzenia —",
+                        "similarity": 0.9850469827651978
+                    },
+                    {
+                        "sentence": "Przyrządy niepotrzebne, śmiecie kół i noży,",
+                        "similarity": 0.9846739768981934
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "- Nie traktuję tego tak katastroficznie. Powtarzam - będziemy rozmawiać. Są sprawy do wyjaśnienia.",
+                        "similarity": 0.9780572652816772
+                    },
+                    {
+                        "sentence": "- Nie ma trybu.",
+                        "similarity": 0.9750524759292603
+                    },
+                    {
+                        "sentence": "I to, co najważniejsze: jak wielkie spustoszenie dokonuje fakt pozostawania bez pracy w stosunku do jego psychiki, do otoczenia? Czy i jeżeli tak, to jakim zmianom ulega jego wartościowanie relacji do siebie, społeczeństwa, do Boga?",
+                        "similarity": 0.9746166467666626
+                    },
+                    {
+                        "sentence": "Czym w końcu różnią się tak naprawdę republikanie od demokratów? Jaka jest przyczyna tego zachwiania równowagi? Czy jej brak ma istotny wpływ na jakość amerykańskiego systemu szkolnictwa wyższego? Ostatnie pytanie wydaje się Kleinowi retoryczne.",
+                        "similarity": 0.9745194315910339
+                    },
+                    {
+                        "sentence": "Receptą Hewitta na zmianę tego stanu rzeczy jest odformalizowanie fizyki. Stara się on nauczyć fizyki, nie używając języka matematyki, mówiąc obrazowo - bez wzorów. Autor uważa, że uczeń powinien przede wszystkim poznać zjawiska fizyczne i zrozumieć pojęcia. Na resztę czas przyjdzie później. W taki sposób uczy się fizyki w niektórych szkołach amerykańskich.",
+                        "similarity": 0.970682680606842
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 10,
+            "window_size": 3,
+            "min_count": 1,
+            "workers": 2,
+            "epochs": 30,
+            "dm_mode": 0
+        },
+        "training_time": 176.91,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "— Zaraz po śniadaniu ruszymy.",
+                        "similarity": 0.9810019135475159
+                    },
+                    {
+                        "sentence": "ledwo zeń będzie poemacik.",
+                        "similarity": 0.9763760566711426
+                    },
+                    {
+                        "sentence": "- I co, palcyma będziem robili? - pyta Józek, na którego wszyscy w domu się gniewają, bo jak go wypuścili wziął z opieki społecznej 500 tys. zł i przepił je sam w dwa dni.",
+                        "similarity": 0.9731602072715759
+                    },
+                    {
+                        "sentence": "baba chłopa wyprzedzi.",
+                        "similarity": 0.9714646935462952
+                    },
+                    {
+                        "sentence": "Ostrzę noże, nożyczki, sitka od maszynek do mięsa - reklamuje swe usługi Jan Mikołajczak (58 l.) ze wsi Przybranowo (Kujawsko-Pomorskie). Z wykształcenia jest ślusarzem hydraulikiem. Trochę tułał się po świecie, kilka lat przepracował w Gdańsku, ale gdy wrócił w swe rodzinne strony, dopadło go bezrobocie.",
+                        "similarity": 0.9537173509597778
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "A: Wróćmy jednak do fryzury twojej żony.",
+                        "similarity": 0.9814248085021973
+                    },
+                    {
+                        "sentence": "— Jakże wygląda? Po czym go poznać?",
+                        "similarity": 0.9768975973129272
+                    },
+                    {
+                        "sentence": "— Jestem oszpecony — mówił baron — wyglądam jak stara małpa chora na fluksję. Nie chcę z panem drugiej awantury, bo widzę, że masz szczęście… Więc powiedz mi pan: za co właściwie zostałem kaleką?… Bo nie za to potrącenie… — dodał patrząc mu w oczy.",
+                        "similarity": 0.9767884612083435
+                    },
+                    {
+                        "sentence": "Mówi z namysłem, poważnie i smutnie. Mówi jednak po polsku, tylko z akcentem obcym, cokolwiek grasejując.",
+                        "similarity": 0.9738242030143738
+                    },
+                    {
+                        "sentence": "— Ach, Floro, proszę cię, nie dręcz mnie!… — wybuchnęła panna Izabela. — Gwałtem chcesz zrobić demona z kupczyka, może dlatego, że… tyle straciliśmy na kamienicy… że ojciec jest chory i że… Starski wrócił…",
+                        "similarity": 0.9688382148742676
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 10,
+            "window_size": 3,
+            "min_count": 5,
+            "workers": 2,
+            "epochs": 10,
+            "dm_mode": 0
+        },
+        "training_time": 53.1,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "Nawet chytry i mądry książę libijski, Musawasa, dał się porwać ogólnemu prądowi. Jego jednak nie przekonali imigranci, ale jacyś ludzie poważni i dostojni, a według wszelkiego prawdopodobieństwa — agenci najwyższej rady egipskiej.",
+                        "similarity": 0.9791956543922424
+                    },
+                    {
+                        "sentence": "Biegł do Scherii feackiej i tam zaczajony",
+                        "similarity": 0.9777303338050842
+                    },
+                    {
+                        "sentence": "— Innym ta śnieżyca nie przeszkodzi jechać na bal, więc dlaczegóż nam miałaby psuć wieczorek — odpowiedziałem z głupia frant.",
+                        "similarity": 0.9770450592041016
+                    },
+                    {
+                        "sentence": "Zajęci częstowaniem włościan, chodząc jedli.",
+                        "similarity": 0.9762969017028809
+                    },
+                    {
+                        "sentence": "— Wiera, że niezadługo. Księżna kazała postawić dla nich miski przy wspólnym stole.",
+                        "similarity": 0.9737566113471985
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "- Nie traktuję tego tak katastroficznie. Powtarzam - będziemy rozmawiać. Są sprawy do wyjaśnienia.",
+                        "similarity": 0.9900570511817932
+                    },
+                    {
+                        "sentence": "Zadam to pytanie jako oddzielne na tym forum. Jestem ciekawa opinii. Dla mnie sprawa jest oczywista - ludzkie życie zaczyna się w momencie zapłodnienia. A kwestia aborcji to zupełnie inny temat, o wiele bardziej skomplikowany i moim zdaniem niemożliwy do uregulowania przez jakąkolwiek ustawę.",
+                        "similarity": 0.9886876940727234
+                    },
+                    {
+                        "sentence": "Z ust twych? Bardzo być może, że takiego znałem.",
+                        "similarity": 0.986422598361969
+                    },
+                    {
+                        "sentence": "- I tak powinno być. W sprawowaniu tej funkcji będę kierował się interesem państwa. Na interes państwa patrzę jednak przez pryzmat moich poglądów politycznych. Nie będę krył, że jestem człowiekiem prawicy.",
+                        "similarity": 0.9858483076095581
+                    },
+                    {
+                        "sentence": "ANABELLA - Słyszałam o nim, że ma znajomości, to może by pomógł.",
+                        "similarity": 0.9850942492485046
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 10,
+            "window_size": 3,
+            "min_count": 5,
+            "workers": 2,
+            "epochs": 30,
+            "dm_mode": 0
+        },
+        "training_time": 137.39,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "rano w domowym już kieracie —",
+                        "similarity": 0.9635813236236572
+                    },
+                    {
+                        "sentence": "Uległa prośbom i namowom Alicji i pojechała. Jako turystka. Na wycieczkę.",
+                        "similarity": 0.960159420967102
+                    },
+                    {
+                        "sentence": "- Jedziemy pojutrze. Ojca wywalili. Matka nie pracowała. Wzięliśmy paszport. Najpierw do Austrii, a potem się zobaczy. Matka ma siostrę w Stanach, więc może tam...",
+                        "similarity": 0.9491079449653625
+                    },
+                    {
+                        "sentence": "Hrabia twierdzi, że w ciągu półtorej godziny rozeszło się 15 tysięcy ulotek. Do metra. Boże, jak ciepło! Pruszyński zaciera ręce. Nie wiem, czy z zimna czy z satysfakcji.",
+                        "similarity": 0.9486311078071594
+                    },
+                    {
+                        "sentence": "- Od czasu, gdy pani Reidernowa objęła rządy, nikt tutaj nie zajrzy - zganiła porządki Gawlikowa.",
+                        "similarity": 0.9479028582572937
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "Próbowałem zapytać o wojenne lata Ziętka, choć wiedziałem, że w dwóch sprawach - pobytu w ZSRR i samobójczej śmierci dzieci - był jak głaz. Piliśmy wtedy koniak z literatek. Rozlał, podniósł i zaczął sączyć, świdrując oczami. - Ja już chyba, chłopak, tobie na dzisiaj podziękuję. Na pożegnanie dodał: - Ja na tym koniu musiałem jechać.",
+                        "similarity": 0.9774790406227112
+                    },
+                    {
+                        "sentence": "— Od projektu do wykonania ogromnie daleko — odparł nieco zirytowany pan Tomasz. — Choćby jeddnakże nawet tak było, nic mnie to nie obchodzi. Nad myślami pana Wokulskiego nie panuję, a o Belcię jestem spokojny.",
+                        "similarity": 0.9736558198928833
+                    },
+                    {
+                        "sentence": "A teraz usprawiedliwiał się przed kasjerką: - No, wie pani, oszalał. Przecie tak mnie pchnął... nie byłem przygotowany... gdybym był wiedział, tobym się inaczej do niego zabrał...",
+                        "similarity": 0.973121166229248
+                    },
+                    {
+                        "sentence": "— A cóż to ja jestem grabarz, ażeby robić ludziom tego rodzaju przyjemności? — oburzył się Wokulski.",
+                        "similarity": 0.9699445962905884
+                    },
+                    {
+                        "sentence": "— Przepraszam pana — przerwał Wokulski. — Ale istotnie jestem trochę rozdrażniony… zapewne z gorąca…",
+                        "similarity": 0.9686968922615051
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 10,
+            "window_size": 18,
+            "min_count": 1,
+            "workers": 2,
+            "epochs": 10,
+            "dm_mode": 0
+        },
+        "training_time": 49.2,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "I dobra, które na skarb carski zabierano.",
+                        "similarity": 0.9853746891021729
+                    },
+                    {
+                        "sentence": "Prawdę mówiąc, zapomniałem o nadchodzących wyborach, na których używali sobie domorośli literaci z innego biura (będziesz wybierał, wybierz nasz produkt). Spotkaliśmy się jeszcze tego samego wieczoru i ustaliliśmy harmonogram na najbliższe tygodnie - miał zmienić bieg historii.",
+                        "similarity": 0.9837163686752319
+                    },
+                    {
+                        "sentence": "Kalypso wraz się gościa zajęła osobą,",
+                        "similarity": 0.9816677570343018
+                    },
+                    {
+                        "sentence": "Wprost na okręt Feników poszedłem, co stali",
+                        "similarity": 0.98160320520401
+                    },
+                    {
+                        "sentence": "Za nie się Zeus olimpski, za nie Temis nasza",
+                        "similarity": 0.9815775752067566
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "Kto jest przeciw?",
+                        "similarity": 0.9908576011657715
+                    },
+                    {
+                        "sentence": "- Dawniej piłkarze więcej potrafili?",
+                        "similarity": 0.990047812461853
+                    },
+                    {
+                        "sentence": "- Kto jest przeciw?",
+                        "similarity": 0.9900010824203491
+                    },
+                    {
+                        "sentence": "- Może słyszałem, może nie.",
+                        "similarity": 0.9892067909240723
+                    },
+                    {
+                        "sentence": "- Kto jest przeciw?",
+                        "similarity": 0.9890640377998352
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 10,
+            "window_size": 18,
+            "min_count": 1,
+            "workers": 2,
+            "epochs": 30,
+            "dm_mode": 0
+        },
+        "training_time": 147.65,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "Le. i ja poszliśmy, bo słyszeliśmy, że z panią Bie. jest źle. Puk-puk w parter, Mokotowska, długo nic, dzwonimy do sąsiada, z którym Le. miał futrowe spięcie, pozytywne, czyli się w dwóch futrach rozpoznali, bo już się znali, właśnie stąd. Pan otworzył, prosi, rozbiera z okryć, właśnie pani Bie. telefonuje od niego.",
+                        "similarity": 0.9720467925071716
+                    },
+                    {
+                        "sentence": "Mażejka: Dałem sobie pół roku. Jak nic się nie zmieni, wracam do Grodna.",
+                        "similarity": 0.968939483165741
+                    },
+                    {
+                        "sentence": "14 stycznia 2001, głos w słuchawce, mówi Krzysztof, uczestnik imprezy: - Według mnie tam nie było żadnego pobicia. Słuchaj, Piotr był zalany, spadał ze schodów, wyskakiwał z okna. Jak ja rano poszedłem zobaczyć, z którego okna skakał, to szukałem na ziemi śladów kości. Ty się ciesz, że on był pijany, bo na trzeźwo takiego skoku by nie przeżył.",
+                        "similarity": 0.9650322198867798
+                    },
+                    {
+                        "sentence": "Dwumetrowy Czech zamierza starać się o... obywatelstwo polskie. - Mieszkam pod Ostrawą, bardzo blisko Katowic, jeżdżę w polskiej grupie, mówię troszkę po polsku, więc drugi paszport by się przydał - dodał Sosenka.",
+                        "similarity": 0.9530597925186157
+                    },
+                    {
+                        "sentence": "– jest z nami przedstawicielka żeńskiej. gałęzi michalitów siostra michalitka Karina Pawłowska",
+                        "similarity": 0.9525890350341797
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "— Zapewne wiesz, święty proroku, że jedna z moich kobiet, Sara, umarła, a jej syn został zamordowany?…",
+                        "similarity": 0.98394775390625
+                    },
+                    {
+                        "sentence": "— Ach, Floro, proszę cię, nie dręcz mnie!… — wybuchnęła panna Izabela. — Gwałtem chcesz zrobić demona z kupczyka, może dlatego, że… tyle straciliśmy na kamienicy… że ojciec jest chory i że… Starski wrócił…",
+                        "similarity": 0.9809379577636719
+                    },
+                    {
+                        "sentence": "— Jestem oszpecony — mówił baron — wyglądam jak stara małpa chora na fluksję. Nie chcę z panem drugiej awantury, bo widzę, że masz szczęście… Więc powiedz mi pan: za co właściwie zostałem kaleką?… Bo nie za to potrącenie… — dodał patrząc mu w oczy.",
+                        "similarity": 0.9765145182609558
+                    },
+                    {
+                        "sentence": "— To prawda!… — odparł baron uderzając się w czoło. — Że też mi wcześniej nie przyszła podobna myśl… A propos zarobku, czy nie wskazałbyś mi pan sposobu szybkiego zbogacenia się? Potrzebuję na gwałt stu tysięcy rubli w ciągu roku…",
+                        "similarity": 0.9706933498382568
+                    },
+                    {
+                        "sentence": "— Nie rozumiem — odpowiedziała panna Izabela potrząsając głową. — Rozumiem, że dziesięć to znaczy dziesięć; ale jeżeli w języku kupieckim dziesięć nazywa się trzydzieści trzy, to niech i tak będzie.",
+                        "similarity": 0.9705562591552734
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 10,
+            "window_size": 18,
+            "min_count": 5,
+            "workers": 2,
+            "epochs": 10,
+            "dm_mode": 0
+        },
+        "training_time": 51.09,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "— Innym ta śnieżyca nie przeszkodzi jechać na bal, więc dlaczegóż nam miałaby psuć wieczorek — odpowiedziałem z głupia frant.",
+                        "similarity": 0.9861127734184265
+                    },
+                    {
+                        "sentence": "Skarbcem Ojczyzny zawsze są Jego ołtarze;",
+                        "similarity": 0.9812355637550354
+                    },
+                    {
+                        "sentence": "skłaniasz słuch ku dźwięków mowie —",
+                        "similarity": 0.979920506477356
+                    },
+                    {
+                        "sentence": "Trzeba było...\"",
+                        "similarity": 0.9774604439735413
+                    },
+                    {
+                        "sentence": "A gdy w galop puścisz się (tu rejent Bolesta,",
+                        "similarity": 0.9764487743377686
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "- Zdarzało się, że ktoś próbował wykorzystać zaufanie, jakim go obdarzyła fundacja, i zaczynał działać \"po swojemu\". Nieraz próbowano mnie naciągnąć, wykorzystać moją naiwność czy niewiedzę. Muszę przyznać, że z latami zrobiłem się nieufny, podejrzliwy - co akurat w przypadku księdza nie jest dobrą cechą.",
+                        "similarity": 0.9829370975494385
+                    },
+                    {
+                        "sentence": "- I na koniec uwaga. W sprawozdaniu znalazła się refleksja, że, niestety, obecny rząd nie odpowiada w terminie na pisma rzecznika, ministrowie je ignorują, To, sądzę, jest niedopuszczalne i trzeba to z tej trybuny powiedzieć. Apele rzecznika, jego sugestie nie mogą trafiać w próżnię. Tak że biję w pierś rządu, ponieważ najpierw uderzyłem w pierś parlamentu i swoją również, i chyba z tego tytułu miałem prawo to uczynić.",
+                        "similarity": 0.9794774651527405
+                    },
+                    {
+                        "sentence": "- Nie traktuję tego tak katastroficznie. Powtarzam - będziemy rozmawiać. Są sprawy do wyjaśnienia.",
+                        "similarity": 0.9794648885726929
+                    },
+                    {
+                        "sentence": "- Przede wszystkim państwowy egzamin, kurs BHP i dobry sprzęt. Nowy kosztuje krocie, ale można zrobić go samemu. Na przykład z Australią łączyłem się na dwudziestoletnim radiu mojego ojca.",
+                        "similarity": 0.9785068035125732
+                    },
+                    {
+                        "sentence": "Ach, domyślam się - pewnie wzgardzony miłośnik,",
+                        "similarity": 0.9779048562049866
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 10,
+            "window_size": 18,
+            "min_count": 5,
+            "workers": 2,
+            "epochs": 30,
+            "dm_mode": 0
+        },
+        "training_time": 144.87,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "- Sąsiad spod 18-ki powiedział, że za grzyba płacił nie będzie. Nie płacił 2 lata. No i niedawno, przed wakacjami go eksmitowali. Chcieliśmy tam się zamienić. Bo znacznie mniejszy grzyb jest. Ale nic z tego.",
+                        "similarity": 0.9645640254020691
+                    },
+                    {
+                        "sentence": "Gdybyśmy wszyscy byli tacy uczciwi... Mateusz Koper (17 l.) i Michał Kowalski z Niedrzwicy Dużej pod Lublinem podczas zakupów w Lublinie znaleźli portfel z 3500 zł i od razu odnieśli kasę na policję. Mundurowi odnaleźli właściciela zguby, człeka chytrego, jak się później okazało.",
+                        "similarity": 0.9564891457557678
+                    },
+                    {
+                        "sentence": "Le. i ja poszliśmy, bo słyszeliśmy, że z panią Bie. jest źle. Puk-puk w parter, Mokotowska, długo nic, dzwonimy do sąsiada, z którym Le. miał futrowe spięcie, pozytywne, czyli się w dwóch futrach rozpoznali, bo już się znali, właśnie stąd. Pan otworzył, prosi, rozbiera z okryć, właśnie pani Bie. telefonuje od niego.",
+                        "similarity": 0.9554567933082581
+                    },
+                    {
+                        "sentence": "W drogę! Wracając, acan mi opowie.",
+                        "similarity": 0.9490724802017212
+                    },
+                    {
+                        "sentence": "– jest z nami przedstawicielka żeńskiej. gałęzi michalitów siostra michalitka Karina Pawłowska",
+                        "similarity": 0.9486867189407349
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "— Bardzo go proś — rzekła do panny Florentyny — ażeby przyjechał jak najśpieszniej… Bo gdyby tych obrzydliwych Żydów zastał u nas Starski…",
+                        "similarity": 0.9743378758430481
+                    },
+                    {
+                        "sentence": "— Ach, Floro, proszę cię, nie dręcz mnie!… — wybuchnęła panna Izabela. — Gwałtem chcesz zrobić demona z kupczyka, może dlatego, że… tyle straciliśmy na kamienicy… że ojciec jest chory i że… Starski wrócił…",
+                        "similarity": 0.9735231399536133
+                    },
+                    {
+                        "sentence": "— Więc pan nie pojmujesz tego, że kobieta może być zmuszoną do sprzedania się?… — zapytała pani Wąsowska blednąc i rumieniąc się.",
+                        "similarity": 0.9691096544265747
+                    },
+                    {
+                        "sentence": "„Ubrał się! — myślał Wokulski. — Czy podobna, ażeby młoda panna mogła zakochać się w takiej mumii? Z pewnością jest o dziesięć lat starszy ode mnie, a jaki niedołężny, jaki przy tym naiwny!…",
+                        "similarity": 0.9677915573120117
+                    },
+                    {
+                        "sentence": "— Bardzo źle — odparła pani Wąsowska. — Starski już prawie nie opuszcza jej pokoju, a rejent przyjeżdża co dzień, ale zdaje się na próżno… Więc co do programu?…",
+                        "similarity": 0.9657114744186401
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 50,
+            "window_size": 3,
+            "min_count": 1,
+            "workers": 2,
+            "epochs": 10,
+            "dm_mode": 0
+        },
+        "training_time": 56.33,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "Starka odeszła na noc spać w swojej komorze,",
+                        "similarity": 0.8610087037086487
+                    },
+                    {
+                        "sentence": "Do miasta jedziemy",
+                        "similarity": 0.8591629266738892
+                    },
+                    {
+                        "sentence": "Puknie na toast duchom butelka szampana.",
+                        "similarity": 0.8567222356796265
+                    },
+                    {
+                        "sentence": "Kelnerka przyniosła napoje.",
+                        "similarity": 0.8543482422828674
+                    },
+                    {
+                        "sentence": "Do miasta jedziemy",
+                        "similarity": 0.8511059880256653
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "Szanowany w powiecie, ma urząd, jest sędzią!",
+                        "similarity": 0.9002265930175781
+                    },
+                    {
+                        "sentence": "- Widzę dziś zupełnie inną Justynę. Twoja maska spadła.",
+                        "similarity": 0.8989380598068237
+                    },
+                    {
+                        "sentence": "Szanowany w powiecie, ma urząd, jest sędzią!",
+                        "similarity": 0.8928465843200684
+                    },
+                    {
+                        "sentence": "majestatyczne i czyste,",
+                        "similarity": 0.890053927898407
+                    },
+                    {
+                        "sentence": "lecz wierzycielem jest — czeka.",
+                        "similarity": 0.8899657726287842
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 50,
+            "window_size": 3,
+            "min_count": 1,
+            "workers": 2,
+            "epochs": 30,
+            "dm_mode": 0
+        },
+        "training_time": 163.96,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "— Wczoraj rano, pane.",
+                        "similarity": 0.7482597827911377
+                    },
+                    {
+                        "sentence": "— To chodźże ze mną — rzekł Skrzetuski.",
+                        "similarity": 0.7279678583145142
+                    },
+                    {
+                        "sentence": "– ja dzisiaj. ja dzisiaj dopiero przyjechałam. też rano.",
+                        "similarity": 0.7270169258117676
+                    },
+                    {
+                        "sentence": "— To ja idę do świętego biskupa.",
+                        "similarity": 0.72381991147995
+                    },
+                    {
+                        "sentence": "Do miasta jedziemy",
+                        "similarity": 0.7205939292907715
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "— On mój pies.",
+                        "similarity": 0.7595287561416626
+                    },
+                    {
+                        "sentence": "- Jesteś chory, jesteś strasznie chory.",
+                        "similarity": 0.742281436920166
+                    },
+                    {
+                        "sentence": "— Czym jest twój ojciec?",
+                        "similarity": 0.7337353825569153
+                    },
+                    {
+                        "sentence": "Przecież kochałabym go szczerze",
+                        "similarity": 0.7228144407272339
+                    },
+                    {
+                        "sentence": "Póki syn mój był dzieckiem, w głowie miał zielono,",
+                        "similarity": 0.7168154716491699
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 50,
+            "window_size": 3,
+            "min_count": 5,
+            "workers": 2,
+            "epochs": 10,
+            "dm_mode": 0
+        },
+        "training_time": 55.37,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "Mają tam gospodarze, mają i pasterze",
+                        "similarity": 0.881358802318573
+                    },
+                    {
+                        "sentence": "— Na podstęp, na zdradę, na hańbę.",
+                        "similarity": 0.8467029929161072
+                    },
+                    {
+                        "sentence": "zwycięstwo niesie wam w darze.",
+                        "similarity": 0.8451566100120544
+                    },
+                    {
+                        "sentence": "na mej córki święte przyjście.",
+                        "similarity": 0.843896746635437
+                    },
+                    {
+                        "sentence": "— Może część wojsk dziś pójdzie na noc, część jutro — rzekł Jan Skrzetuski.",
+                        "similarity": 0.8433137536048889
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "— Nieżonaty człowiek jest i synów nie ma. Temu korona miła, kto potomstwu przekazać ją może.",
+                        "similarity": 0.9107307195663452
+                    },
+                    {
+                        "sentence": "Lub ma wielką chorobę. Lecz z innej przyczyny",
+                        "similarity": 0.9055648446083069
+                    },
+                    {
+                        "sentence": "- Tak jest.",
+                        "similarity": 0.9032690525054932
+                    },
+                    {
+                        "sentence": "- Tak jest. Od ręki.",
+                        "similarity": 0.9009315371513367
+                    },
+                    {
+                        "sentence": "I w tej chwili cóż ma znaczyć",
+                        "similarity": 0.9005072116851807
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 50,
+            "window_size": 3,
+            "min_count": 5,
+            "workers": 2,
+            "epochs": 30,
+            "dm_mode": 0
+        },
+        "training_time": 168.74,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "– ja dzisiaj. ja dzisiaj dopiero przyjechałam. też rano.",
+                        "similarity": 0.7375220060348511
+                    },
+                    {
+                        "sentence": "- Jechaliśmy na wycieczkę do teatru - mówi Adrian.",
+                        "similarity": 0.7286217212677002
+                    },
+                    {
+                        "sentence": "— Wczoraj rano, pane.",
+                        "similarity": 0.7146844267845154
+                    },
+                    {
+                        "sentence": "To wszyscy z jazyjskiego Argos jutro rano",
+                        "similarity": 0.6936244964599609
+                    },
+                    {
+                        "sentence": "w dzisiejsze rano,",
+                        "similarity": 0.6881862282752991
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "— On mój pies.",
+                        "similarity": 0.7494706511497498
+                    },
+                    {
+                        "sentence": "Bo już dorosła, nie jest dziewczyną maluczką,",
+                        "similarity": 0.7331564426422119
+                    },
+                    {
+                        "sentence": "Bo już dorosła, nie jest dziewczyną maluczką,",
+                        "similarity": 0.7323943376541138
+                    },
+                    {
+                        "sentence": "A biedna Sara… A mały synek mój… Jaki on był piękny…",
+                        "similarity": 0.7294429540634155
+                    },
+                    {
+                        "sentence": "— Więc mój ojciec jest ciężko chory?… — zawołał Ramzes.",
+                        "similarity": 0.7280722856521606
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 50,
+            "window_size": 18,
+            "min_count": 1,
+            "workers": 2,
+            "epochs": 10,
+            "dm_mode": 0
+        },
+        "training_time": 53.97,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "I dobra, które na skarb carski zabierano.",
+                        "similarity": 0.8763561844825745
+                    },
+                    {
+                        "sentence": "I dobra, które na skarb carski zabierano.",
+                        "similarity": 0.874062716960907
+                    },
+                    {
+                        "sentence": "zwycięstwo niesie wam w darze.",
+                        "similarity": 0.864470899105072
+                    },
+                    {
+                        "sentence": "Do miasta jedziemy",
+                        "similarity": 0.8538405895233154
+                    },
+                    {
+                        "sentence": "Ma na twoim ciele swoje ulubione miejsce.",
+                        "similarity": 0.8527934551239014
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "List ma ważny, samemu Jackowi pokaże.",
+                        "similarity": 0.9106016755104065
+                    },
+                    {
+                        "sentence": "- Pana ministerstwo ma jednak niewielkie bezpośrednie możliwości wpływania na te procesy.",
+                        "similarity": 0.9090259671211243
+                    },
+                    {
+                        "sentence": "— Jest, babciu, i nawet dwie. Jest H i jest T.",
+                        "similarity": 0.9077839255332947
+                    },
+                    {
+                        "sentence": "Hrabia z jazdą ma czekać sposobniejszej pory.",
+                        "similarity": 0.9071568250656128
+                    },
+                    {
+                        "sentence": "- Tak jest.",
+                        "similarity": 0.9050318598747253
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 50,
+            "window_size": 18,
+            "min_count": 1,
+            "workers": 2,
+            "epochs": 30,
+            "dm_mode": 0
+        },
+        "training_time": 163.46,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "– tak patrzę że. panie profesorze. zaraz tutaj. autograf",
+                        "similarity": 0.763504147529602
+                    },
+                    {
+                        "sentence": "— Wczoraj rano, pane.",
+                        "similarity": 0.7507383227348328
+                    },
+                    {
+                        "sentence": "Najpierw ujrzeliśmy, panie,",
+                        "similarity": 0.7196300625801086
+                    },
+                    {
+                        "sentence": "w dzisiejsze rano,",
+                        "similarity": 0.7133364081382751
+                    },
+                    {
+                        "sentence": "Do miasta jedziemy",
+                        "similarity": 0.7105900645256042
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "— On mój pies.",
+                        "similarity": 0.7567029595375061
+                    },
+                    {
+                        "sentence": "- Jesteś chory, jesteś strasznie chory.",
+                        "similarity": 0.7534868121147156
+                    },
+                    {
+                        "sentence": "— Czym jest twój ojciec?",
+                        "similarity": 0.7481575608253479
+                    },
+                    {
+                        "sentence": "zły ojciec — gorsza macocha!",
+                        "similarity": 0.7480617165565491
+                    },
+                    {
+                        "sentence": "He, he. Mój chłopak jest tysiąc razy piękniejszy.",
+                        "similarity": 0.7427497506141663
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 50,
+            "window_size": 18,
+            "min_count": 5,
+            "workers": 2,
+            "epochs": 10,
+            "dm_mode": 0
+        },
+        "training_time": 57.09,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "Mają tam gospodarze, mają i pasterze",
+                        "similarity": 0.8560649752616882
+                    },
+                    {
+                        "sentence": "wybierz trójnóg, naczynia potrzebne ofierze",
+                        "similarity": 0.8557774424552917
+                    },
+                    {
+                        "sentence": "Jeżeli na was raptus podobny napada,",
+                        "similarity": 0.8514813780784607
+                    },
+                    {
+                        "sentence": "My na naukę młodzież do stolicy dajem",
+                        "similarity": 0.8464938998222351
+                    },
+                    {
+                        "sentence": "spełniam rozkaz — wstępuję na królewski dworzec,",
+                        "similarity": 0.8444150686264038
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "Każdy ma tych swoich parę lat...",
+                        "similarity": 0.9067295789718628
+                    },
+                    {
+                        "sentence": "- Ale to nie jest ten pakiet ustaw.",
+                        "similarity": 0.9023924469947815
+                    },
+                    {
+                        "sentence": "Trudno jest taką prośbę zostawić bez skutku.",
+                        "similarity": 0.9003839492797852
+                    },
+                    {
+                        "sentence": "- Tak jest. Od ręki.",
+                        "similarity": 0.8997457027435303
+                    },
+                    {
+                        "sentence": "He, he. Mój chłopak jest tysiąc razy piękniejszy.",
+                        "similarity": 0.8996697664260864
+                    }
+                ]
+            }
+        ],
+        "error": null
+    },
+    {
+        "params": {
+            "vector_length": 50,
+            "window_size": 18,
+            "min_count": 5,
+            "workers": 2,
+            "epochs": 30,
+            "dm_mode": 0
+        },
+        "training_time": 159.03,
+        "corpus_size": 152156,
+        "inference_results": [
+            {
+                "test_sentence": "Wczoraj jechałem na rowerze",
+                "similar_sentences": [
+                    {
+                        "sentence": "— Wczoraj rano, pane.",
+                        "similarity": 0.7492479085922241
+                    },
+                    {
+                        "sentence": "Do miasta jedziemy",
+                        "similarity": 0.7123996019363403
+                    },
+                    {
+                        "sentence": "– ja dzisiaj. ja dzisiaj dopiero przyjechałam. też rano.",
+                        "similarity": 0.6980132460594177
+                    },
+                    {
+                        "sentence": "w dzisiejsze rano,",
+                        "similarity": 0.697390079498291
+                    },
+                    {
+                        "sentence": "— Cały dzień byliśmy w drodze.",
+                        "similarity": 0.6953380703926086
+                    }
+                ]
+            },
+            {
+                "test_sentence": "Mój syn jest chory i ma gorączkę",
+                "similar_sentences": [
+                    {
+                        "sentence": "- Jesteś chory, jesteś strasznie chory.",
+                        "similarity": 0.752772331237793
+                    },
+                    {
+                        "sentence": "— Czym jest twój ojciec?",
+                        "similarity": 0.738653838634491
+                    },
+                    {
+                        "sentence": "I po cóż by miał wiedzieć biedny, że ma ojca,",
+                        "similarity": 0.7339328527450562
+                    },
+                    {
+                        "sentence": "- Co powie twój mąż?",
+                        "similarity": 0.7319311499595642
+                    },
+                    {
+                        "sentence": "— Szuman, zdaje mi się, że masz gorączkę…",
+                        "similarity": 0.7315080761909485
+                    }
+                ]
+            }
+        ],
+        "error": null
+    }
+]
