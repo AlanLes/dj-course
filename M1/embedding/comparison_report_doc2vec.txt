@@ -1,0 +1,431 @@
+================================================================================
+                 Doc2Vec Parameter Comparison: Detailed Report                  
+================================================================================
+
+
+Detailed Results per Configuration
+
+────────────────────────────── Configuration ID: 1 ──────────────────────────────
+Parameters: vector_length: 10, window_size: 3, min_count: 1, workers: 2, epochs: 10, dm_mode: 0
+Training Time: 59.42s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.9865       — Masz tu — mówił bóg — rzeźbione łoże, pięć stolików i dziesięć krzeseł. Masz tu haftowane szaty,
+                 stągwie i szklanki na wino, masz tu oliwną lampę i lektykę…
+    0.9861       Zawżdy z wawrzynów drzewo wolności wykwita.
+    0.9856       Kalypso pięknowłosej, a córki Atlasa.
+    0.9850       Pomnę — w zwierciadle czarów zamglone widzenia —
+    0.9847       Przyrządy niepotrzebne, śmiecie kół i noży,
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.9781       - Nie traktuję tego tak katastroficznie. Powtarzam - będziemy rozmawiać. Są sprawy do wyjaśnienia.
+    0.9751       - Nie ma trybu.
+    0.9746       I to, co najważniejsze: jak wielkie spustoszenie dokonuje fakt pozostawania bez pracy w stosunku do
+                 jego psychiki, do otoczenia? Czy i jeżeli tak, to jakim zmianom ulega jego wartościowanie relacji do
+                 siebie, społeczeństwa, do Boga?
+    0.9745       Czym w końcu różnią się tak naprawdę republikanie od demokratów? Jaka jest przyczyna tego zachwiania
+                 równowagi? Czy jej brak ma istotny wpływ na jakość amerykańskiego systemu szkolnictwa wyższego?
+                 Ostatnie pytanie wydaje się Kleinowi retoryczne.
+    0.9707       Receptą Hewitta na zmianę tego stanu rzeczy jest odformalizowanie fizyki. Stara się on nauczyć
+                 fizyki, nie używając języka matematyki, mówiąc obrazowo - bez wzorów. Autor uważa, że uczeń powinien
+                 przede wszystkim poznać zjawiska fizyczne i zrozumieć pojęcia. Na resztę czas przyjdzie później. W
+                 taki sposób uczy się fizyki w niektórych szkołach amerykańskich.
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 2 ──────────────────────────────
+Parameters: vector_length: 10, window_size: 3, min_count: 1, workers: 2, epochs: 30, dm_mode: 0
+Training Time: 176.91s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.9810       — Zaraz po śniadaniu ruszymy.
+    0.9764       ledwo zeń będzie poemacik.
+    0.9732       - I co, palcyma będziem robili? - pyta Józek, na którego wszyscy w domu się gniewają, bo jak go
+                 wypuścili wziął z opieki społecznej 500 tys. zł i przepił je sam w dwa dni.
+    0.9715       baba chłopa wyprzedzi.
+    0.9537       Ostrzę noże, nożyczki, sitka od maszynek do mięsa - reklamuje swe usługi Jan Mikołajczak (58 l.) ze
+                 wsi Przybranowo (Kujawsko-Pomorskie). Z wykształcenia jest ślusarzem hydraulikiem. Trochę tułał się
+                 po świecie, kilka lat przepracował w Gdańsku, ale gdy wrócił w swe rodzinne strony, dopadło go
+                 bezrobocie.
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.9814       A: Wróćmy jednak do fryzury twojej żony.
+    0.9769       — Jakże wygląda? Po czym go poznać?
+    0.9768       — Jestem oszpecony — mówił baron — wyglądam jak stara małpa chora na fluksję. Nie chcę z panem
+                 drugiej awantury, bo widzę, że masz szczęście… Więc powiedz mi pan: za co właściwie zostałem
+                 kaleką?… Bo nie za to potrącenie… — dodał patrząc mu w oczy.
+    0.9738       Mówi z namysłem, poważnie i smutnie. Mówi jednak po polsku, tylko z akcentem obcym, cokolwiek
+                 grasejując.
+    0.9688       — Ach, Floro, proszę cię, nie dręcz mnie!… — wybuchnęła panna Izabela. — Gwałtem chcesz zrobić
+                 demona z kupczyka, może dlatego, że… tyle straciliśmy na kamienicy… że ojciec jest chory i że…
+                 Starski wrócił…
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 3 ──────────────────────────────
+Parameters: vector_length: 10, window_size: 3, min_count: 5, workers: 2, epochs: 10, dm_mode: 0
+Training Time: 53.10s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.9792       Nawet chytry i mądry książę libijski, Musawasa, dał się porwać ogólnemu prądowi. Jego jednak nie
+                 przekonali imigranci, ale jacyś ludzie poważni i dostojni, a według wszelkiego prawdopodobieństwa —
+                 agenci najwyższej rady egipskiej.
+    0.9777       Biegł do Scherii feackiej i tam zaczajony
+    0.9770       — Innym ta śnieżyca nie przeszkodzi jechać na bal, więc dlaczegóż nam miałaby psuć wieczorek —
+                 odpowiedziałem z głupia frant.
+    0.9763       Zajęci częstowaniem włościan, chodząc jedli.
+    0.9738       — Wiera, że niezadługo. Księżna kazała postawić dla nich miski przy wspólnym stole.
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.9901       - Nie traktuję tego tak katastroficznie. Powtarzam - będziemy rozmawiać. Są sprawy do wyjaśnienia.
+    0.9887       Zadam to pytanie jako oddzielne na tym forum. Jestem ciekawa opinii. Dla mnie sprawa jest oczywista
+                 - ludzkie życie zaczyna się w momencie zapłodnienia. A kwestia aborcji to zupełnie inny temat, o
+                 wiele bardziej skomplikowany i moim zdaniem niemożliwy do uregulowania przez jakąkolwiek ustawę.
+    0.9864       Z ust twych? Bardzo być może, że takiego znałem.
+    0.9858       - I tak powinno być. W sprawowaniu tej funkcji będę kierował się interesem państwa. Na interes
+                 państwa patrzę jednak przez pryzmat moich poglądów politycznych. Nie będę krył, że jestem
+                 człowiekiem prawicy.
+    0.9851       ANABELLA - Słyszałam o nim, że ma znajomości, to może by pomógł.
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 4 ──────────────────────────────
+Parameters: vector_length: 10, window_size: 3, min_count: 5, workers: 2, epochs: 30, dm_mode: 0
+Training Time: 137.39s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.9636       rano w domowym już kieracie —
+    0.9602       Uległa prośbom i namowom Alicji i pojechała. Jako turystka. Na wycieczkę.
+    0.9491       - Jedziemy pojutrze. Ojca wywalili. Matka nie pracowała. Wzięliśmy paszport. Najpierw do Austrii, a
+                 potem się zobaczy. Matka ma siostrę w Stanach, więc może tam...
+    0.9486       Hrabia twierdzi, że w ciągu półtorej godziny rozeszło się 15 tysięcy ulotek. Do metra. Boże, jak
+                 ciepło! Pruszyński zaciera ręce. Nie wiem, czy z zimna czy z satysfakcji.
+    0.9479       - Od czasu, gdy pani Reidernowa objęła rządy, nikt tutaj nie zajrzy - zganiła porządki Gawlikowa.
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.9775       Próbowałem zapytać o wojenne lata Ziętka, choć wiedziałem, że w dwóch sprawach - pobytu w ZSRR i
+                 samobójczej śmierci dzieci - był jak głaz. Piliśmy wtedy koniak z literatek. Rozlał, podniósł i
+                 zaczął sączyć, świdrując oczami. - Ja już chyba, chłopak, tobie na dzisiaj podziękuję. Na pożegnanie
+                 dodał: - Ja na tym koniu musiałem jechać.
+    0.9737       — Od projektu do wykonania ogromnie daleko — odparł nieco zirytowany pan Tomasz. — Choćby jeddnakże
+                 nawet tak było, nic mnie to nie obchodzi. Nad myślami pana Wokulskiego nie panuję, a o Belcię jestem
+                 spokojny.
+    0.9731       A teraz usprawiedliwiał się przed kasjerką: - No, wie pani, oszalał. Przecie tak mnie pchnął... nie
+                 byłem przygotowany... gdybym był wiedział, tobym się inaczej do niego zabrał...
+    0.9699       — A cóż to ja jestem grabarz, ażeby robić ludziom tego rodzaju przyjemności? — oburzył się Wokulski.
+    0.9687       — Przepraszam pana — przerwał Wokulski. — Ale istotnie jestem trochę rozdrażniony… zapewne z gorąca…
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 5 ──────────────────────────────
+Parameters: vector_length: 10, window_size: 18, min_count: 1, workers: 2, epochs: 10, dm_mode: 0
+Training Time: 49.20s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.9854       I dobra, które na skarb carski zabierano.
+    0.9837       Prawdę mówiąc, zapomniałem o nadchodzących wyborach, na których używali sobie domorośli literaci z
+                 innego biura (będziesz wybierał, wybierz nasz produkt). Spotkaliśmy się jeszcze tego samego wieczoru
+                 i ustaliliśmy harmonogram na najbliższe tygodnie - miał zmienić bieg historii.
+    0.9817       Kalypso wraz się gościa zajęła osobą,
+    0.9816       Wprost na okręt Feników poszedłem, co stali
+    0.9816       Za nie się Zeus olimpski, za nie Temis nasza
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.9909       Kto jest przeciw?
+    0.9900       - Dawniej piłkarze więcej potrafili?
+    0.9900       - Kto jest przeciw?
+    0.9892       - Może słyszałem, może nie.
+    0.9891       - Kto jest przeciw?
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 6 ──────────────────────────────
+Parameters: vector_length: 10, window_size: 18, min_count: 1, workers: 2, epochs: 30, dm_mode: 0
+Training Time: 147.65s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.9720       Le. i ja poszliśmy, bo słyszeliśmy, że z panią Bie. jest źle. Puk-puk w parter, Mokotowska, długo
+                 nic, dzwonimy do sąsiada, z którym Le. miał futrowe spięcie, pozytywne, czyli się w dwóch futrach
+                 rozpoznali, bo już się znali, właśnie stąd. Pan otworzył, prosi, rozbiera z okryć, właśnie pani Bie.
+                 telefonuje od niego.
+    0.9689       Mażejka: Dałem sobie pół roku. Jak nic się nie zmieni, wracam do Grodna.
+    0.9650       14 stycznia 2001, głos w słuchawce, mówi Krzysztof, uczestnik imprezy: - Według mnie tam nie było
+                 żadnego pobicia. Słuchaj, Piotr był zalany, spadał ze schodów, wyskakiwał z okna. Jak ja rano
+                 poszedłem zobaczyć, z którego okna skakał, to szukałem na ziemi śladów kości. Ty się ciesz, że on
+                 był pijany, bo na trzeźwo takiego skoku by nie przeżył.
+    0.9531       Dwumetrowy Czech zamierza starać się o... obywatelstwo polskie. - Mieszkam pod Ostrawą, bardzo
+                 blisko Katowic, jeżdżę w polskiej grupie, mówię troszkę po polsku, więc drugi paszport by się
+                 przydał - dodał Sosenka.
+    0.9526       – jest z nami przedstawicielka żeńskiej. gałęzi michalitów siostra michalitka Karina Pawłowska
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.9839       — Zapewne wiesz, święty proroku, że jedna z moich kobiet, Sara, umarła, a jej syn został
+                 zamordowany?…
+    0.9809       — Ach, Floro, proszę cię, nie dręcz mnie!… — wybuchnęła panna Izabela. — Gwałtem chcesz zrobić
+                 demona z kupczyka, może dlatego, że… tyle straciliśmy na kamienicy… że ojciec jest chory i że…
+                 Starski wrócił…
+    0.9765       — Jestem oszpecony — mówił baron — wyglądam jak stara małpa chora na fluksję. Nie chcę z panem
+                 drugiej awantury, bo widzę, że masz szczęście… Więc powiedz mi pan: za co właściwie zostałem
+                 kaleką?… Bo nie za to potrącenie… — dodał patrząc mu w oczy.
+    0.9707       — To prawda!… — odparł baron uderzając się w czoło. — Że też mi wcześniej nie przyszła podobna myśl…
+                 A propos zarobku, czy nie wskazałbyś mi pan sposobu szybkiego zbogacenia się? Potrzebuję na gwałt
+                 stu tysięcy rubli w ciągu roku…
+    0.9706       — Nie rozumiem — odpowiedziała panna Izabela potrząsając głową. — Rozumiem, że dziesięć to znaczy
+                 dziesięć; ale jeżeli w języku kupieckim dziesięć nazywa się trzydzieści trzy, to niech i tak będzie.
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 7 ──────────────────────────────
+Parameters: vector_length: 10, window_size: 18, min_count: 5, workers: 2, epochs: 10, dm_mode: 0
+Training Time: 51.09s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.9861       — Innym ta śnieżyca nie przeszkodzi jechać na bal, więc dlaczegóż nam miałaby psuć wieczorek —
+                 odpowiedziałem z głupia frant.
+    0.9812       Skarbcem Ojczyzny zawsze są Jego ołtarze;
+    0.9799       skłaniasz słuch ku dźwięków mowie —
+    0.9775       Trzeba było..."
+    0.9764       A gdy w galop puścisz się (tu rejent Bolesta,
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.9829       - Zdarzało się, że ktoś próbował wykorzystać zaufanie, jakim go obdarzyła fundacja, i zaczynał
+                 działać "po swojemu". Nieraz próbowano mnie naciągnąć, wykorzystać moją naiwność czy niewiedzę.
+                 Muszę przyznać, że z latami zrobiłem się nieufny, podejrzliwy - co akurat w przypadku księdza nie
+                 jest dobrą cechą.
+    0.9795       - I na koniec uwaga. W sprawozdaniu znalazła się refleksja, że, niestety, obecny rząd nie odpowiada
+                 w terminie na pisma rzecznika, ministrowie je ignorują, To, sądzę, jest niedopuszczalne i trzeba to
+                 z tej trybuny powiedzieć. Apele rzecznika, jego sugestie nie mogą trafiać w próżnię. Tak że biję w
+                 pierś rządu, ponieważ najpierw uderzyłem w pierś parlamentu i swoją również, i chyba z tego tytułu
+                 miałem prawo to uczynić.
+    0.9795       - Nie traktuję tego tak katastroficznie. Powtarzam - będziemy rozmawiać. Są sprawy do wyjaśnienia.
+    0.9785       - Przede wszystkim państwowy egzamin, kurs BHP i dobry sprzęt. Nowy kosztuje krocie, ale można
+                 zrobić go samemu. Na przykład z Australią łączyłem się na dwudziestoletnim radiu mojego ojca.
+    0.9779       Ach, domyślam się - pewnie wzgardzony miłośnik,
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 8 ──────────────────────────────
+Parameters: vector_length: 10, window_size: 18, min_count: 5, workers: 2, epochs: 30, dm_mode: 0
+Training Time: 144.87s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.9646       - Sąsiad spod 18-ki powiedział, że za grzyba płacił nie będzie. Nie płacił 2 lata. No i niedawno,
+                 przed wakacjami go eksmitowali. Chcieliśmy tam się zamienić. Bo znacznie mniejszy grzyb jest. Ale
+                 nic z tego.
+    0.9565       Gdybyśmy wszyscy byli tacy uczciwi... Mateusz Koper (17 l.) i Michał Kowalski z Niedrzwicy Dużej pod
+                 Lublinem podczas zakupów w Lublinie znaleźli portfel z 3500 zł i od razu odnieśli kasę na policję.
+                 Mundurowi odnaleźli właściciela zguby, człeka chytrego, jak się później okazało.
+    0.9555       Le. i ja poszliśmy, bo słyszeliśmy, że z panią Bie. jest źle. Puk-puk w parter, Mokotowska, długo
+                 nic, dzwonimy do sąsiada, z którym Le. miał futrowe spięcie, pozytywne, czyli się w dwóch futrach
+                 rozpoznali, bo już się znali, właśnie stąd. Pan otworzył, prosi, rozbiera z okryć, właśnie pani Bie.
+                 telefonuje od niego.
+    0.9491       W drogę! Wracając, acan mi opowie.
+    0.9487       – jest z nami przedstawicielka żeńskiej. gałęzi michalitów siostra michalitka Karina Pawłowska
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.9743       — Bardzo go proś — rzekła do panny Florentyny — ażeby przyjechał jak najśpieszniej… Bo gdyby tych
+                 obrzydliwych Żydów zastał u nas Starski…
+    0.9735       — Ach, Floro, proszę cię, nie dręcz mnie!… — wybuchnęła panna Izabela. — Gwałtem chcesz zrobić
+                 demona z kupczyka, może dlatego, że… tyle straciliśmy na kamienicy… że ojciec jest chory i że…
+                 Starski wrócił…
+    0.9691       — Więc pan nie pojmujesz tego, że kobieta może być zmuszoną do sprzedania się?… — zapytała pani
+                 Wąsowska blednąc i rumieniąc się.
+    0.9678       „Ubrał się! — myślał Wokulski. — Czy podobna, ażeby młoda panna mogła zakochać się w takiej mumii? Z
+                 pewnością jest o dziesięć lat starszy ode mnie, a jaki niedołężny, jaki przy tym naiwny!…
+    0.9657       — Bardzo źle — odparła pani Wąsowska. — Starski już prawie nie opuszcza jej pokoju, a rejent
+                 przyjeżdża co dzień, ale zdaje się na próżno… Więc co do programu?…
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 9 ──────────────────────────────
+Parameters: vector_length: 50, window_size: 3, min_count: 1, workers: 2, epochs: 10, dm_mode: 0
+Training Time: 56.33s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.8610       Starka odeszła na noc spać w swojej komorze,
+    0.8592       Do miasta jedziemy
+    0.8567       Puknie na toast duchom butelka szampana.
+    0.8543       Kelnerka przyniosła napoje.
+    0.8511       Do miasta jedziemy
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.9002       Szanowany w powiecie, ma urząd, jest sędzią!
+    0.8989       - Widzę dziś zupełnie inną Justynę. Twoja maska spadła.
+    0.8928       Szanowany w powiecie, ma urząd, jest sędzią!
+    0.8901       majestatyczne i czyste,
+    0.8900       lecz wierzycielem jest — czeka.
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 10 ──────────────────────────────
+Parameters: vector_length: 50, window_size: 3, min_count: 1, workers: 2, epochs: 30, dm_mode: 0
+Training Time: 163.96s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.7483       — Wczoraj rano, pane.
+    0.7280       — To chodźże ze mną — rzekł Skrzetuski.
+    0.7270       – ja dzisiaj. ja dzisiaj dopiero przyjechałam. też rano.
+    0.7238       — To ja idę do świętego biskupa.
+    0.7206       Do miasta jedziemy
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.7595       — On mój pies.
+    0.7423       - Jesteś chory, jesteś strasznie chory.
+    0.7337       — Czym jest twój ojciec?
+    0.7228       Przecież kochałabym go szczerze
+    0.7168       Póki syn mój był dzieckiem, w głowie miał zielono,
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 11 ──────────────────────────────
+Parameters: vector_length: 50, window_size: 3, min_count: 5, workers: 2, epochs: 10, dm_mode: 0
+Training Time: 55.37s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.8814       Mają tam gospodarze, mają i pasterze
+    0.8467       — Na podstęp, na zdradę, na hańbę.
+    0.8452       zwycięstwo niesie wam w darze.
+    0.8439       na mej córki święte przyjście.
+    0.8433       — Może część wojsk dziś pójdzie na noc, część jutro — rzekł Jan Skrzetuski.
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.9107       — Nieżonaty człowiek jest i synów nie ma. Temu korona miła, kto potomstwu przekazać ją może.
+    0.9056       Lub ma wielką chorobę. Lecz z innej przyczyny
+    0.9033       - Tak jest.
+    0.9009       - Tak jest. Od ręki.
+    0.9005       I w tej chwili cóż ma znaczyć
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 12 ──────────────────────────────
+Parameters: vector_length: 50, window_size: 3, min_count: 5, workers: 2, epochs: 30, dm_mode: 0
+Training Time: 168.74s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.7375       – ja dzisiaj. ja dzisiaj dopiero przyjechałam. też rano.
+    0.7286       - Jechaliśmy na wycieczkę do teatru - mówi Adrian.
+    0.7147       — Wczoraj rano, pane.
+    0.6936       To wszyscy z jazyjskiego Argos jutro rano
+    0.6882       w dzisiejsze rano,
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.7495       — On mój pies.
+    0.7332       Bo już dorosła, nie jest dziewczyną maluczką,
+    0.7324       Bo już dorosła, nie jest dziewczyną maluczką,
+    0.7294       A biedna Sara… A mały synek mój… Jaki on był piękny…
+    0.7281       — Więc mój ojciec jest ciężko chory?… — zawołał Ramzes.
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 13 ──────────────────────────────
+Parameters: vector_length: 50, window_size: 18, min_count: 1, workers: 2, epochs: 10, dm_mode: 0
+Training Time: 53.97s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.8764       I dobra, które na skarb carski zabierano.
+    0.8741       I dobra, które na skarb carski zabierano.
+    0.8645       zwycięstwo niesie wam w darze.
+    0.8538       Do miasta jedziemy
+    0.8528       Ma na twoim ciele swoje ulubione miejsce.
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.9106       List ma ważny, samemu Jackowi pokaże.
+    0.9090       - Pana ministerstwo ma jednak niewielkie bezpośrednie możliwości wpływania na te procesy.
+    0.9078       — Jest, babciu, i nawet dwie. Jest H i jest T.
+    0.9072       Hrabia z jazdą ma czekać sposobniejszej pory.
+    0.9050       - Tak jest.
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 14 ──────────────────────────────
+Parameters: vector_length: 50, window_size: 18, min_count: 1, workers: 2, epochs: 30, dm_mode: 0
+Training Time: 163.46s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.7635       – tak patrzę że. panie profesorze. zaraz tutaj. autograf
+    0.7507       — Wczoraj rano, pane.
+    0.7196       Najpierw ujrzeliśmy, panie,
+    0.7133       w dzisiejsze rano,
+    0.7106       Do miasta jedziemy
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.7567       — On mój pies.
+    0.7535       - Jesteś chory, jesteś strasznie chory.
+    0.7482       — Czym jest twój ojciec?
+    0.7481       zły ojciec — gorsza macocha!
+    0.7427       He, he. Mój chłopak jest tysiąc razy piękniejszy.
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 15 ──────────────────────────────
+Parameters: vector_length: 50, window_size: 18, min_count: 5, workers: 2, epochs: 10, dm_mode: 0
+Training Time: 57.09s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.8561       Mają tam gospodarze, mają i pasterze
+    0.8558       wybierz trójnóg, naczynia potrzebne ofierze
+    0.8515       Jeżeli na was raptus podobny napada,
+    0.8465       My na naukę młodzież do stolicy dajem
+    0.8444       spełniam rozkaz — wstępuję na królewski dworzec,
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.9067       Każdy ma tych swoich parę lat...
+    0.9024       - Ale to nie jest ten pakiet ustaw.
+    0.9004       Trudno jest taką prośbę zostawić bez skutku.
+    0.8997       - Tak jest. Od ręki.
+    0.8997       He, he. Mój chłopak jest tysiąc razy piękniejszy.
+
+────────────────────────────────────────────────────────────────────────────────
+
+────────────────────────────── Configuration ID: 16 ──────────────────────────────
+Parameters: vector_length: 50, window_size: 18, min_count: 5, workers: 2, epochs: 30, dm_mode: 0
+Training Time: 159.03s
+
+  Test Sentence 1: "Wczoraj jechałem na rowerze"
+    Similarity   Sentence
+    0.7492       — Wczoraj rano, pane.
+    0.7124       Do miasta jedziemy
+    0.6980       – ja dzisiaj. ja dzisiaj dopiero przyjechałam. też rano.
+    0.6974       w dzisiejsze rano,
+    0.6953       — Cały dzień byliśmy w drodze.
+
+  Test Sentence 2: "Mój syn jest chory i ma gorączkę"
+    Similarity   Sentence
+    0.7528       - Jesteś chory, jesteś strasznie chory.
+    0.7387       — Czym jest twój ojciec?
+    0.7339       I po cóż by miał wiedzieć biedny, że ma ojca,
+    0.7319       - Co powie twój mąż?
+    0.7315       — Szuman, zdaje mi się, że masz gorączkę…
+
+────────────────────────────────────────────────────────────────────────────────
+

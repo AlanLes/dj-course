@@ -1,0 +1,3432 @@
+{
+  "config": {
+    "corpus": "WOLNELEKTURY",
+    "tokenizer": "../tokenizer/tokenizers/sdadas-polish-gpt2-xl.json",
+    "test_words": [
+      "pies",
+      "rower",
+      "auto",
+      "worek"
+    ],
+    "parameter_grid": {
+      "VECTOR_LENGTH": [
+        10,
+        50
+      ],
+      "WINDOW_SIZE": [
+        3,
+        18
+      ],
+      "MIN_COUNT": [
+        1,
+        5
+      ],
+      "WORKERS": [
+        2
+      ],
+      "EPOCHS": [
+        10,
+        30
+      ],
+      "SAMPLE_RATE": [
+        0.001,
+        0.01
+      ]
+    },
+    "timestamp": "2025-11-07T13:14:01.106146"
+  },
+  "results": [
+    {
+      "combination_id": 1,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 27.917882204055786,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "ĠPoru",
+                "similarity": 0.9397264719009399
+              },
+              {
+                "token": "Ġ",
+                "similarity": 0.9002246260643005
+              },
+              {
+                "token": "ĠRej",
+                "similarity": 0.9002144932746887
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "ĠBara",
+                "similarity": 0.9313341975212097
+              },
+              {
+                "token": "ĠZiÄĻ",
+                "similarity": 0.900474488735199
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.995136022567749
+              },
+              {
+                "token": "ĠBara",
+                "similarity": 0.9273988008499146
+              },
+              {
+                "token": "ĠZiÄĻ",
+                "similarity": 0.8941051959991455
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9763137102127075
+              },
+              {
+                "token": "ĠGÄĻ",
+                "similarity": 0.9099569320678711
+              },
+              {
+                "token": "ĠstÅĤumiony",
+                "similarity": 0.9060736894607544
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 2,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 29.34811496734619,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9453863501548767
+              },
+              {
+                "token": "ĠStar",
+                "similarity": 0.9106507897377014
+              },
+              {
+                "token": "Ġserie",
+                "similarity": 0.9062987565994263
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999998807907104
+              },
+              {
+                "token": "ĠMale",
+                "similarity": 0.9454981088638306
+              },
+              {
+                "token": "ĠWit",
+                "similarity": 0.9412807822227478
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9967613816261292
+              },
+              {
+                "token": "ĠMale",
+                "similarity": 0.9513568878173828
+              },
+              {
+                "token": "ĠWit",
+                "similarity": 0.9384568333625793
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9817089438438416
+              },
+              {
+                "token": "ĠMale",
+                "similarity": 0.9406982660293579
+              },
+              {
+                "token": "Ġserie",
+                "similarity": 0.9296159744262695
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 3,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 59.31652808189392,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9114415645599365
+              },
+              {
+                "token": "ĠÅĽpiew",
+                "similarity": 0.8945618271827698
+              },
+              {
+                "token": "Ġfur",
+                "similarity": 0.8919783234596252
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999999403953552
+              },
+              {
+                "token": "ĠPoru",
+                "similarity": 0.9183827042579651
+              },
+              {
+                "token": "Ġdobrodu",
+                "similarity": 0.9149878025054932
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9926674365997314
+              },
+              {
+                "token": "Ġdobrodu",
+                "similarity": 0.9385430216789246
+              },
+              {
+                "token": "Ġiro",
+                "similarity": 0.9333997368812561
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9661651849746704
+              },
+              {
+                "token": "ĠokrÄħgÅĤy",
+                "similarity": 0.9350244402885437
+              },
+              {
+                "token": "ĠminÄħ",
+                "similarity": 0.9261841177940369
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 4,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 66.11590814590454,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9669861197471619
+              },
+              {
+                "token": "ĠWit",
+                "similarity": 0.9410037994384766
+              },
+              {
+                "token": "ÅĤowski",
+                "similarity": 0.8897523880004883
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "Ġblondyn",
+                "similarity": 0.9370309710502625
+              },
+              {
+                "token": "ĠWit",
+                "similarity": 0.9333799481391907
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9971270561218262
+              },
+              {
+                "token": "Ġblondyn",
+                "similarity": 0.9418274164199829
+              },
+              {
+                "token": "ĠWit",
+                "similarity": 0.9174768924713135
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9910880923271179
+              },
+              {
+                "token": "Ġblondyn",
+                "similarity": 0.9551668167114258
+              },
+              {
+                "token": "ĠdÄħb",
+                "similarity": 0.9151560664176941
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 5,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 24.93450689315796,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġporucznik",
+                "similarity": 0.9511372447013855
+              },
+              {
+                "token": "ĠMikoÅĤaja",
+                "similarity": 0.9128413796424866
+              },
+              {
+                "token": "Ġkaszte",
+                "similarity": 0.905237078666687
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "Ġwach",
+                "similarity": 0.9774453639984131
+              },
+              {
+                "token": "Ġrot",
+                "similarity": 0.9101795554161072
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "Ġwach",
+                "similarity": 0.9774453639984131
+              },
+              {
+                "token": "Ġrot",
+                "similarity": 0.9101795554161072
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9714564085006714
+              },
+              {
+                "token": "Ġwach",
+                "similarity": 0.9661762118339539
+              },
+              {
+                "token": "ĠPompej",
+                "similarity": 0.9415289759635925
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 6,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 27.288328170776367,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "ĠFara",
+                "similarity": 0.9228589534759521
+              },
+              {
+                "token": "Ġobyczaj",
+                "similarity": 0.920820415019989
+              },
+              {
+                "token": "ĠRej",
+                "similarity": 0.9026177525520325
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "tÃ³r",
+                "similarity": 0.9660894870758057
+              },
+              {
+                "token": "ĠZbro",
+                "similarity": 0.9462570548057556
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "tÃ³r",
+                "similarity": 0.9660894870758057
+              },
+              {
+                "token": "ĠZbro",
+                "similarity": 0.9462570548057556
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9870281219482422
+              },
+              {
+                "token": "tÃ³r",
+                "similarity": 0.9706990122795105
+              },
+              {
+                "token": "ĠZbro",
+                "similarity": 0.9413701295852661
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 7,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 54.74373698234558,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "ĠZiem",
+                "similarity": 0.9415931701660156
+              },
+              {
+                "token": "Ġdoniesie",
+                "similarity": 0.908869743347168
+              },
+              {
+                "token": "Ġ",
+                "similarity": 0.9082428216934204
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999999403953552
+              },
+              {
+                "token": "ĠApol",
+                "similarity": 0.9056805372238159
+              },
+              {
+                "token": "Ġadiutan",
+                "similarity": 0.900439441204071
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999999403953552
+              },
+              {
+                "token": "ĠApol",
+                "similarity": 0.9056805372238159
+              },
+              {
+                "token": "Ġadiutan",
+                "similarity": 0.900439441204071
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9697155356407166
+              },
+              {
+                "token": "Ġkata",
+                "similarity": 0.9053080081939697
+              },
+              {
+                "token": "ĠCzer",
+                "similarity": 0.9039006233215332
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 8,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 57.84506392478943,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9632828831672668
+              },
+              {
+                "token": "Ġkapelan",
+                "similarity": 0.9023661017417908
+              },
+              {
+                "token": "Ġcharakter",
+                "similarity": 0.8970474004745483
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "ĠKlu",
+                "similarity": 0.9092789888381958
+              },
+              {
+                "token": "ĠÅ»erom",
+                "similarity": 0.900674045085907
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "ĠKlu",
+                "similarity": 0.9092789888381958
+              },
+              {
+                "token": "ĠÅ»erom",
+                "similarity": 0.900674045085907
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9904958605766296
+              },
+              {
+                "token": "Ġblondyn",
+                "similarity": 0.9067138433456421
+              },
+              {
+                "token": "Ġkaptur",
+                "similarity": 0.9034716486930847
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 9,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 31.25106692314148,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9123023748397827
+              },
+              {
+                "token": "Ġoligar",
+                "similarity": 0.8910808563232422
+              },
+              {
+                "token": "baÅĤ",
+                "similarity": 0.8864622116088867
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0000001192092896
+              },
+              {
+                "token": "ĠgroÅºny",
+                "similarity": 0.9170400500297546
+              },
+              {
+                "token": "baÅĤ",
+                "similarity": 0.9091721177101135
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9976099133491516
+              },
+              {
+                "token": "baÅĤ",
+                "similarity": 0.9135676622390747
+              },
+              {
+                "token": "ĠgroÅºny",
+                "similarity": 0.9132617115974426
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9815955758094788
+              },
+              {
+                "token": "baÅĤ",
+                "similarity": 0.9355093240737915
+              },
+              {
+                "token": "ĠgroÅºny",
+                "similarity": 0.9292116165161133
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 10,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 33.152403116226196,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "ata",
+                "similarity": 0.9531884789466858
+              },
+              {
+                "token": "ziÅĤ",
+                "similarity": 0.9368632435798645
+              },
+              {
+                "token": "Ġ",
+                "similarity": 0.9343934059143066
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "iÄħ",
+                "similarity": 0.9069314002990723
+              },
+              {
+                "token": "baÅĤ",
+                "similarity": 0.8936816453933716
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9989924430847168
+              },
+              {
+                "token": "iÄħ",
+                "similarity": 0.9061216115951538
+              },
+              {
+                "token": "Ġvan",
+                "similarity": 0.9022378325462341
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9797135591506958
+              },
+              {
+                "token": "Ġvan",
+                "similarity": 0.9303838014602661
+              },
+              {
+                "token": "iÄħ",
+                "similarity": 0.9278900027275085
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 11,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 72.78954792022705,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8925055861473083
+              },
+              {
+                "token": "kowanÄħ",
+                "similarity": 0.8294278979301453
+              },
+              {
+                "token": "CzuÅĤa",
+                "similarity": 0.820252001285553
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "ĠCzarny",
+                "similarity": 0.8910951614379883
+              },
+              {
+                "token": "ĠCzarnego",
+                "similarity": 0.8605906963348389
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.99783855676651
+              },
+              {
+                "token": "ĠCzarny",
+                "similarity": 0.8816706538200378
+              },
+              {
+                "token": "ĠÅĽciÄħgnÄħÅĤ",
+                "similarity": 0.8667344450950623
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9633516669273376
+              },
+              {
+                "token": "ĠCzarnego",
+                "similarity": 0.9249159693717957
+              },
+              {
+                "token": "ĠÅĽciÄħgnÄħÅĤ",
+                "similarity": 0.9049232006072998
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 12,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 73.74118304252625,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9262785911560059
+              },
+              {
+                "token": "skom",
+                "similarity": 0.907697856426239
+              },
+              {
+                "token": "Ġzielonego",
+                "similarity": 0.9035631418228149
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "Ġpistolety",
+                "similarity": 0.918352484703064
+              },
+              {
+                "token": "eb",
+                "similarity": 0.9173360466957092
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9989635944366455
+              },
+              {
+                "token": "sztor",
+                "similarity": 0.9224509000778198
+              },
+              {
+                "token": "Ġpistolety",
+                "similarity": 0.91819828748703
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.987923264503479
+              },
+              {
+                "token": "ĠzawziÄĻcie",
+                "similarity": 0.9410486817359924
+              },
+              {
+                "token": "Ġpistolety",
+                "similarity": 0.9296962022781372
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 13,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 27.544915199279785,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġmie",
+                "similarity": 0.9535451531410217
+              },
+              {
+                "token": "aka",
+                "similarity": 0.901530385017395
+              },
+              {
+                "token": "iÄħ",
+                "similarity": 0.875505268573761
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0000001192092896
+              },
+              {
+                "token": "sami",
+                "similarity": 0.9247906804084778
+              },
+              {
+                "token": "ĠgroÅºny",
+                "similarity": 0.9209542870521545
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0000001192092896
+              },
+              {
+                "token": "sami",
+                "similarity": 0.9247906804084778
+              },
+              {
+                "token": "ĠgroÅºny",
+                "similarity": 0.9209542870521545
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9807295203208923
+              },
+              {
+                "token": "las",
+                "similarity": 0.9344661831855774
+              },
+              {
+                "token": "sami",
+                "similarity": 0.9315136075019836
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 14,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 30.971977949142456,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "rzyk",
+                "similarity": 0.9052680134773254
+              },
+              {
+                "token": "piec",
+                "similarity": 0.9012882709503174
+              },
+              {
+                "token": "Ġ",
+                "similarity": 0.8859778642654419
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "iÄħ",
+                "similarity": 0.9275798797607422
+              },
+              {
+                "token": "sio",
+                "similarity": 0.9249231219291687
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "iÄħ",
+                "similarity": 0.9275798797607422
+              },
+              {
+                "token": "sio",
+                "similarity": 0.9249231219291687
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9837819337844849
+              },
+              {
+                "token": "sio",
+                "similarity": 0.9504745006561279
+              },
+              {
+                "token": "owni",
+                "similarity": 0.9487592577934265
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 15,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 65.0246729850769,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "diÄĻ",
+                "similarity": 0.9222821593284607
+              },
+              {
+                "token": "ow",
+                "similarity": 0.8940041065216064
+              },
+              {
+                "token": "ĠlekkÄħ",
+                "similarity": 0.8767425417900085
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999998807907104
+              },
+              {
+                "token": "ĠWÅĤadysÅĤawa",
+                "similarity": 0.8997445702552795
+              },
+              {
+                "token": "diÄħ",
+                "similarity": 0.8875774145126343
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999998807907104
+              },
+              {
+                "token": "ĠWÅĤadysÅĤawa",
+                "similarity": 0.8997445702552795
+              },
+              {
+                "token": "diÄħ",
+                "similarity": 0.8875774145126343
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.97432541847229
+              },
+              {
+                "token": "ĠsrebrnÄħ",
+                "similarity": 0.908161997795105
+              },
+              {
+                "token": "ĠWÅĤadysÅĤawa",
+                "similarity": 0.9071223735809326
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 16,
+      "parameters": {
+        "VECTOR_LENGTH": 10,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 77.37002491950989,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġgarnek",
+                "similarity": 0.9410176277160645
+              },
+              {
+                "token": "Ġ",
+                "similarity": 0.903411328792572
+              },
+              {
+                "token": "ino",
+                "similarity": 0.9028584361076355
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999998807907104
+              },
+              {
+                "token": "eb",
+                "similarity": 0.9386633038520813
+              },
+              {
+                "token": "ĠDwo",
+                "similarity": 0.9102477431297302
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999998807907104
+              },
+              {
+                "token": "eb",
+                "similarity": 0.9386633038520813
+              },
+              {
+                "token": "ĠDwo",
+                "similarity": 0.9102477431297302
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9878566265106201
+              },
+              {
+                "token": "eb",
+                "similarity": 0.9571179747581482
+              },
+              {
+                "token": "ĠÅĤaÅĦcucha",
+                "similarity": 0.9522264003753662
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 17,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 32.57981300354004,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.844149649143219
+              },
+              {
+                "token": "ĠwÄħÅ¼",
+                "similarity": 0.7819249033927917
+              },
+              {
+                "token": "Ġkupiec",
+                "similarity": 0.7567456960678101
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999999403953552
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6247328519821167
+              },
+              {
+                "token": "G",
+                "similarity": 0.6144285202026367
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9973103404045105
+              },
+              {
+                "token": "G",
+                "similarity": 0.6278591752052307
+              },
+              {
+                "token": "stein",
+                "similarity": 0.6257139444351196
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9836829900741577
+              },
+              {
+                "token": "Ġkwartale",
+                "similarity": 0.6452681422233582
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6367621421813965
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 18,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 35.14600920677185,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8436638712882996
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7659586071968079
+              },
+              {
+                "token": "Ġkupiec",
+                "similarity": 0.762429416179657
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999999403953552
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6465174555778503
+              },
+              {
+                "token": "ĠRob",
+                "similarity": 0.6401688456535339
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9965329766273499
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6521473526954651
+              },
+              {
+                "token": "ĠRob",
+                "similarity": 0.6415260434150696
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9845129251480103
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6383753418922424
+              },
+              {
+                "token": "ĠKara",
+                "similarity": 0.626517117023468
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 19,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 79.58791017532349,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.848931610584259
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7041229009628296
+              },
+              {
+                "token": "ĠwÄħÅ¼",
+                "similarity": 0.6725909113883972
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999999403953552
+              },
+              {
+                "token": "Ġarsen",
+                "similarity": 0.5900744795799255
+              },
+              {
+                "token": "Ġpszcz",
+                "similarity": 0.5373099446296692
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9962855577468872
+              },
+              {
+                "token": "Ġarsen",
+                "similarity": 0.606910765171051
+              },
+              {
+                "token": "Ġpszcz",
+                "similarity": 0.5442965030670166
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9758931398391724
+              },
+              {
+                "token": "Ġarsen",
+                "similarity": 0.5713653564453125
+              },
+              {
+                "token": "Ġpszcz",
+                "similarity": 0.5540557503700256
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 20,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 81.25418496131897,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8349505662918091
+              },
+              {
+                "token": "ĠliÅĽÄĩ",
+                "similarity": 0.719087541103363
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7080928087234497
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0000001192092896
+              },
+              {
+                "token": "ĠPot",
+                "similarity": 0.5640565752983093
+              },
+              {
+                "token": "Ġartysta",
+                "similarity": 0.563247799873352
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9967055916786194
+              },
+              {
+                "token": "Ġartysta",
+                "similarity": 0.5713177919387817
+              },
+              {
+                "token": "Ġtrzyna",
+                "similarity": 0.5698071718215942
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9795807600021362
+              },
+              {
+                "token": "ĠliÅĽÄĩ",
+                "similarity": 0.5608422756195068
+              },
+              {
+                "token": "Ġartysta",
+                "similarity": 0.5604074001312256
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 21,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 27.855677366256714,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8323571085929871
+              },
+              {
+                "token": "ĠwÄħÅ¼",
+                "similarity": 0.7518750429153442
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7455594539642334
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999999403953552
+              },
+              {
+                "token": "ĠJun",
+                "similarity": 0.6287678480148315
+              },
+              {
+                "token": "Ġf",
+                "similarity": 0.6112470030784607
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999999403953552
+              },
+              {
+                "token": "ĠJun",
+                "similarity": 0.6287678480148315
+              },
+              {
+                "token": "Ġf",
+                "similarity": 0.6112470030784607
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9854902029037476
+              },
+              {
+                "token": "ĠJun",
+                "similarity": 0.6517353653907776
+              },
+              {
+                "token": "pto",
+                "similarity": 0.6402904987335205
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 22,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 35.966917991638184,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8375628590583801
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7759829759597778
+              },
+              {
+                "token": "ĠchÅĤopak",
+                "similarity": 0.7051504254341125
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "ĠRob",
+                "similarity": 0.7324504256248474
+              },
+              {
+                "token": "ĠR",
+                "similarity": 0.6865162253379822
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "ĠRob",
+                "similarity": 0.7324504256248474
+              },
+              {
+                "token": "ĠR",
+                "similarity": 0.6865162253379822
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9857200384140015
+              },
+              {
+                "token": "ĠRob",
+                "similarity": 0.714105486869812
+              },
+              {
+                "token": "ĠFo",
+                "similarity": 0.671539306640625
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 23,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 71.07258105278015,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8132494688034058
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7264205813407898
+              },
+              {
+                "token": "Ġwariat",
+                "similarity": 0.6733380556106567
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999998807907104
+              },
+              {
+                "token": "Ġosi",
+                "similarity": 0.5524892807006836
+              },
+              {
+                "token": "ue",
+                "similarity": 0.5317877531051636
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999998807907104
+              },
+              {
+                "token": "Ġosi",
+                "similarity": 0.5524892807006836
+              },
+              {
+                "token": "ue",
+                "similarity": 0.5317877531051636
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9741542339324951
+              },
+              {
+                "token": "Ġpszcz",
+                "similarity": 0.5615367889404297
+              },
+              {
+                "token": "ue",
+                "similarity": 0.5465809106826782
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 24,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 3,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 75.9029049873352,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8597332239151001
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7487518787384033
+              },
+              {
+                "token": "ĠliÅĽÄĩ",
+                "similarity": 0.719658374786377
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "ĠP",
+                "similarity": 0.590172529220581
+              },
+              {
+                "token": "Ġbudow",
+                "similarity": 0.5592314600944519
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "ĠP",
+                "similarity": 0.590172529220581
+              },
+              {
+                "token": "Ġbudow",
+                "similarity": 0.5592314600944519
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9756565690040588
+              },
+              {
+                "token": "Ġzaim",
+                "similarity": 0.5852795839309692
+              },
+              {
+                "token": "ĠszkÅĤo",
+                "similarity": 0.5730194449424744
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 25,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 34.40110492706299,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8231529593467712
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7322026491165161
+              },
+              {
+                "token": "Ġwilk",
+                "similarity": 0.6888264417648315
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999999403953552
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6901735067367554
+              },
+              {
+                "token": "Ġgrubymi",
+                "similarity": 0.6193912625312805
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9972884058952332
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.689261257648468
+              },
+              {
+                "token": "Ġgrubymi",
+                "similarity": 0.6270447969436646
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9824119806289673
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.7096773982048035
+              },
+              {
+                "token": "Ġgrubymi",
+                "similarity": 0.6648048758506775
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 26,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 39.481765270233154,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8591268658638
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.818017840385437
+              },
+              {
+                "token": "Ġwilk",
+                "similarity": 0.6821422576904297
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0000001192092896
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6965368390083313
+              },
+              {
+                "token": "ĠHu",
+                "similarity": 0.6300947666168213
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9987524747848511
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6989481449127197
+              },
+              {
+                "token": "ĠHu",
+                "similarity": 0.6424746513366699
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.974668562412262
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.724515974521637
+              },
+              {
+                "token": "ĠpotÄĻÅ¼nym",
+                "similarity": 0.6470516324043274
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 27,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 93.97294282913208,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8469699025154114
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7271536588668823
+              },
+              {
+                "token": "Ġwilk",
+                "similarity": 0.6121968030929565
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0000001192092896
+              },
+              {
+                "token": "Ġgrubymi",
+                "similarity": 0.6078248023986816
+              },
+              {
+                "token": "skowych",
+                "similarity": 0.4985578954219818
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9965932369232178
+              },
+              {
+                "token": "Ġgrubymi",
+                "similarity": 0.5938977003097534
+              },
+              {
+                "token": "skowych",
+                "similarity": 0.5076932907104492
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9769455790519714
+              },
+              {
+                "token": "Ġgrubymi",
+                "similarity": 0.5922412872314453
+              },
+              {
+                "token": "ĠczoÅĤ",
+                "similarity": 0.5283738970756531
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 28,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 1,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 106.4923951625824,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 37724,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.845513105392456
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7649113535881042
+              },
+              {
+                "token": "Ġwilk",
+                "similarity": 0.6500222086906433
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.5967033505439758
+              },
+              {
+                "token": "Ġego",
+                "similarity": 0.5554702281951904
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9977321624755859
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.5879179835319519
+              },
+              {
+                "token": "Ġego",
+                "similarity": 0.5386168956756592
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9669213891029358
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6391581296920776
+              },
+              {
+                "token": "Ġgrubymi",
+                "similarity": 0.5718778371810913
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 29,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 35.36224985122681,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8176565170288086
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.6815697550773621
+              },
+              {
+                "token": "ĠwÄħÅ¼",
+                "similarity": 0.6654125452041626
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.721410870552063
+              },
+              {
+                "token": "Ġdziki",
+                "similarity": 0.6151313185691833
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.721410870552063
+              },
+              {
+                "token": "Ġdziki",
+                "similarity": 0.6151313185691833
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9831358790397644
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.7227646708488464
+              },
+              {
+                "token": "diÄħ",
+                "similarity": 0.6697230935096741
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 30,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 10,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 42.04325819015503,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8599490523338318
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7732552886009216
+              },
+              {
+                "token": "Ġwilk",
+                "similarity": 0.6324837803840637
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999998807907104
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6722297072410583
+              },
+              {
+                "token": "ĠHu",
+                "similarity": 0.6413328051567078
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9999998807907104
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6722297072410583
+              },
+              {
+                "token": "ĠHu",
+                "similarity": 0.6413328051567078
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.979059636592865
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6710677146911621
+              },
+              {
+                "token": "ĠHu",
+                "similarity": 0.6502458453178406
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 31,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.001
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 92.11700510978699,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8139879107475281
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7065033912658691
+              },
+              {
+                "token": "Ġgrubymi",
+                "similarity": 0.657718300819397
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0000001192092896
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6399255990982056
+              },
+              {
+                "token": "Ġgrubymi",
+                "similarity": 0.6321355104446411
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0000001192092896
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6399255990982056
+              },
+              {
+                "token": "Ġgrubymi",
+                "similarity": 0.6321355104446411
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9723244309425354
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.6301684379577637
+              },
+              {
+                "token": "Ġgrubymi",
+                "similarity": 0.617924153804779
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "combination_id": 32,
+      "parameters": {
+        "VECTOR_LENGTH": 50,
+        "WINDOW_SIZE": 18,
+        "MIN_COUNT": 5,
+        "WORKERS": 2,
+        "EPOCHS": 30,
+        "SAMPLE_RATE": 0.01
+      },
+      "training": {
+        "success": true,
+        "time_seconds": 104.67946910858154,
+        "error": null
+      },
+      "inference": {
+        "error": null,
+        "vocab_size": 27682,
+        "results": [
+          {
+            "word": "pies",
+            "tokens": [
+              "Ġpies",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.8463321924209595
+              },
+              {
+                "token": "Ġpies",
+                "similarity": 0.7369144558906555
+              },
+              {
+                "token": "Ġszlachcic",
+                "similarity": 0.6562553644180298
+              }
+            ]
+          },
+          {
+            "word": "rower",
+            "tokens": [
+              "Ġrower",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.5548928380012512
+              },
+              {
+                "token": "ĠG",
+                "similarity": 0.5537768602371216
+              }
+            ]
+          },
+          {
+            "word": "auto",
+            "tokens": [
+              "Ġauto",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 1.0
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.5548928380012512
+              },
+              {
+                "token": "ĠG",
+                "similarity": 0.5537768602371216
+              }
+            ]
+          },
+          {
+            "word": "worek",
+            "tokens": [
+              "Ġworek",
+              "Ġ"
+            ],
+            "similar": [
+              {
+                "token": "Ġ",
+                "similarity": 0.9750076532363892
+              },
+              {
+                "token": "Ġgrubymi",
+                "similarity": 0.5812125205993652
+              },
+              {
+                "token": "Ãĵw",
+                "similarity": 0.5766006112098694
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
