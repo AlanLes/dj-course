@@ -12,6 +12,11 @@ if not os.path.exists(LOG_DIR):
     os.makedirs(LOG_DIR)
 writer = SummaryWriter(LOG_DIR)
 
+# Ustawienie stałego ziarna dla powtarzalności
+SEED = 42
+torch.manual_seed(SEED)
+np.random.seed(SEED)
+
 np.set_printoptions(precision=4, suppress=True)
 
 ## 1. Definicja Modelu Sieci Neuronowej
@@ -53,7 +58,7 @@ optimizer = optim.SGD(model.parameters(), LEARNING_RATE)
 ## 3. Przygotowanie Danych i Pętla Treningowa
 # Ważne: PyTorch oczekuje liczb zmiennoprzecinkowych dla wejść sieci.
 
-NUM_EPOCHS = 2000 # 🔥🔥🔥
+NUM_EPOCHS = 600 # 🔥🔥🔥
 
 # Dane wejściowe (4 pary: [0, 0], [0, 1], [1, 0], [1, 1])
 X = torch.tensor([[0., 0.], [0., 1.], [1., 0.], [1., 1.]])
@@ -63,7 +68,8 @@ Y = torch.tensor([[0.], [1.], [1.], [0.]])
 
 # 🔥🔥🔥 wykonując ten snippet ponownie "KONTYNUUJESZ" trening modelu o kolejne epoki
 # 🔥🔥🔥 aby wystartować trening od zera, stwórz nowy model (uruchom POPRZEDNI snippet)
-
+print("LEARNING_RATE: ", LEARNING_RATE)
+print("NUM_EPOCHS: ", NUM_EPOCHS)
 print("--- Rozpoczęcie Treningu ---")
 for epoch in range(NUM_EPOCHS):
     # Krok 1: Forward Pass (przekazanie danych)
