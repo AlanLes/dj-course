@@ -16,14 +16,16 @@ import { loadSessionHistory, saveSessionHistory } from '../files/sessionFiles.js
 import { appendToWAL } from '../files/wal.js';
 import { MAX_CONTEXT_TOKENS } from '../files/config.js';
 import { GeminiLLMClient } from '../llm/geminiClient.js';
+import { AnthropicLLMClient } from '../llm/anthropicClient.js';
 import { LlamaClient } from '../llm/llamaClient.js';
 
 /**
  * Engine mapping for LLM client selection
  */
-const ENGINE_MAPPING: Record<string, typeof GeminiLLMClient | typeof LlamaClient> = {
+const ENGINE_MAPPING: Record<string, typeof GeminiLLMClient | typeof AnthropicLLMClient | typeof LlamaClient> = {
   LLAMA_CPP: LlamaClient,
   GEMINI: GeminiLLMClient,
+  ANTHROPIC: AnthropicLLMClient,
 };
 
 /**
