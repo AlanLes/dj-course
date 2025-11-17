@@ -7,7 +7,7 @@ Interactive terminal-based chat application with multi-LLM support. TypeScript p
 - **Multi-session Support:** Create, load, and switch between multiple chat sessions
 - **Persistent History:** All conversations saved to disk automatically
 - **Token Management:** Real-time token counting and context awareness
-- **Dual LLM Backend:** Support for both Google Gemini and local LLaMA models
+- **Triple LLM Backend:** Support for Google Gemini, Anthropic Claude, and local LLaMA models
 - **Advanced CLI:** Interactive command-line interface with Tab autocompletion
 - **Smart Autocompletion:** Context-aware command and subcommand completion
 - **Session Export:** Export conversations to PDF (coming soon)
@@ -43,6 +43,16 @@ MODEL_NAME=gemini-2.5-flash
 ```
 
 Get your API key from [Google AI Studio](https://aistudio.google.com/apikey)
+
+### Anthropic Configuration
+
+```bash
+ENGINE=ANTHROPIC
+ANTHROPIC_API_KEY=your_api_key_here
+MODEL_NAME=claude-3-5-haiku-latest
+```
+
+Get your API key from [Anthropic Console](https://console.anthropic.com/)
 
 ### LLaMA Configuration
 
@@ -168,6 +178,7 @@ The application follows a clean layered architecture:
 - **ChatSession:** Manages a single chat session with history and LLM interaction
 - **SessionManager:** Orchestrates session lifecycle (create, switch, save)
 - **GeminiLLMClient:** Google Gemini API integration
+- **AnthropicLLMClient:** Anthropic Claude API integration
 - **LlamaClient:** Local LLaMA model integration
 - **Assistant:** AI assistant configuration and personality
 

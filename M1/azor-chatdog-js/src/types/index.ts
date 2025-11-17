@@ -147,7 +147,7 @@ export interface CLIArguments {
 /**
  * Engine type for LLM selection
  */
-export type EngineType = 'GEMINI' | 'LLAMA_CPP';
+export type EngineType = 'GEMINI' | 'LLAMA_CPP' | 'ANTHROPIC';
 
 /**
  * Session operation result
