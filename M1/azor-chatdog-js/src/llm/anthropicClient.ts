@@ -1,6 +1,6 @@
 import { Anthropic } from "@anthropic-ai/sdk";
 import { ILLMClient, ILLMChatSession, LLMResponse, Message } from "../types";
-import { validateAnthropicConfig } from "./anthropicValidation";
+import { AnthropicConfig, validateAnthropicConfig } from "./anthropicValidation";
 
 /**
  * Convert universal history format to Anthropic-compatible messages
@@ -45,23 +45,25 @@ export class AnthropicLLMClient implements ILLMClient {
   private modelName: string;
   private apiKey: string;
   private maxResponseTokens: number;
+  private modelConfig: AnthropicConfig['modelConfig'];
 
-  constructor(modelName: string, apiKey: string, maxResponseTokens: number) {
+  constructor(modelName: string, apiKey: string, maxResponseTokens: number, modelConfig: AnthropicConfig['modelConfig']) {
     this.client = new Anthropic({
       apiKey: apiKey,
     });
     this.modelName = modelName;
     this.apiKey = apiKey;
     this.maxResponseTokens = maxResponseTokens;
+    this.modelConfig = modelConfig;
   }
 
   static fromEnvironment(): AnthropicLLMClient {
     const config = validateAnthropicConfig();
-    return new AnthropicLLMClient(config.modelName, config.anthropicApiKey, 4096);
+    return new AnthropicLLMClient(config.modelName, config.anthropicApiKey, 4096, config.modelConfig);
   }
 
   createChatSession(systemInstruction: string, history?: Message[], thinkingBudget?: number): ILLMChatSession {
-    return new AnthropicChatSessionWrapper(this.client, this.modelName, systemInstruction, history || [], thinkingBudget || 0, this.maxResponseTokens);
+    return new AnthropicChatSessionWrapper(this.client, this.modelName, systemInstruction, history || [], thinkingBudget || 0, this.maxResponseTokens, this.modelConfig);
   }
 
   countHistoryTokens(history: Message[]): number {
@@ -102,6 +104,7 @@ export class AnthropicChatSessionWrapper implements ILLMChatSession {
   private history: Message[];
   private thinkingBudget: number;
   private maxResponseTokens: number;
+  private modelConfig: AnthropicConfig['modelConfig'];
 
   constructor(
     client: Anthropic,
@@ -109,7 +112,8 @@ export class AnthropicChatSessionWrapper implements ILLMChatSession {
     systemInstruction: string,
     history: Message[],
     thinkingBudget: number,
-    maxResponseTokens: number
+    maxResponseTokens: number,
+    modelConfig: AnthropicConfig['modelConfig']
   ) {
     this.client = client;
     this.modelName = modelName;
@@ -117,6 +121,7 @@ export class AnthropicChatSessionWrapper implements ILLMChatSession {
     this.history = [...history]; // Copy to avoid mutating original
     this.thinkingBudget = thinkingBudget;
     this.maxResponseTokens = maxResponseTokens;
+    this.modelConfig = modelConfig;
   }
 
   async sendMessage(text: string): Promise<LLMResponse> {
@@ -144,6 +149,9 @@ export class AnthropicChatSessionWrapper implements ILLMChatSession {
         budget_tokens: this.thinkingBudget,
       };
     }
+    requestArgs.temperature = this.modelConfig.temperature;
+    // requestArgs.topP = this.modelConfig.topP;
+    // requestArgs.topK = this.modelConfig.topK;
 
     // Send message to Anthropic
     const response = await this.client.messages.create(requestArgs);
