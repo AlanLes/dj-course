@@ -9,7 +9,7 @@ import type {
   Message,
   LLMResponse,
 } from '../types/index.js';
-import { validateGeminiConfig } from './geminiValidation.js';
+import { GeminiConfig, validateGeminiConfig } from './geminiValidation.js';
 
 /**
  * Wrapper for Gemini chat session to provide universal interface
@@ -53,9 +53,11 @@ export class GeminiLLMClient implements ILLMClient {
   private genAI: GoogleGenerativeAI;
   private modelName: string;
   private apiKey: string;
-
-  constructor(modelName: string, apiKey: string) {
+  private modelConfig: GeminiConfig['modelConfig'];
+  
+  constructor(modelName: string, apiKey: string, modelConfig: GeminiConfig['modelConfig']) {
     this.modelName = modelName;
+    this.modelConfig = modelConfig;
     this.apiKey = apiKey;
     this.genAI = new GoogleGenerativeAI(apiKey);
   }
@@ -65,7 +67,7 @@ export class GeminiLLMClient implements ILLMClient {
    */
   static fromEnvironment(): GeminiLLMClient {
     const config = validateGeminiConfig();
-    return new GeminiLLMClient(config.modelName, config.geminiApiKey);
+    return new GeminiLLMClient(config.modelName, config.geminiApiKey, config.modelConfig);
   }
 
   /**
@@ -92,11 +94,13 @@ export class GeminiLLMClient implements ILLMClient {
     };
 
     // Add thinking budget if specified
-    if (thinkingBudget !== undefined) {
+    // if (thinkingBudget !== undefined) {
       modelConfig.generationConfig = {
-        thinkingBudget: thinkingBudget,
+        ...(thinkingBudget !== undefined ? { thinkingBudget: thinkingBudget } : {}),
+        topP: this.modelConfig.topP,
+        topK: this.modelConfig.topK,
+        temperature: this.modelConfig.temperature,
       };
-    }
 
     const model = this.genAI.getGenerativeModel(modelConfig);
 
