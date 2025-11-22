@@ -1,12 +1,20 @@
 import time
 import threading
+import torch
+# Monkeypatch torch.load to allow loading custom classes (required for XTTS)
+original_load = torch.load
+def safe_load(*args, **kwargs):
+    kwargs['weights_only'] = False
+    return original_load(*args, **kwargs)
+torch.load = safe_load
+
 from TTS.api import TTS
 import warnings 
 from animate import run_tts_animation, console
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
-FILE_PATH = "sample-agent.wav"
+FILE_PATH = "smpl-alan.wav"
 OUTPUT_WAV_PATH = "output.wav"
 
 GENERATION_DONE = threading.Event() 
