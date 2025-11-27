@@ -20,7 +20,7 @@ tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to("cpu")
 print("Model TTS załadowany.")
 
 
-def generate_audio(text: str, output_path: str) -> tuple[bool, str | None]:
+def generate_audio(text: str, output_path: str, speaker_wav: str | None = None):
     """
     Generuje plik .wav z podanego tekstu.
     
@@ -35,7 +35,7 @@ def generate_audio(text: str, output_path: str) -> tuple[bool, str | None]:
         tts.tts_to_file(
             text=text,
             file_path=output_path,
-            speaker_wav=str(SPEAKER_WAV),
+            speaker_wav=speaker_wav if speaker_wav else str(SPEAKER_WAV),
             language="pl"
         )
         return True, None
