@@ -210,26 +210,93 @@ class AudioRecorderApp:
         self.history_frame = tk.Frame(self.notebook, bg="#121212") # Consistent dark background
         self.notebook.add(self.history_frame, text='Transcription History')
         
-        # Content for History Tab: Last Transcription Display
-        tk.Label(self.history_frame, text="Last transcription:", font=('Arial', 14, 'bold'), fg='white', bg="#121212").pack(pady=(10, 5))
-        
-        self.history_display = tk.Text(self.history_frame, 
-                                       height=10, 
-                                       wrap=tk.WORD, 
-                                       font=('Arial', 11),
-                                       relief=tk.SUNKEN, 
-                                       bg='#1E1E1E', 
-                                       fg='white', 
-                                       insertbackground='white', 
-                                       state=tk.DISABLED 
-                                      )
-        self.history_display.pack(pady=10, padx=20, fill=tk.BOTH, expand=True)
-        
-        # Placeholder text in history
-        self.history_display.config(state=tk.NORMAL)
-        self.history_display.insert(tk.END, "Under construction...")
-        self.history_display.config(state=tk.DISABLED)
+        # === SPLIT VIEW: PanedWindow (horizontal) ===
+        self.history_paned = tk.PanedWindow(
+            self.history_frame, 
+            orient=tk.HORIZONTAL,
+            bg="#121212",
+            borderwidth=0,
+            sashwidth=5,
+            sashpad=5,
+            sashrelief=tk.RAISED,
+            sashcursor="hand2",
+            sashcolor="#333333",
+            sashrelief=tk.RAISED,
+            sashcursor="hand2",
+            sashcolor="#333333",
+        )
+        self.history_paned.pack(pady=10, padx=20, fill=tk.BOTH, expand=True)
 
+        # === LEFT PANEL: Transcription listbox ===
+        left_panel = tk.Frame(self.history_paned, bg="#121212")
+        self.history_paned.add(left_panel, minsize=150)
+
+        # Label above the listbox
+        tk.Label(
+            left_panel,
+            text="Transcription History",
+            font=('Arial', 12, 'bold'),
+            fg='white',
+            bg="#121212"
+        ).pack(anchor="w", pady=(0, 5))
+
+        # Listbox for transcription history
+        listbox_frame = tk.Frame(left_panel, bg="#121212")
+        listbox_frame.pack(fill=tk.BOTH, expand=True)
+
+        self.history_listbox = tk.Listbox(
+            listbox_frame,
+            bg="#1E1E1E",
+            fg='white',
+            font=('Arial', 11),
+            selectbackground='#333333',
+            selectforeground='white'
+        )
+        self.history_listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        # Scrollbar for the listbox
+        history_scrollbar = tk.Scrollbar(listbox_frame, command=self.history_listbox.yview)
+        history_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.history_listbox.config(yscrollcommand=history_scrollbar.set)
+
+        # Delete button
+        delete_button = ttk.Button(left_panel,
+        text="Delete Selected",
+        command=self.on_delete_selected,
+        style='Dark.TButton'
+    )
+        delete_button.pack(fill=tk.X, pady=(10, 0))
+
+        # === RIGHT PANEL: History Display ===
+        right_panel = tk.Frame(self.history_paned, bg="#121212")
+        self.history_paned.add(right_panel, minsize=200)
+
+        tk.Label(
+            right_panel,
+            text="Last transcription:",
+            font=('Arial', 12, 'bold'),
+            fg='white',
+            bg="#121212"
+        ).pack(anchor="w", pady=(10, 5))
+
+        self.history_preview = tk.Text(
+            right_panel,
+            wrap=tk.WORD,
+            font=('Arial', 11),
+            bg='#1E1E1E',
+            fg='white',
+            insertbackground='white',
+            state=tk.DISABLED
+        )
+        
+        self.history_preview.pack(fill=tk.BOTH, expand=True)
+
+        # === EVENT BINDING: clicking on a listbox item updates the preview ===
+        self.history_listbox.bind('<<ListboxSelect>>', self.on_history_select)
+
+        # List to store data (timestamp for every element)
+        self.history_data = []
+        self.refresh_history_list()
 
         # 3. Settings Tab
         self.settings_frame = tk.Frame(self.notebook, bg="#121212") 
@@ -280,7 +347,70 @@ class AudioRecorderApp:
         # Start the loop checking the queue
         self.master.after(100, self.check_transcription_queue)
         logging.info("GUI initialized successfully.")
+
+    def save_transcription_metadata(self, audio_path: str, transcription: str):
+        """Saves the transcription metadata to a file next to the audio file."""
+        import json
+        from datetime import datetime
+
+        json_path = audio_path.replace('.wav', '.json')
+
+        metadata = {
+            'wav_filename': os.path.basename(audio_path),
+            'transcription': transcription,
+            'created_at': datetime.now().isoformat(),
+            'timestamp': os.path.basename(audio_path).replace('recording-', '').replace('.wav', ''),
+        }
+        
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(metadata, f, ensure_ascii=False, indent=2)
+        
+        logging.info(f"Transcription metadata saved to {json_path}")
+
+    def load_transcription_history(self):
+        """Loads the transcription history from the files in the output directory."""
+        import glob
+        import json
+        from datetime import datetime
+
+        json_files = glob.glob('output/*.json')
+        history = []
+
+        for json_file in json_files:
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    metadata = json.load(f)
+                    history.append(metadata)
+            except Exception as e:
+                logging.error(f"Error loading transcription history from {json_file}: {e}")
+                continue
+        history.sort(key=lambda x: x.get('timestamp', '0'), reverse=True)
+        return history
     
+    def delete_transcription(self, timestamp: str):
+        """Deletes the transcription (wav file and json metadata) with the given timestamp."""
+        json_path = f'output/recording-{timestamp}.json'
+        wav_path = f'output/recording-{timestamp}.wav'
+
+        deleted = False
+
+        if os.path.exists(json_path):
+            os.remove(json_path)
+            logging.info(f"Transcription metadata deleted for {timestamp}.")
+            deleted = True
+
+        if os.path.exists(wav_path):
+            os.remove(wav_path)
+            logging.info(f"Transcription file deleted for {timestamp}.")
+            deleted = True
+
+        if deleted:
+            logging.info(f"Transcription for {timestamp} deleted successfully.")
+            messagebox.showinfo("Success", f"Transcription for {timestamp} deleted successfully.")
+        else:
+            logging.error(f"Transcription for {timestamp} not found.")
+            messagebox.showerror("Error", f"Transcription for {timestamp} not found.")
+
     def copy_to_clipboard(self, text: str):
         """Copies the given text to the system clipboard."""
         self.master.clipboard_clear()
@@ -410,7 +540,7 @@ class AudioRecorderApp:
         """
         logging.info(f"Running transcription for {audio_path} in thread: {threading.get_ident()}")
         transcription = transcribe_audio(audio_path, MODEL_NAME)
-        self.transcription_queue.put(transcription)
+        self.transcription_queue.put((audio_path, transcription))
 
     def check_transcription_queue(self):
         """
@@ -418,7 +548,10 @@ class AudioRecorderApp:
         Run in the main GUI thread.
         """
         try:
-            result = self.transcription_queue.get(block=False)
+            audio_path, result = self.transcription_queue.get(block=False)
+
+            if "ERROR" not in result:
+                self.save_transcription_metadata(audio_path, result)
             
             # 1. Update Transcriber tab (main output)
             self.transcription_display.config(state=tk.NORMAL)
