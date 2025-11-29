@@ -215,15 +215,6 @@ class AudioRecorderApp:
             self.history_frame, 
             orient=tk.HORIZONTAL,
             bg="#121212",
-            borderwidth=0,
-            sashwidth=5,
-            sashpad=5,
-            sashrelief=tk.RAISED,
-            sashcursor="hand2",
-            sashcolor="#333333",
-            sashrelief=tk.RAISED,
-            sashcursor="hand2",
-            sashcolor="#333333",
         )
         self.history_paned.pack(pady=10, padx=20, fill=tk.BOTH, expand=True)
 
@@ -386,6 +377,69 @@ class AudioRecorderApp:
                 continue
         history.sort(key=lambda x: x.get('timestamp', '0'), reverse=True)
         return history
+    
+    def refresh_history_list(self):
+        """Refreshes the history list with the latest data."""
+        from datetime import datetime
+
+        # Clear current list
+        self.history_listbox.delete(0, tk.END)
+        self.history_data = []
+
+        # Load new data
+        history = self.load_transcription_history()
+        for item in history:
+            try:
+                ts = int(item['timestamp'])
+                date_str = datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+            except ValueError:
+                date_str = item['timestamp']
+
+            self.history_listbox.insert(tk.END, date_str)
+            self.history_data.append(item)
+
+        # Clear the preview
+        self.history_preview.config(state=tk.NORMAL)
+        self.history_preview.delete('1.0', tk.END)
+        self.history_preview.insert(tk.END, "Select a transcription to preview...")
+        self.history_preview.config(state=tk.DISABLED)
+
+        logging.info(f"History list refreshed with {len(self.history_data)} items.")
+
+    def on_history_select(self, event=None):
+        """Handles the selection of a history item. Shows the transcription in the preview."""
+        selected_index = self.history_listbox.curselection()
+
+        if not selected_index:
+            return
+
+        index = selected_index[0]
+
+        if index < len(self.history_data):
+            item = self.history_data[index]
+            self.history_preview.config(state=tk.NORMAL)
+            self.history_preview.delete('1.0', tk.END)
+            self.history_preview.insert(tk.END, item['transcription'])
+            self.history_preview.config(state=tk.DISABLED)
+
+    def on_delete_selected(self):
+        """Handles the deletion of the selected transcription."""
+        selected_index = self.history_listbox.curselection()
+        
+        if not selected_index:
+            messagebox.showwarning("Warning", "No transcription selected.")
+            return
+
+        index = selected_index[0]
+
+        if index < len(self.history_data):
+            item = self.history_data[index]
+            confirm = messagebox.askyesno("Confirmation", f"Are you sure you want to delete the transcription for {item['timestamp']}?")
+            if confirm:
+                self.delete_transcription(item['timestamp'])
+                self.refresh_history_list()
+            else:
+                messagebox.showinfo("Cancelled", "Transcription not deleted.")
     
     def delete_transcription(self, timestamp: str):
         """Deletes the transcription (wav file and json metadata) with the given timestamp."""
@@ -559,11 +613,8 @@ class AudioRecorderApp:
             self.transcription_display.insert(tk.END, result)
             self.transcription_display.config(state=tk.DISABLED)
             
-            # 2. Update History tab (last output)
-            self.history_display.config(state=tk.NORMAL)
-            self.history_display.delete('1.0', tk.END)
-            self.history_display.insert(tk.END, "Under construction..." + result)
-            self.history_display.config(state=tk.DISABLED)
+            # 2. Refresh History tab
+            self.refresh_history_list()
             
             if "ERROR" in result:
                 logging.warning("Transcription failed with error message.")
