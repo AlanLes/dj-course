@@ -141,6 +141,74 @@ def print_summary_table():
     print_ascii_table(headers, rows, title="Podsumowanie wszystkich wyników")
 
 
+def print_bar_chart(tokenizer_name):
+    """
+    Wyświetla quasi-konsolowy wykres dla danego tokenizera.
+    
+    Dla każdego sample'a:
+    - Sortuje formaty od najlepszego (najmniej tokenów) do najgorszego
+    - Format z najmniejszą liczbą tokenów = 100%
+    - Pozostałe mają procent = min_tokens / ich_tokeny * 100
+    """
+    
+    # Szerokość paska (ile znaków █ lub ░)
+    BAR_WIDTH = 20
+    
+    # Znaki do rysowania paska
+    FILLED = '█'
+    EMPTY = '░'
+    
+    # Pobierz wyniki dla tego tokenizera
+    results = all_results[tokenizer_name]
+    
+    print(f"\n{'='*60}")
+    print(f"Wykres słupkowy: {tokenizer_name}")
+    print('='*60)
+    
+    # Iteruj przez każdy sample
+    for sample_name in SAMPLE_NAMES:
+        if sample_name not in results:
+            continue
+            
+        counts = results[sample_name]
+        
+        # Znajdź minimalną liczbę tokenów (najlepszy format)
+        min_tokens = min(counts.values())
+        
+        # Stwórz listę krotek: (nazwa_formatu, liczba_tokenów, procent)
+        format_data = []
+        for fmt, tokens in counts.items():
+            if tokens > 0:
+                percent = (min_tokens / tokens) * 100
+            else:
+                percent = 0
+            format_data.append((fmt, tokens, percent))
+        
+        # Posortuj według procentu malejąco (100% na górze)
+        format_data.sort(key=lambda x: x[2], reverse=True)
+        
+        # Wydrukuj nazwę sample'a
+        print(f"\n{sample_name}")
+        
+        # Wydrukuj każdy format
+        for fmt, tokens, percent in format_data:
+            # Czytelna etykieta formatu
+            label = fmt.upper()
+            
+            # Symbol strzałki dla najlepszego (100%)
+            arrow = '→' if percent >= 99.99 else ' '
+            
+            # Oblicz ile znaków █ (wypełnionych)
+            filled_count = round(percent / 100 * BAR_WIDTH)
+            empty_count = BAR_WIDTH - filled_count
+            
+            # Zbuduj pasek
+            bar = FILLED * filled_count + EMPTY * empty_count
+            
+            # Wydrukuj linię
+            print(f"{arrow} {label.ljust(12)} {bar}    {percent:5.1f}% ({tokens})")
+
+
 # Wyświetl tabele
 print("\n" + "="*80)
 print("WYNIKI TOKENIZACJI")
@@ -148,3 +216,11 @@ print("="*80)
 
 print_table_per_sample()
 print_summary_table()
+
+# Wykresy słupkowe dla każdego tokenizera
+print("\n" + "="*80)
+print("WYKRESY SŁUPKOWE (Zadanie 4.2)")
+print("="*80)
+
+for tok_name in ALL_TOKENIZERS:
+    print_bar_chart(tok_name)
