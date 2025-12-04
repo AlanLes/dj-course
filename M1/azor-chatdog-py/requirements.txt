@@ -8,3 +8,4 @@ pydantic>=2.0.0
 fpdf2
 markdown
 coqui-tts==0.24.3
+transformers==4.46.0
