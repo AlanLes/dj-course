@@ -8,7 +8,6 @@ from files.config import LOG_DIR
 
 init(autoreset=True)
 
-
 def print_error(message: str):
     """Print an error message in red color.
     
@@ -66,6 +65,8 @@ def display_help(session_id: str):
     print_help("  /session pop      - Usuwa ostatnią parę wpisów (TY i asystent).")
     print_help("  /session clear    - Czyści historię bieżącej sesji.")
     print_help("  /session new      - Rozpoczyna nową sesję.")
+    print_help("  /session title    - Wyświetla tytuł aktualnej sesji.")
+    print_help("  /session rename   - Zmienia tytuł aktualnej sesji.")
 
 
 def display_final_instructions(session_id: str):

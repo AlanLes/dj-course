@@ -6,11 +6,13 @@ import command_handler
 from cli import console
 from cli.prompt import get_user_input
 from commands.welcome import print_welcome
+from assistant import register_builtin_assistants
 
 def init_chat():
     """Initializes a new session or loads an existing one."""
     print_welcome()
     manager = get_session_manager()
+    register_builtin_assistants()
     
     # Initialize session based on CLI args
     cli_session_id = cli.args.get_session_id_from_cli()

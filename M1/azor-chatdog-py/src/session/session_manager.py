@@ -1,6 +1,6 @@
 from cli import console
 from .chat_session import ChatSession
-from assistant import create_azor_assistant
+from assistant import create_azor_assistant, AssistantRegistry
 from files import session_files
 
 
@@ -62,6 +62,19 @@ class SessionManager:
         
         return new_session, save_attempted, previous_session_id, save_error
     
+    def switch_assistant(self, assistant_id: str) -> bool:
+        """
+        Switches the assistant for the current session.
+        """
+        assistant = AssistantRegistry.get(assistant_id)
+        if assistant:
+            self._current_session.switch_assistant(assistant)
+            console.print_help(f"Asystent zmieniony na {assistant.name}")
+        else:
+            console.print_error(f"Asystent o ID {assistant_id} nie został znaleziony.")
+            return False
+        return True
+    
     def switch_to_session(self, session_id: str) -> tuple[ChatSession | None, bool, str | None, bool, str | None, bool]:
         """
         Switches to an existing session by ID.
@@ -89,8 +102,8 @@ class SessionManager:
             self._current_session.save_to_file()
         
         # Load new session
-        assistant = create_azor_assistant()
-        new_session, error = ChatSession.load_from_file(assistant=assistant, session_id=session_id)
+        default_assistant = AssistantRegistry.get_default()
+        new_session, error = ChatSession.load_from_file(session_id=session_id, fallback_assistant=default_assistant)
         
         if error:
             # Failed to load - don't change current session
@@ -137,8 +150,8 @@ class SessionManager:
             ChatSession: The initialized session
         """
         if cli_session_id:
-            assistant = create_azor_assistant()
-            session, error = ChatSession.load_from_file(assistant=assistant, session_id=cli_session_id)
+            default_assistant = create_azor_assistant()
+            session, error = ChatSession.load_from_file(session_id=cli_session_id, fallback_assistant=default_assistant)
             
             if error:
                 console.print_error(error)

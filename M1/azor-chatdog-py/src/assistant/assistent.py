@@ -9,7 +9,7 @@ class Assistant:
     Encapsulates the assistant's behavior and name, independent of the underlying model.
     """
     
-    def __init__(self, system_prompt: str, name: str):
+    def __init__(self, id: str, system_prompt: str, name: str):
         """
         Initialize an Assistant with system prompt and name configuration.
         
@@ -19,6 +19,7 @@ class Assistant:
         """
         self._system_prompt = system_prompt
         self._name = name
+        self._id = id
     
     @property
     def system_prompt(self) -> str:
@@ -29,3 +30,8 @@ class Assistant:
     def name(self) -> str:
         """Get the display name for this assistant."""
         return self._name
+    
+    @property
+    def id(self) -> str:
+        """Get the ID for this assistant."""
+        return self._id
