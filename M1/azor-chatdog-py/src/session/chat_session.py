@@ -25,7 +25,7 @@ class ChatSession:
     Encapsulates session ID, conversation history, assistant, and LLM chat session.
     """
     
-    def __init__(self, assistant: Assistant, session_id: str | None = None, history: List[Any] | None = None):
+    def __init__(self, assistant: Assistant, session_id: str | None = None, history: List[Any] | None = None, title: str | None = None):
         """
         Initialize a chat session.
         
@@ -41,6 +41,20 @@ class ChatSession:
         self._llm_chat_session = None
         self._max_context_tokens = 32768
         self._initialize_llm_session()
+        self.title: str | None = title
+    
+    def set_title(self, title: str) -> bool:
+        """
+        Sets the title of the session.
+        """
+        if title and len(title) > 0:
+            self.title = title
+            console.print_info(f"Title set to: {self.title}")
+        else:
+            self.title = None
+            console.print_error("Title cannot be empty")
+            return False
+        return True
     
     def _initialize_llm_session(self):
         """
@@ -68,7 +82,7 @@ class ChatSession:
     
     
     @classmethod
-    def load_from_file(cls, assistant: Assistant, session_id: str) -> tuple['ChatSession | None', str | None]:
+    def load_from_file(cls, session_id: str, fallback_assistant: Assistant | None = None) -> tuple['ChatSession | None', str | None]:
         """
         Loads a session from disk.
         
@@ -79,12 +93,16 @@ class ChatSession:
         Returns:
             tuple: (ChatSession object or None, error_message or None)
         """
-        history, error = session_files.load_session_history(session_id)
+        from assistant import AssistantRegistry
+
+        history, error, title, assistant_id = session_files.load_session_history(session_id)
         
         if error:
             return None, error
         
-        session = cls(assistant=assistant, session_id=session_id, history=history)
+        assistant = AssistantRegistry.get(assistant_id) if assistant_id else fallback_assistant or AssistantRegistry.get_default()
+
+        session = cls(assistant=assistant, session_id=session_id, history=history, title=title)
         return session, None
     
     def save_to_file(self) -> tuple[bool, str | None]:
@@ -103,8 +121,23 @@ class ChatSession:
             self.session_id, 
             self._history, 
             self.assistant.system_prompt, 
-            self._llm_client.get_model_name()
+            self._llm_client.get_model_name(),
+            self.title,
+            self.assistant.id
         )
+
+    def switch_assistant(self, new_assistant: Assistant):
+        """
+        Switches the assistant for the session.
+        """
+        change_message = f"[SYSTEM: Zmiana asystenta z {self.assistant.name} na {new_assistant.name}]"
+        self._history.append({
+            "role": "user",
+            "parts": [{"text": change_message}]
+        })
+        self.assistant = new_assistant
+        self._initialize_llm_session()
+        self.save_to_file()
     
     def send_message(self, text: str):
         """
@@ -124,7 +157,11 @@ class ChatSession:
         
         # Sync history after message
         self._history = self._llm_chat_session.get_history()
-        
+
+        # Generate title after first exchange (2 messages = user + assistant)
+        if (len(self._history) == 2) and self.title is None:
+            self._generate_title_from_first_message()
+
         # Log to WAL
         total_tokens = self.count_tokens()
         success, error = append_to_wal(
@@ -142,6 +179,37 @@ class ChatSession:
         
         return response
     
+    def _generate_title_from_first_message(self):
+        """
+        Generuje tytuł sesji na podstawie pierwszej wiadomości.
+        Używa tymczasowej sesji czatu, która nie wpływa na główną historię.
+        """
+        try:
+            first_user_message = self._history[0]['parts'][0]['text']
+            
+            # Ogranicz długość wiadomości do 200 znaków dla promptu
+            truncated_message = first_user_message[:200]
+            
+            # Utwórz tymczasową sesję tylko do generowania tytułu
+            title_session = self._llm_client.create_chat_session(
+                system_instruction="Jesteś pomocnikiem. Odpowiadaj TYLKO krótkim tytułem (max 5 słów), bez żadnych dodatkowych słów, wyjaśnień ani interpunkcji.",
+                history=None,
+                thinking_budget=0
+            )
+            
+            prompt = f"Wygeneruj krótki tytuł dla rozmowy zaczynającej się od: \"{truncated_message}\""
+            title_response = title_session.send_message(prompt)
+            
+            if title_response and title_response.text:
+                # Oczyść tytuł z cudzysłowów i białych znaków
+                clean_title = title_response.text.strip().strip('"\'')
+                self.title = clean_title  # Użyj self.title (nie self._title)
+                console.print_info(f"Tytuł sesji: {clean_title}")
+                
+        except Exception as e:
+            # Nie przerywaj działania programu jeśli generowanie tytułu się nie powiedzie
+            console.print_info("Nie udało się wygenerować tytułu automatycznie.")
+
     def get_history(self) -> List[Any]:
         """Returns the current conversation history."""
         # Always sync from LLM session to ensure consistency
