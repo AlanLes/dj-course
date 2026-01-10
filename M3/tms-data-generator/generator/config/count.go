@@ -1,8 +1,9 @@
 package config
 
 const (
-	VEHICLES              = 50
-	DRIVERS               = 20
-	TRANSPORTATION_ORDERS = 1000
-	CUSTOMERS             = 500
+	VEHICLES              = 5
+	DRIVERS               = 2
+	TRANSPORTATION_ORDERS = 25
+	CUSTOMERS             = 12
+	AVAILABILITY_DAYS     = 30
 )
