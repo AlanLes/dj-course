@@ -11,8 +11,10 @@ import (
 
 	"tms-data-generator/generator/config"
 	"tms-data-generator/generator/customers"
+	"tms-data-generator/generator/driver_availability"
 	"tms-data-generator/generator/drivers"
 	"tms-data-generator/generator/transportation_orders"
+	"tms-data-generator/generator/vehicle_availability"
 	"tms-data-generator/generator/vehicles"
 )
 
@@ -49,12 +51,14 @@ func Generate(outputFile string) error {
 	var vehiclesStatements string
 	var driversStatements string
 	var customersStatements string
+	var driverAvailabilityStatements string
+	var vehicleAvailabilityStatements string
 	wg := sync.WaitGroup{}
 
 	start := time.Now() // Start timing
 
 	// Phase 1: Generate independent entities in parallel
-	wg.Add(3)
+	wg.Add(5)
 	go func() {
 		defer wg.Done()
 		startVehicles := time.Now()
@@ -68,6 +72,20 @@ func Generate(outputFile string) error {
 		fmt.Println("Generating drivers...", time.Now())
 		driversStatements = drivers.GenerateInsertStatements(drivers.GenerateDrivers(config.DRIVERS))
 		fmt.Println("done generating drivers", time.Now(), time.Since(startDrivers))
+	}()
+	go func() {
+		defer wg.Done()
+		startDriverAvailability := time.Now()
+		fmt.Println("Generating driver availability...", time.Now())
+		driverAvailabilityStatements = driver_availability.GenerateInsertStatements(driver_availability.GenerateDriverAvailability(drivers.GenerateDrivers(config.DRIVERS)))
+		fmt.Println("done generating driver availability", time.Now(), time.Since(startDriverAvailability))
+	}()
+	go func() {
+		defer wg.Done()
+		startVehicleAvailability := time.Now()
+		fmt.Println("Generating vehicle availability...", time.Now())
+		vehicleAvailabilityStatements = vehicle_availability.GenerateInsertStatements(vehicle_availability.GenerateVehicleAvailability(vehicles.GenerateVehicles(config.VEHICLES)))
+		fmt.Println("done generating vehicle availability", time.Now(), time.Since(startVehicleAvailability))
 	}()
 	go func() {
 		defer wg.Done()
@@ -122,7 +140,9 @@ func Generate(outputFile string) error {
 	sb.Write(schema)
 	sb.WriteString("\n")
 	sb.WriteString(vehiclesStatements)
+	sb.WriteString(vehicleAvailabilityStatements)
 	sb.WriteString(driversStatements)
+	sb.WriteString(driverAvailabilityStatements)
 	sb.WriteString(customersStatements)
 	sb.WriteString(ordersStatements)
 	sb.WriteString(timelineStatements)
