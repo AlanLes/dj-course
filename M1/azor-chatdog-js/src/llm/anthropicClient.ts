@@ -1,5 +1,14 @@
 import { Anthropic } from "@anthropic-ai/sdk";
-import { ILLMClient, ILLMChatSession, LLMResponse, Message, MessagePart } from "../types/index.js";
+import type { 
+  ILLMClient, 
+  ILLMChatSession, 
+  ILLMChatSessionWithTools,
+  LLMResponse, 
+  Message, 
+  MessagePart,
+  MCPTool,
+  ToolCallHandler 
+} from "../types/index.js";
 import { AnthropicConfig, validateAnthropicConfig } from "./anthropicValidation.js";
 
 /**
@@ -24,7 +33,7 @@ function convertUniversalHistoryToAnthropic(history: Message[]): Array<{role: 'u
 /**
  * Extract plain text from Anthropic Message response
  */
-function extractTextFromAnthropicResponse(response: any): string {
+function extractTextFromAnthropicResponse(response: Anthropic.Message): string {
   if (!response || !response.content) {
     return '';
   }
@@ -32,12 +41,27 @@ function extractTextFromAnthropicResponse(response: any): string {
   // Extract text from content blocks
   const textParts: string[] = [];
   for (const block of response.content) {
-    if (block.text) {
+    if (block.type === 'text') {
       textParts.push(block.text);
     }
   }
 
   return textParts.join('\n').trim();
+}
+
+/**
+ * Convert MCP tools to Anthropic tool format
+ */
+function convertMcpToolsToAnthropic(tools: MCPTool[]): Anthropic.Tool[] {
+  return tools.map((tool) => ({
+    name: tool.name,
+    description: tool.description || '',
+    input_schema: {
+      type: 'object' as const,
+      properties: (tool.inputSchema.properties as Record<string, object>) || {},
+      required: (tool.inputSchema.required as string[]) || [],
+    },
+  }));
 }
 
 export class AnthropicLLMClient implements ILLMClient {
@@ -97,7 +121,7 @@ export class AnthropicLLMClient implements ILLMClient {
   }
 }
 
-export class AnthropicChatSessionWrapper implements ILLMChatSession {
+export class AnthropicChatSessionWrapper implements ILLMChatSessionWithTools {
   private client: Anthropic;
   private modelName: string;
   private systemInstruction: string;
@@ -105,6 +129,9 @@ export class AnthropicChatSessionWrapper implements ILLMChatSession {
   private thinkingBudget: number;
   private maxResponseTokens: number;
   private modelConfig: AnthropicConfig['modelConfig'];
+  
+  // Anthropic-native message history for tool calling (preserves tool_use/tool_result blocks)
+  private anthropicHistory: Anthropic.MessageParam[] = [];
 
   constructor(
     client: Anthropic,
@@ -122,6 +149,9 @@ export class AnthropicChatSessionWrapper implements ILLMChatSession {
     this.thinkingBudget = thinkingBudget;
     this.maxResponseTokens = maxResponseTokens;
     this.modelConfig = modelConfig;
+    
+    // Initialize Anthropic history from universal history
+    this.anthropicHistory = convertUniversalHistoryToAnthropic(this.history);
   }
 
   async sendMessage(text: string): Promise<LLMResponse> {
@@ -135,11 +165,12 @@ export class AnthropicChatSessionWrapper implements ILLMChatSession {
     const anthropicMessages = convertUniversalHistoryToAnthropic(this.history);
 
     // Build request arguments
-    const requestArgs: any = {
+    const requestArgs: Anthropic.MessageCreateParams = {
       model: this.modelName,
       system: this.systemInstruction,
       messages: anthropicMessages,
       max_tokens: this.maxResponseTokens,
+      temperature: this.modelConfig.temperature,
     };
 
     // Add thinking budget if specified (structured thinking)
@@ -149,9 +180,6 @@ export class AnthropicChatSessionWrapper implements ILLMChatSession {
         budget_tokens: this.thinkingBudget,
       };
     }
-    requestArgs.temperature = this.modelConfig.temperature;
-    // requestArgs.topP = this.modelConfig.topP;
-    // requestArgs.topK = this.modelConfig.topK;
 
     // Send message to Anthropic
     const response = await this.client.messages.create(requestArgs);
@@ -166,6 +194,105 @@ export class AnthropicChatSessionWrapper implements ILLMChatSession {
     });
 
     return { text: responseText };
+  }
+
+  /**
+   * Send a message with tool calling support
+   * Implements the tool calling loop:
+   * 1. Send message with tools
+   * 2. If stop_reason is 'tool_use', call the tool and continue
+   * 3. Repeat until stop_reason is 'end_turn'
+   */
+  async sendMessageWithTools(
+    text: string,
+    tools: MCPTool[],
+    onToolCall: ToolCallHandler
+  ): Promise<LLMResponse> {
+    // Add user message to Anthropic history
+    this.anthropicHistory.push({
+      role: 'user',
+      content: text,
+    });
+
+    // Add to universal history as well
+    this.history.push({
+      role: 'user',
+      parts: [{ text }],
+    });
+
+    // Convert MCP tools to Anthropic format
+    const anthropicTools = convertMcpToolsToAnthropic(tools);
+
+    // Tool calling loop
+    let continueLoop = true;
+    let finalResponseText = '';
+
+    while (continueLoop) {
+      // Build request arguments
+      const requestArgs: Anthropic.MessageCreateParams = {
+        model: this.modelName,
+        system: this.systemInstruction,
+        messages: this.anthropicHistory,
+        max_tokens: this.maxResponseTokens,
+        temperature: this.modelConfig.temperature,
+        tools: anthropicTools,
+      };
+
+      // Send message to Anthropic
+      const response = await this.client.messages.create(requestArgs);
+
+      // Check stop reason
+      if (response.stop_reason === 'tool_use') {
+        // Add assistant response with tool_use to history
+        this.anthropicHistory.push({
+          role: 'assistant',
+          content: response.content,
+        });
+
+        // Process tool calls
+        const toolResults: Anthropic.ToolResultBlockParam[] = [];
+        
+        for (const block of response.content) {
+          if (block.type === 'tool_use') {
+            // Call the tool handler
+            const toolResult = await onToolCall(
+              block.name,
+              block.input as Record<string, unknown>
+            );
+
+            toolResults.push({
+              type: 'tool_result',
+              tool_use_id: block.id,
+              content: toolResult,
+            });
+          }
+        }
+
+        // Add tool results to history
+        this.anthropicHistory.push({
+          role: 'user',
+          content: toolResults,
+        });
+      } else {
+        // stop_reason is 'end_turn' or similar - we have the final response
+        continueLoop = false;
+        finalResponseText = extractTextFromAnthropicResponse(response);
+
+        // Add final assistant response to Anthropic history
+        this.anthropicHistory.push({
+          role: 'assistant',
+          content: response.content,
+        });
+
+        // Add to universal history
+        this.history.push({
+          role: 'model',
+          parts: [{ text: finalResponseText }],
+        });
+      }
+    }
+
+    return { text: finalResponseText };
   }
 
   getHistory(): Message[] {

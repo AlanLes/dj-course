@@ -10,6 +10,7 @@ import { getUserInput } from './cli/prompt.js';
 import { printAssistant, printInfo, printError } from './cli/console.js';
 import { printWelcome } from './commands/welcome.js';
 import { handleCommand } from './commandHandler.js';
+import { initMcpClient, cleanupMcpClient } from './mcp/client.js';
 
 // Load environment variables
 config();
@@ -17,7 +18,7 @@ config();
 /**
  * Initialize the chat application
  */
-export function initChat(): void {
+export async function initChat(): Promise<void> {
   // Print welcome banner
   printWelcome();
 
@@ -26,6 +27,20 @@ export function initChat(): void {
 
   // Get session manager
   const manager = getSessionManager(assistant);
+
+  // Initialize MCP Client for tool calling
+  try {
+    printInfo('Connecting to MCP Server...');
+    const mcpClient = await initMcpClient();
+    manager.setMcpClient(mcpClient);
+    
+    const tools = mcpClient.listTools();
+    printInfo(`MCP Client connected. Available tools: ${tools.map(t => t.name).join(', ')}`);
+  } catch (error) {
+    const err = error as Error;
+    printError(`Warning: Could not connect to MCP Server: ${err.message}`);
+    printInfo('Continuing without MCP tools...');
+  }
 
   // Get CLI session ID if provided
   const cliSessionId = getSessionIdFromCLI();
@@ -48,10 +63,11 @@ export function initChat(): void {
     manager.cleanupAndSave();
   });
 
-  process.on('SIGINT', () => {
+  process.on('SIGINT', async () => {
     console.log('\n');
-    printInfo('Saving session and exiting...');
+    printInfo('Saving session and cleaning up...');
     manager.cleanupAndSave();
+    await cleanupMcpClient();
     process.exit(0);
   });
 }
@@ -85,7 +101,7 @@ export async function mainLoop(): Promise<void> {
       // Get current session
       const session = manager.getCurrentSession();
 
-      // Send message to LLM
+      // Send message to LLM (will use MCP tools if available)
       const response = await session.sendMessage(userInput);
 
       // Get token information
@@ -113,4 +129,5 @@ export async function mainLoop(): Promise<void> {
 
   // Cleanup on exit
   manager.cleanupAndSave();
+  await cleanupMcpClient();
 }

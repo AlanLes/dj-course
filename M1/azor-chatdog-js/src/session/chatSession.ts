@@ -7,6 +7,7 @@ import type { Assistant } from '../assistant/assistant.js';
 import type {
   ILLMClient,
   ILLMChatSession,
+  ILLMChatSessionWithTools,
   Message,
   LLMResponse,
   TokenInfo,
@@ -18,6 +19,7 @@ import { MAX_CONTEXT_TOKENS } from '../files/config.js';
 import { GeminiLLMClient } from '../llm/geminiClient.js';
 import { AnthropicLLMClient } from '../llm/anthropicClient.js';
 import { LlamaClient } from '../llm/llamaClient.js';
+import type { McpClient } from '../mcp/client.js';
 
 /**
  * Engine mapping for LLM client selection
@@ -38,6 +40,13 @@ function getSelectedLLMClient(): ILLMClient {
 }
 
 /**
+ * Check if a session supports tool calling
+ */
+function supportsTools(session: ILLMChatSession): session is ILLMChatSessionWithTools {
+  return 'sendMessageWithTools' in session && typeof (session as ILLMChatSessionWithTools).sendMessageWithTools === 'function';
+}
+
+/**
  * ChatSession class - represents and manages a single chat session
  */
 export class ChatSession {
@@ -46,11 +55,13 @@ export class ChatSession {
   private llmClient: ILLMClient;
   private llmChatSession: ILLMChatSession;
   private assistant: Assistant;
+  private mcpClient: McpClient | null = null;
 
-  constructor(assistant: Assistant, sessionId?: string, history?: Message[]) {
+  constructor(assistant: Assistant, sessionId?: string, history?: Message[], mcpClient?: McpClient) {
     this.sessionId = sessionId || uuidv4();
     this.assistant = assistant;
     this.history = history || [];
+    this.mcpClient = mcpClient || null;
 
     // Initialize LLM client
     this.llmClient = getSelectedLLMClient();
@@ -63,11 +74,19 @@ export class ChatSession {
   }
 
   /**
+   * Set the MCP Client for tool calling
+   */
+  setMcpClient(client: McpClient): void {
+    this.mcpClient = client;
+  }
+
+  /**
    * Load session from file
    */
   static loadFromFile(
     assistant: Assistant,
-    sessionId: string
+    sessionId: string,
+    mcpClient?: McpClient
   ): Result<ChatSession, string> {
     const result = loadSessionHistory(sessionId);
 
@@ -76,7 +95,7 @@ export class ChatSession {
     }
 
     const history = result.value;
-    const session = new ChatSession(assistant, sessionId, history);
+    const session = new ChatSession(assistant, sessionId, history, mcpClient);
 
     return { success: true, value: session };
   }
@@ -95,10 +114,36 @@ export class ChatSession {
 
   /**
    * Send a message and get response
+   * If MCP Client is available and LLM supports tools, uses tool calling
    */
   async sendMessage(text: string): Promise<LLMResponse> {
-    // Send message to LLM
-    const response = await this.llmChatSession.sendMessage(text);
+    let response: LLMResponse;
+
+    // Check if we can use tools
+    const canUseTools = 
+      this.mcpClient && 
+      this.mcpClient.isConnected() && 
+      this.mcpClient.hasTools() &&
+      supportsTools(this.llmChatSession);
+
+    if (canUseTools) {
+      // Use tool-enabled message sending
+      const tools = this.mcpClient!.listTools();
+      
+      // Create tool call handler
+      const onToolCall = async (toolName: string, toolInput: Record<string, unknown>): Promise<string> => {
+        return await this.mcpClient!.callTool(toolName, toolInput);
+      };
+
+      response = await (this.llmChatSession as ILLMChatSessionWithTools).sendMessageWithTools(
+        text,
+        tools,
+        onToolCall
+      );
+    } else {
+      // Regular message sending without tools
+      response = await this.llmChatSession.sendMessage(text);
+    }
 
     // Sync history from LLM session (it updates internally)
     this.history = this.llmChatSession.getHistory();

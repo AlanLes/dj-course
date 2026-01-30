@@ -10,6 +10,7 @@ import type {
   SessionRemoveResult,
 } from '../types/index.js';
 import { removeSessionFile } from '../files/sessionFiles.js';
+import type { McpClient } from '../mcp/client.js';
 
 /**
  * SessionManager singleton class
@@ -17,9 +18,22 @@ import { removeSessionFile } from '../files/sessionFiles.js';
 export class SessionManager {
   private currentSession?: ChatSession;
   private assistant: Assistant;
+  private mcpClient: McpClient | null = null;
 
   constructor(assistant: Assistant) {
     this.assistant = assistant;
+  }
+
+  /**
+   * Set the MCP Client for tool calling
+   */
+  setMcpClient(client: McpClient): void {
+    this.mcpClient = client;
+    
+    // Also set it on the current session if one exists
+    if (this.currentSession) {
+      this.currentSession.setMcpClient(client);
+    }
   }
 
   /**
@@ -58,8 +72,8 @@ export class SessionManager {
       }
     }
 
-    // Create new session
-    const newSession = new ChatSession(this.assistant);
+    // Create new session with MCP client if available
+    const newSession = new ChatSession(this.assistant, undefined, undefined, this.mcpClient || undefined);
     this.currentSession = newSession;
 
     return {
@@ -88,8 +102,8 @@ export class SessionManager {
       }
     }
 
-    // Load new session
-    const loadResult = ChatSession.loadFromFile(this.assistant, sessionId);
+    // Load new session with MCP client if available
+    const loadResult = ChatSession.loadFromFile(this.assistant, sessionId, this.mcpClient || undefined);
 
     if (!loadResult.success) {
       return {
@@ -125,8 +139,8 @@ export class SessionManager {
     const removedId = this.currentSession.id;
     const removeResult = removeSessionFile(removedId);
 
-    // Create new session
-    const newSession = new ChatSession(this.assistant);
+    // Create new session with MCP client if available
+    const newSession = new ChatSession(this.assistant, undefined, undefined, this.mcpClient || undefined);
     this.currentSession = newSession;
 
     return {
@@ -142,8 +156,8 @@ export class SessionManager {
    */
   initializeFromCLI(cliSessionId?: string): ChatSession {
     if (cliSessionId) {
-      // Try to load specified session
-      const result = ChatSession.loadFromFile(this.assistant, cliSessionId);
+      // Try to load specified session with MCP client if available
+      const result = ChatSession.loadFromFile(this.assistant, cliSessionId, this.mcpClient || undefined);
 
       if (result.success) {
         this.currentSession = result.value;
@@ -154,8 +168,8 @@ export class SessionManager {
       }
     }
 
-    // Create new session
-    const session = new ChatSession(this.assistant);
+    // Create new session with MCP client if available
+    const session = new ChatSession(this.assistant, undefined, undefined, this.mcpClient || undefined);
     this.currentSession = session;
     return session;
   }
