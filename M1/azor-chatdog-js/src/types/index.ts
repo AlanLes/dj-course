@@ -180,3 +180,50 @@ export interface SessionRemoveResult {
   success: boolean;
   error?: string;
 }
+
+/**
+ * MCP Tool definition
+ */
+export interface MCPTool {
+  name: string;
+  description?: string;
+  inputSchema: Record<string, unknown>;
+}
+
+/**
+ * Result of a tool call
+ */
+export interface ToolCallResult {
+  toolUseId: string;
+  content: string;
+}
+
+/**
+ * Tool call handler function type
+ */
+export type ToolCallHandler = (
+  toolName: string,
+  toolInput: Record<string, unknown>
+) => Promise<string>;
+
+/**
+ * Options for sending a message with tool support
+ */
+export interface SendMessageOptions {
+  /** Handler function to call when LLM requests a tool */
+  onToolCall?: ToolCallHandler;
+}
+
+/**
+ * Extended LLM Chat Session interface with tool support
+ */
+export interface ILLMChatSessionWithTools extends ILLMChatSession {
+  /**
+   * Send a message with tool calling support
+   */
+  sendMessageWithTools(
+    text: string,
+    tools: MCPTool[],
+    onToolCall: ToolCallHandler
+  ): Promise<LLMResponse>;
+}
