@@ -103,8 +103,11 @@ export async function mainLoop(): Promise<void> {
         printError(`Error saving session: ${saveResult.error}`);
       }
     } catch (error) {
-      printError(`Error: ${(error as Error).message}`);
-      console.error(error);
+      const err = error as Error;
+      printError(`Error: ${err.message || String(error)}`);
+      if (err.stack) {
+        console.error(err.stack);
+      }
     }
   }
 

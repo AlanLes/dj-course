@@ -29,9 +29,9 @@ export function validateAnthropicConfig(): AnthropicConfig {
     modelName: process.env.MODEL_NAME || 'claude-3-5-haiku-latest',
     anthropicApiKey: process.env.ANTHROPIC_API_KEY || '',
     modelConfig: {
-      topP: Number(process.env.TOP_P),
-      topK: Number(process.env.TOP_K),
-      temperature: Number(process.env.TEMPERATURE)
+      topP: process.env.TOP_P ? Number(process.env.TOP_P) : undefined,
+      topK: process.env.TOP_K ? Number(process.env.TOP_K) : undefined,
+      temperature: process.env.TEMPERATURE ? Number(process.env.TEMPERATURE) : undefined
     }
   };
 
