@@ -14,7 +14,11 @@ async function main(): Promise<void> {
     initChat();
     await mainLoop();
   } catch (error) {
-    console.error('Fatal error:', error);
+    const err = error as Error;
+    console.error('Fatal error:', err.message || String(error));
+    if (err.stack) {
+      console.error(err.stack);
+    }
     process.exit(1);
   }
 }

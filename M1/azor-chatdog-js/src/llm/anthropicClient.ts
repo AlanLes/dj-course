@@ -1,6 +1,6 @@
 import { Anthropic } from "@anthropic-ai/sdk";
-import { ILLMClient, ILLMChatSession, LLMResponse, Message } from "../types";
-import { AnthropicConfig, validateAnthropicConfig } from "./anthropicValidation";
+import { ILLMClient, ILLMChatSession, LLMResponse, Message, MessagePart } from "../types/index.js";
+import { AnthropicConfig, validateAnthropicConfig } from "./anthropicValidation.js";
 
 /**
  * Convert universal history format to Anthropic-compatible messages
@@ -12,7 +12,7 @@ function convertUniversalHistoryToAnthropic(history: Message[]): Array<{role: 'u
     const role = msg.role === 'model' ? 'assistant' : msg.role as 'user' | 'assistant';
 
     // Extract text content from parts
-    const text = msg.parts.map(part => part.text).join('');
+    const text = msg.parts.map((part: MessagePart) => part.text).join('');
 
     return {
       role,
