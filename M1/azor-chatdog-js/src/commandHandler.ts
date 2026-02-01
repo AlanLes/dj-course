@@ -6,6 +6,7 @@ import { displayHelp, printError, printInfo, printSuccess } from './cli/console.
 import { displaySessionList } from './commands/sessionList.js';
 import { displaySessionHistory } from './commands/sessionDisplay.js';
 import { removeCurrentSession } from './commands/sessionRemove.js';
+import { selectSessionInteractive } from './commands/sessionSelect.js';
 import type { SessionManager } from './session/sessionManager.js';
 
 /**
@@ -21,13 +22,33 @@ const VALID_SLASH_COMMANDS = [
 ];
 
 /**
+ * Perform session switch and display feedback
+ */
+function performSwitch(sessionId: string, manager: SessionManager): void {
+  const result = manager.switchToSession(sessionId);
+  
+  if (result.loadSuccessful) {
+    printSuccess(`Switched to session ${sessionId}`);
+    if (result.hasHistory) {
+      const session = result.session;
+      const tokenInfo = session.getTokenInfo();
+      printInfo(
+        `Session has ${session.getHistory().length} messages (${tokenInfo.total} tokens)`
+      );
+    }
+  } else {
+    printError(`Failed to switch: ${result.error}`);
+  }
+}
+
+/**
  * Handle a slash command
  * @returns true if should exit, false otherwise
  */
-export function handleCommand(
+export async function handleCommand(
   userInput: string,
   manager: SessionManager
-): boolean {
+): Promise<boolean> {
   const parts = userInput.trim().split(/\s+/);
   const command = parts[0].toLowerCase();
   const args = parts.slice(1);
@@ -56,23 +77,15 @@ export function handleCommand(
 
     case '/switch':
       if (args.length === 0) {
-        printError('Usage: /switch <SESSION_ID>');
-      } else {
-        const sessionId = args[0];
-        const result = manager.switchToSession(sessionId);
-
-        if (result.loadSuccessful) {
-          printSuccess(`Switched to session ${sessionId}`);
-          if (result.hasHistory) {
-            const session = result.session;
-            const tokenInfo = session.getTokenInfo();
-            printInfo(
-              `Session has ${session.getHistory().length} messages (${tokenInfo.total} tokens)`
-            );
-          }
-        } else {
-          printError(`Failed to switch: ${result.error}`);
+        // NOWE: Interaktywny wybór sesji
+        const selectedId = await selectSessionInteractive();
+        if (selectedId === null) {
+          printInfo('Anulowano wybór sesji.');
+          return false;
         }
+        performSwitch(selectedId, manager);
+      } else {
+        performSwitch(args[0], manager);
       }
       return false;
 
