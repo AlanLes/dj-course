@@ -12,7 +12,13 @@ import type {
   LLMResponse,
   TokenInfo,
   Result,
+  MCPTool,
 } from '../types/index.js';
+import {
+  ASK_USER_CLARIFICATION_TOOL,
+  CLARIFICATION_TOOL_NAME,
+  handleClarificationToolCall,
+} from '../tools/index.js';
 import { loadSessionHistory, saveSessionHistory } from '../files/sessionFiles.js';
 import { appendToWAL } from '../files/wal.js';
 import { MAX_CONTEXT_TOKENS } from '../files/config.js';
@@ -119,29 +125,32 @@ export class ChatSession {
   async sendMessage(text: string): Promise<LLMResponse> {
     let response: LLMResponse;
 
-    // Check if we can use tools
-    const canUseTools = 
-      this.mcpClient && 
-      this.mcpClient.isConnected() && 
-      this.mcpClient.hasTools() &&
-      supportsTools(this.llmChatSession);
+    const doesLLMSupportTools = supportsTools(this.llmChatSession);
 
-    if (canUseTools) {
-      // Use tool-enabled message sending
-      const tools = this.mcpClient!.listTools();
+    if (doesLLMSupportTools) {
+
+      const allTools: MCPTool[] = [ASK_USER_CLARIFICATION_TOOL];
       
-      // Create tool call handler
-      const onToolCall = async (toolName: string, toolInput: Record<string, unknown>): Promise<string> => {
-        return await this.mcpClient!.callTool(toolName, toolInput);
-      };
+      // Check if we can use tools
+      const hasMcpTools = 
+        this.mcpClient && 
+        this.mcpClient.isConnected() && 
+        this.mcpClient.hasTools();
+  
+      if (hasMcpTools) {
+        allTools.push(...this.mcpClient!.listTools());
+      }
 
-      response = await (this.llmChatSession as ILLMChatSessionWithTools).sendMessageWithTools(
-        text,
-        tools,
-        onToolCall
-      );
+      const onToolCall = async(toolName: string, toolInput: Record<string, unknown>): Promise<string> => {
+        if (toolName === CLARIFICATION_TOOL_NAME) return await handleClarificationToolCall(toolInput);
+        return hasMcpTools ? await this.mcpClient!.callTool(toolName, toolInput) : `Nieznane narzędzie: ${toolName}`;
+      }
+
+      response = await (
+        this.llmChatSession as ILLMChatSessionWithTools
+      ).sendMessageWithTools(text, allTools, onToolCall);
     } else {
-      // Regular message sending without tools
+      // LLM nie wspiera tools — zwykłe wysłanie
       response = await this.llmChatSession.sendMessage(text);
     }
 
