@@ -8,6 +8,7 @@ import { displaySessionHistory } from './commands/sessionDisplay.js';
 import { removeCurrentSession } from './commands/sessionRemove.js';
 import { selectSessionInteractive } from './commands/sessionSelect.js';
 import type { SessionManager } from './session/sessionManager.js';
+import { createAssistantCommand, currentAssistantCommand, listAssistantsCommand, switchAssistantCommand } from './commands/assistant.js';
 
 /**
  * Valid slash commands
@@ -19,6 +20,7 @@ const VALID_SLASH_COMMANDS = [
   '/help',
   '/session',
   '/pdf',
+  '/assistant',
 ];
 
 /**
@@ -93,6 +95,10 @@ export async function handleCommand(
       printError('PDF export not yet implemented');
       return false;
 
+    case '/assistant':
+      handleAssistantSubcommand(args, manager);
+      return false;
+
     default:
       printError(`Unknown command: ${command}`);
       return false;
@@ -144,5 +150,47 @@ function handleSessionSubcommand(args: string[], manager: SessionManager): void 
     default:
       printError(`Unknown subcommand: ${subcommand}`);
       printInfo('Available: list, display, new, clear, pop, remove');
+  }
+}
+
+/**
+ * Handle /assistant subcommands
+ */
+function handleAssistantSubcommand(args: string[], manager: SessionManager): void {
+  if (args.length === 0) {
+    printError('Usage: /assistant <list|switch|current|create>');
+    return;
+  }
+
+  const subcommand = args[0].toLowerCase();
+
+  switch (subcommand) {
+    case 'list':
+      listAssistantsCommand();
+      break;
+
+    case 'switch':
+      if (args.length < 2) {
+        printError('Usage: /assistant switch <id>');
+        return;
+      }
+      switchAssistantCommand(args[1]);
+      break;
+
+    case 'current':
+      currentAssistantCommand();
+      break;
+
+    case 'create':
+      if (args.length < 4) {
+        printError('Usage: /assistant create <id> <name> <systemPrompt>');
+        return;
+      }
+      createAssistantCommand(args[1], args[2], args[3]);
+      break;
+
+    default:
+      printError(`Unknown subcommand: ${subcommand}`);
+      printInfo('Available: list, switch, current, create');
   }
 }

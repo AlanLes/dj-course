@@ -1,3 +1,8 @@
+// Krok 9: Aktualizacja glownej petli czatu
+// initChat() - inicjalizacja rejestru zamiast pojedynczego asystenta
+// mainLoop() - uzycie dynamicznej nazwy asystenta przy wyswietlaniu odpowiedzi (zamiast hardcoded assistant.name)
+
+
 /**
  * Main chat loop and initialization
  */
@@ -11,6 +16,7 @@ import { printAssistant, printInfo, printError } from './cli/console.js';
 import { printWelcome } from './commands/welcome.js';
 import { handleCommand } from './commandHandler.js';
 import { initMcpClient, cleanupMcpClient } from './mcp/client.js';
+import { AssistantRegistry } from './assistant/registry.js';
 
 // Load environment variables
 config();
@@ -22,11 +28,11 @@ export async function initChat(): Promise<void> {
   // Print welcome banner
   printWelcome();
 
-  // Create assistant
-  const assistant = createAzorAssistant();
+  // Register built-in assistants
+  AssistantRegistry.registerBuiltinAssistants();
 
   // Get session manager
-  const manager = getSessionManager(assistant);
+  const manager = getSessionManager();
 
   // Initialize MCP Client for tool calling
   try {
@@ -76,8 +82,7 @@ export async function initChat(): Promise<void> {
  * Main chat loop
  */
 export async function mainLoop(): Promise<void> {
-  const assistant = createAzorAssistant();
-  const manager = getSessionManager(assistant);
+  const manager = getSessionManager();
 
   while (true) {
     try {
@@ -108,7 +113,7 @@ export async function mainLoop(): Promise<void> {
       const tokenInfo = session.getTokenInfo();
 
       // Display response
-      printAssistant(`\n${assistant.name}: ${response.text}`);
+      printAssistant(`\n${session.assistantName}: ${response.text}`);
       printInfo(
         `Tokens: ${tokenInfo.total} (Pozostało: ${tokenInfo.remaining} / ${tokenInfo.max})`
       );

@@ -31,6 +31,7 @@ export interface TimestampedMessage {
  * Session history file format
  */
 export interface SessionHistoryFile {
+  assistant_id: string;
   session_id: string;
   model: string;
   system_role: string;

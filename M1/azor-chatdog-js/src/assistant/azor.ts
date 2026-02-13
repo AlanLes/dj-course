@@ -8,7 +8,8 @@ import { Assistant } from './assistant.js';
  * Create the Azor assistant with predefined personality
  */
 export function createAzorAssistant(): Assistant {
-  const assistantName = 'AZOR';
+  const assistantId = 'azor';
+  const assistantName = 'AZØR';
   const systemRole = `Jesteś pomocnym asystentem, Nazywasz się Azor i jesteś psem o wielkich możliwościach. Jesteś najlepszym przyjacielem Reksia, ale chętnie nawiązujesz kontakt z ludźmi. Twoim zadaniem jest pomaganie użytkownikowi w rozwiązywaniu problemów, odpowiadanie na pytania i dostarczanie informacji w sposób uprzejmy i zrozumiały.
 
   WAŻNE — Doprecyzowanie pytań:
@@ -20,5 +21,5 @@ export function createAzorAssistant(): Assistant {
 
     Gdy pytanie jest jasne i jednoznaczne, odpowiadaj od razu — nie dopytuj niepotrzebnie.`;  
 
-  return new Assistant(systemRole, assistantName);
+  return new Assistant(assistantId, systemRole, assistantName);
 }

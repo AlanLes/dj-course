@@ -26,6 +26,7 @@ import { GeminiLLMClient } from '../llm/geminiClient.js';
 import { AnthropicLLMClient } from '../llm/anthropicClient.js';
 import { LlamaClient } from '../llm/llamaClient.js';
 import type { McpClient } from '../mcp/client.js';
+import { AssistantRegistry } from '../assistant/registry.js';
 
 /**
  * Engine mapping for LLM client selection
@@ -90,7 +91,6 @@ export class ChatSession {
    * Load session from file
    */
   static loadFromFile(
-    assistant: Assistant,
     sessionId: string,
     mcpClient?: McpClient
   ): Result<ChatSession, string> {
@@ -100,8 +100,12 @@ export class ChatSession {
       return { success: false, error: result.error };
     }
 
-    const history = result.value;
-    const session = new ChatSession(assistant, sessionId, history, mcpClient);
+    const { history, assistantId } = result.value;
+    const registeredAssistant = AssistantRegistry.get(assistantId);
+    if (!registeredAssistant) {
+      return { success: false, error: `Assistant not found: ${assistantId}` };
+    }
+    const session = new ChatSession(registeredAssistant, sessionId, history, mcpClient);
 
     return { success: true, value: session };
   }
@@ -114,7 +118,8 @@ export class ChatSession {
       this.sessionId,
       this.history,
       this.assistant.systemPrompt,
-      this.llmClient.getModelName()
+      this.llmClient.getModelName(),
+      this.assistant.id
     );
   }
 
@@ -245,10 +250,32 @@ export class ChatSession {
   }
 
   /**
+   * Switch assistant
+   */
+  switchAssistant(newAssistant: Assistant): void {
+    this.history.push({
+      role: 'user',
+      parts: [{ text: `[SYSTEM: Zmiana asystenta z ${this.assistant.name} na ${newAssistant.name}. Od teraz odpowiadasz jako nowy asystent.]` }]
+    });
+    this.assistant = newAssistant;
+    this.llmChatSession = this.llmClient.createChatSession(
+      newAssistant.systemPrompt,
+      this.history
+    );
+  }
+
+  /**
    * Get assistant name
    */
   get assistantName(): string {
     return this.assistant.name;
+  }
+
+  /**
+   * Get assistant ID
+   */
+  get assistantId(): string {
+    return this.assistant.id;
   }
 
   /**

@@ -39,7 +39,7 @@ function timestampedToMessage(msg: TimestampedMessage): Message {
  */
 export function loadSessionHistory(
   sessionId: string
-): Result<Message[], string> {
+): Result<{ history: Message[], assistantId: string }, string> {
   const filePath = getSessionFilePath(sessionId);
 
   if (!fs.existsSync(filePath)) {
@@ -56,7 +56,7 @@ export function loadSessionHistory(
     // Convert timestamped messages to universal format
     const history = data.history.map(timestampedToMessage);
 
-    return { success: true, value: history };
+    return { success: true, value: { history, assistantId: data.assistant_id } };
   } catch (error) {
     if (error instanceof SyntaxError) {
       return {
@@ -79,7 +79,8 @@ export function saveSessionHistory(
   sessionId: string,
   history: Message[],
   systemPrompt: string,
-  modelName: string
+  modelName: string,
+  assistantId: string = 'azor'
 ): Result<boolean, string> {
   // Don't save if history is too short
   if (history.length < 2) {
@@ -96,6 +97,7 @@ export function saveSessionHistory(
     model: modelName,
     system_role: systemPrompt,
     history: timestampedHistory,
+    assistant_id: assistantId,
   };
 
   try {

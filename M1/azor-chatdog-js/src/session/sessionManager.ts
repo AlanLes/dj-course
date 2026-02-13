@@ -11,18 +11,14 @@ import type {
 } from '../types/index.js';
 import { removeSessionFile } from '../files/sessionFiles.js';
 import type { McpClient } from '../mcp/client.js';
+import { AssistantRegistry } from '../assistant/registry.js';
 
 /**
  * SessionManager singleton class
  */
 export class SessionManager {
   private currentSession?: ChatSession;
-  private assistant: Assistant;
   private mcpClient: McpClient | null = null;
-
-  constructor(assistant: Assistant) {
-    this.assistant = assistant;
-  }
 
   /**
    * Set the MCP Client for tool calling
@@ -73,7 +69,7 @@ export class SessionManager {
     }
 
     // Create new session with MCP client if available
-    const newSession = new ChatSession(this.assistant, undefined, undefined, this.mcpClient || undefined);
+    const newSession = new ChatSession(this.getRegisteredAssistant(), undefined, undefined, this.mcpClient || undefined);
     this.currentSession = newSession;
 
     return {
@@ -82,6 +78,14 @@ export class SessionManager {
       previousId,
       saveError,
     };
+  }
+
+  /**
+   * Switch assistant - deleguje do aktualnej sesji
+   */
+  switchAssistant(assistantId: string): void {
+    if (!this.currentSession) throw new Error('No active session. Call createNewSession() first.');
+    this.currentSession.switchAssistant(this.getRegisteredAssistant(assistantId));
   }
 
   /**
@@ -103,7 +107,7 @@ export class SessionManager {
     }
 
     // Load new session with MCP client if available
-    const loadResult = ChatSession.loadFromFile(this.assistant, sessionId, this.mcpClient || undefined);
+    const loadResult = ChatSession.loadFromFile(sessionId, this.mcpClient || undefined);
 
     if (!loadResult.success) {
       return {
@@ -140,7 +144,7 @@ export class SessionManager {
     const removeResult = removeSessionFile(removedId);
 
     // Create new session with MCP client if available
-    const newSession = new ChatSession(this.assistant, undefined, undefined, this.mcpClient || undefined);
+    const newSession = new ChatSession(this.getRegisteredAssistant(), undefined, undefined, this.mcpClient || undefined);
     this.currentSession = newSession;
 
     return {
@@ -157,7 +161,7 @@ export class SessionManager {
   initializeFromCLI(cliSessionId?: string): ChatSession {
     if (cliSessionId) {
       // Try to load specified session with MCP client if available
-      const result = ChatSession.loadFromFile(this.assistant, cliSessionId, this.mcpClient || undefined);
+      const result = ChatSession.loadFromFile(cliSessionId, this.mcpClient || undefined);
 
       if (result.success) {
         this.currentSession = result.value;
@@ -169,7 +173,7 @@ export class SessionManager {
     }
 
     // Create new session with MCP client if available
-    const session = new ChatSession(this.assistant, undefined, undefined, this.mcpClient || undefined);
+    const session = new ChatSession(this.getRegisteredAssistant(), undefined, undefined, this.mcpClient || undefined);
     this.currentSession = session;
     return session;
   }
@@ -185,6 +189,13 @@ export class SessionManager {
       }
     }
   }
+
+  private getRegisteredAssistant(assistantId?: string): Assistant {
+    const assistantIdToUse = assistantId || this.currentSession?.assistantId || 'azor';
+    const registeredAssistant = AssistantRegistry.get(assistantIdToUse);
+    if (!registeredAssistant) throw new Error(`Assistant not found: ${assistantIdToUse}`);
+    return registeredAssistant;
+  }
 }
 
 // Singleton instance
@@ -193,12 +204,9 @@ let sessionManagerInstance: SessionManager | undefined;
 /**
  * Get the session manager singleton
  */
-export function getSessionManager(assistant?: Assistant): SessionManager {
+export function getSessionManager(): SessionManager {
   if (!sessionManagerInstance) {
-    if (!assistant) {
-      throw new Error('Assistant required for first initialization');
-    }
-    sessionManagerInstance = new SessionManager(assistant);
+    sessionManagerInstance = new SessionManager();
   }
   return sessionManagerInstance;
 }
