@@ -49,7 +49,7 @@ Get your API key from [Google AI Studio](https://aistudio.google.com/apikey)
 ```bash
 ENGINE=ANTHROPIC
 ANTHROPIC_API_KEY=your_api_key_here
-MODEL_NAME=claude-3-5-haiku-latest
+MODEL_NAME=claude-haiku-4-5-20251001
 ```
 
 Get your API key from [Anthropic Console](https://console.anthropic.com/)

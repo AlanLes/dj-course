@@ -2,6 +2,8 @@ import { Assistant } from "./assistant.js";
 import { createAzaAssistant } from "./aza.js";
 import { createReksioAssistant } from "./reksio.js";
 import { createAzorAssistant } from "./azor.js";
+import { createSparingPartnerAssistant } from "./sparingPartner.js";
+import { createAngelInvestorAssistant } from "./angelInvestor.js";
 
 export class AssistantRegistry {
     private static assistants: Map<string, Assistant> = new Map();
@@ -26,5 +28,7 @@ export class AssistantRegistry {
         this.register(createAzaAssistant());
         this.register(createReksioAssistant());
         this.register(createAzorAssistant());
+        this.register(createSparingPartnerAssistant());
+        this.register(createAngelInvestorAssistant());
     }
 }

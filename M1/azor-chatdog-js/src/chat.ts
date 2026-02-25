@@ -8,7 +8,6 @@
  */
 
 import { config } from 'dotenv';
-import { createAzorAssistant } from './assistant/azor.js';
 import { getSessionManager } from './session/sessionManager.js';
 import { getSessionIdFromCLI } from './cli/args.js';
 import { getUserInput } from './cli/prompt.js';
