@@ -40,7 +40,7 @@ const ENGINE_MAPPING: Record<string, typeof GeminiLLMClient | typeof AnthropicLL
 /**
  * Get the selected LLM client based on ENGINE environment variable
  */
-function getSelectedLLMClient(): ILLMClient {
+export function getSelectedLLMClient(): ILLMClient {
   const engine = (process.env.ENGINE || 'GEMINI').toUpperCase();
   const SelectedClientClass = ENGINE_MAPPING[engine] || GeminiLLMClient;
   return SelectedClientClass.fromEnvironment();

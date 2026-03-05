@@ -124,14 +124,14 @@ AZØR - Role-playing - “Autonomiczna rozmowa”
 Bazowa implementacja znajduje się w: `M4/role-playing-chat`.
 
 JAK:
-- rozmowa ma określone np. 2 "persony" które biorą w niej udział (np. Wnikliwa Sparing Partner i Angel Investor)
-- każda "persona" ma określoną rolę (poprzednie zadanie)
+- rozmowa ma określone np. 2 "persony" które biorą w niej udział
+- każda "persona" ma określoną rolę
 - inicjalny prompt pochodzi od Ciebie (człowieka), potem następuje "dialog"...
 - agent zleca modelowi odpowiedź w roli persony A
 - Następnie agent "przełącza" kontekst modelu na personę B - i zleca odpowiedź
-- […]
-- schemat dokładnie opisany w lekcji-pracy-domowej
-- optymalnie byłoby, aby taki tryb konwersacyjny w AZØRZE miał swój moduł, i gdyby UI AZØRA pobierał odpowiednio info od użytkownika (wybó® asystentów, określenie prompta, możliwość przerwania konwersacji)
+- I tak dalej...
+
+Optymalnie byłoby, aby taki tryb konwersacyjny w AZØRZE miał swój moduł, i gdyby UI AZØRA pobierał odpowiednio info od użytkownika (wybór asystentów, określenie prompta, możliwość przerwania konwersacji)
 
 CEL:
 - ćwiczenie umiejętności projektowania/implementowania aplikacji agentowych

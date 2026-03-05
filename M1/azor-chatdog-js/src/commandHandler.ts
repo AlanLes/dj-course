@@ -9,6 +9,7 @@ import { removeCurrentSession } from './commands/sessionRemove.js';
 import { selectSessionInteractive } from './commands/sessionSelect.js';
 import type { SessionManager } from './session/sessionManager.js';
 import { createAssistantCommand, currentAssistantCommand, listAssistantsCommand, switchAssistantCommand } from './commands/assistant.js';
+import { startRolePlayingDialog } from './commands/roleplay.js';
 
 /**
  * Valid slash commands
@@ -21,6 +22,7 @@ const VALID_SLASH_COMMANDS = [
   '/session',
   '/pdf',
   '/assistant',
+  '/dialog',
 ];
 
 /**
@@ -97,6 +99,10 @@ export async function handleCommand(
 
     case '/assistant':
       handleAssistantSubcommand(args, manager);
+      return false;
+
+    case '/dialog':
+      await handleDialogSubcommand(args);
       return false;
 
     default:
@@ -192,5 +198,23 @@ function handleAssistantSubcommand(args: string[], manager: SessionManager): voi
     default:
       printError(`Unknown subcommand: ${subcommand}`);
       printInfo('Available: list, switch, current, create');
+  }
+}
+
+async function handleDialogSubcommand(args: string[]): Promise<void> {
+  if (args.length === 0) {
+    printError('Usage: /dialog <start>');
+    return;
+  }
+
+  const subcommand = args[0].toLowerCase();
+
+  switch (subcommand) {
+    case 'start':
+      await startRolePlayingDialog();
+      break;
+    default:
+      printError(`Unknown subcommand: ${subcommand}`);
+      printInfo('Available: start');
   }
 }

@@ -74,6 +74,7 @@ export function displayHelp(sessionId?: string): void {
   printHelp('  /assistant switch <id> - Przełącza na istniejącego asystenta.');
   printHelp('  /assistant current - Wyświetla aktualnego asystenta.');
   printHelp('  /assistant create <id> <name> <systemPrompt> - Tworzy nowego asystenta.');
+  printHelp('\n  /dialog start     - Rozpoczyna autonomiczny dialog miedzy asystentami.');
 }
 
 /**

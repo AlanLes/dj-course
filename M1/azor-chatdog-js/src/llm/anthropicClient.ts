@@ -119,6 +119,36 @@ export class AnthropicLLMClient implements ILLMClient {
       : 'NOT SET';
     return `Anthropic ${this.modelName} ready (API Key: ${maskedKey})`;
   }
+
+    /**
+ * Generate content directly without chat session
+ * Used for role-playing where history is manipulated per-turn
+ */
+    async generateContent(
+      systemInstruction: string,
+      history: Message[],
+      maxOutputTokens?: number
+    ): Promise<LLMResponse> {
+      // Convert universal history to Anthropic format (model -> assistant)
+      const anthropicMessages = convertUniversalHistoryToAnthropic(history);
+    
+      // Build request
+      const requestArgs: Anthropic.MessageCreateParams = {
+        model: this.modelName,
+        system: systemInstruction,
+        messages: anthropicMessages,
+        max_tokens: maxOutputTokens || 256,
+        temperature: this.modelConfig.temperature,
+      };
+    
+      // Send message to Anthropic
+      const response = await this.client.messages.create(requestArgs);
+    
+      // Extract response text
+      const responseText = extractTextFromAnthropicResponse(response);
+    
+      return { text: responseText };
+    }
 }
 
 export class AnthropicChatSessionWrapper implements ILLMChatSessionWithTools {
@@ -176,7 +206,7 @@ export class AnthropicChatSessionWrapper implements ILLMChatSessionWithTools {
     // Add thinking budget if specified (structured thinking)
     if (this.thinkingBudget > 0) {
       requestArgs.thinking = {
-        type: 'structured',
+        type: 'enabled',
         budget_tokens: this.thinkingBudget,
       };
     }

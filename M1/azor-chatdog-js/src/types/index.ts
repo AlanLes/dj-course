@@ -78,6 +78,36 @@ export interface TokenInfo {
 }
 
 /**
+ * Single entry in role-playing conversation log
+ */
+export interface ConversationEntry {
+  assistantId: string;
+  assistantName: string;
+  text: string;
+}
+
+/**
+ * Configuration for role-playing dialog
+ */
+export interface RolePlayingConfig {
+  /** Maximum number of turns (0 = unlimited) */
+  maxTurns: number;
+  /** Maximum output tokens per response */
+  maxOutputTokens: number;
+}
+
+/**
+ * Result of a single dialog turn
+ */
+export interface DialogTurnResult {
+  assistantId: string;
+  assistantName: string;
+  text: string;
+  turnNumber: number;
+  isLastTurn: boolean;
+}
+
+/**
  * Result type for operations that can fail
  */
 export type Result<T, E = string> =
@@ -121,6 +151,15 @@ export interface ILLMClient {
    * Get message shown when model is ready
    */
   readyForUseMessage(): string;
+
+  /**
+   * Generate content directly without chat session
+   */
+  generateContent?(
+    systemInstruction: string,
+    history: Message[],
+    maxOutputTokens?: number
+  ): Promise<LLMResponse>;
 }
 
 /**
