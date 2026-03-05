@@ -15,6 +15,8 @@ const commands: Record<string, string[]> = {
   '/exit': [],
   '/quit': [],
   '/pdf': [],
+  '/assistant': ['list', 'switch', 'current', 'create'],
+  '/dialog': ['start'],
 };
 
 /**
@@ -101,5 +103,26 @@ export async function selectFromList<T>(
     },
   ]);
 
+  return answers.selected;
+}
+
+/**
+ * Multi-select from a list of options (checkbox)
+ * @param minSelection Minimum required selections (default: 2)
+ */
+export async function checkboxFromList<T>(
+  message: string,
+  choices: Array<{ name: string; value: T }>,
+  minSelection: number = 2
+): Promise<T[]> {
+  const answers = await inquirer.prompt([{
+    type: 'checkbox',
+    name: 'selected',
+    message,
+    choices,
+    validate: (input: T[]) =>
+      input.length >= minSelection ||
+      `Wybierz co najmniej ${minSelection} ${minSelection === 1 ? 'opcję' : 'opcje'}`,
+  }]);
   return answers.selected;
 }
