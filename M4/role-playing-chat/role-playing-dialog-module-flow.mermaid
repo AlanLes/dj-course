@@ -1,0 +1,34 @@
+sequenceDiagram
+    participant U as Uzytkownik
+    participant CMD as CommandHandler
+    participant RP as RolePlayingDialog
+    participant LLM as ILLMClient
+
+    U->>CMD: /dialog start
+    CMD->>U: checkbox - wybierz asystentow (min 2)
+    U-->>CMD: [sparingPartner, angelInvestor]
+    CMD->>U: input - temat rozmowy
+    U-->>CMD: "Mamy startup AI..."
+    CMD->>U: number - limit tur
+    U-->>CMD: 0 (bez limitu)
+    CMD->>RP: new RolePlayingDialog(assistants, prompt, llmClient, config)
+
+    loop Kazda tura (round-robin)
+        RP->>RP: buildHistoryForPersona(participants[turn % n])
+        RP->>LLM: generateContent(persona.systemPrompt, history, maxTokens)
+        alt Sukces
+            LLM-->>RP: odpowiedz
+            RP->>RP: conversationLog.push(entry)
+            RP->>U: wyswietl odpowiedz
+            alt Nie osiagnieto limitu
+                RP->>U: confirm - kontynuowac?
+                U-->>RP: tak/nie
+            else Osiagnieto limit
+                RP->>U: "Osiagnieto limit tur"
+            end
+        else Blad API
+            LLM-->>RP: error
+            RP->>U: "Blad: ..." + confirm - sprobowac ponownie?
+            U-->>RP: tak/nie
+        end
+    end
