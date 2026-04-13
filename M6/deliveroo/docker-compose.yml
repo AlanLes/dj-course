@@ -150,6 +150,38 @@ services:
       - postgres
     restart: unless-stopped
 
+  # ============ Docker Registry ============
+  registry:
+    image: registry:2
+    container_name: deliveroo-registry
+    ports:
+      - "5001:5000"
+    volumes:
+      - registry_data:/var/lib/registry
+    environment:
+      REGISTRY_STORAGE_DELETE_ENABLED: "true"
+    networks:
+      - deliveroo-network
+    restart: unless-stopped
+
+  registry-ui:
+    image: joxit/docker-registry-ui:latest
+    container_name: deliveroo-registry-ui
+    ports:
+      - "8080:80"
+    environment:
+      REGISTRY_TITLE: "Deliveroo Registry"
+      NGINX_PROXY_PASS_URL: http://registry:5000
+      SINGLE_REGISTRY: "true"
+      DELETE_IMAGES: "true"
+      SHOW_CONTENT_DIGEST: "true"
+    networks:
+      - deliveroo-network
+    depends_on:
+      - registry
+    restart: unless-stopped
+
+
 networks:
   deliveroo-network:
     driver: bridge
@@ -158,3 +190,4 @@ volumes:
   postgres_data:
   mongodb_data:
   pgadmin_data:
+  registry_data:
