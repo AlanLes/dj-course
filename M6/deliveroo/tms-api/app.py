@@ -8,7 +8,7 @@ from routes.notifications import notifications_bp
 
 # Create a Flask application instance
 app = Flask(__name__)
-CORS(app, origins=os.environ.get('CORS_ORIGINS', 'http://localhost:5173').split(','))
+CORS(app, origins=os.environ.get('CORS_ORIGINS', 'http://localhost:8080').split(','))
 
 # Register Blueprints
 app.register_blueprint(index_bp)
