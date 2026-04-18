@@ -163,7 +163,7 @@ services:
       dockerfile: Dockerfile
     environment:
       PORT: ${TMS_API_PORT:-3030}
-      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:3000}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080,http://localhost:3000}
     ports:
       - "${TMS_API_PORT:-3030}:3030"
     networks:
@@ -174,14 +174,9 @@ services:
     build:
       context: ./tms-frontend
       dockerfile: Dockerfile
-    environment:
-      VITE_PROXY_TARGET: http://tms-api:${TMS_API_PORT:-3030}
-      VITE_PORT: ${TMS_FRONTEND_PORT:-5173}
+      target: production
     ports:
-      - "${TMS_FRONTEND_PORT:-5173}:5173"
-    volumes:
-      - ./tms-frontend:/app
-      - /app/node_modules
+      - "${TMS_FRONTEND_PORT:-8080}:8080"
     networks:
       - deliveroo-network
     depends_on:
