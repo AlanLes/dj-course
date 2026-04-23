@@ -14,17 +14,19 @@ def get_employees():
             e.email,
             e.phone,
             e.hire_date,
-            STRING_AGG(r.name, ', ') AS roles
+            STRING_AGG(r.name, ', ') AS roles,
+            p.party_code
         FROM
             employee e
         JOIN
             employee_role er ON e.employee_id = er.employee_id
         JOIN
             role r ON er.role_id = r.role_id
+        CROSS JOIN party p
         WHERE
             e.is_deleted = false
         GROUP BY
-            e.employee_id, e.name, e.email, e.phone, e.hire_date
+            e.employee_id, e.name, e.email, e.phone, e.hire_date, p.party_code
         ORDER BY
             e.name;
     ''')
@@ -43,18 +45,20 @@ def get_employee(employee_id):
             e.email,
             e.phone,
             e.hire_date,
-            STRING_AGG(r.name, ', ') AS roles
+            STRING_AGG(r.name, ', ') AS roles,
+            p.party_code
         FROM
             employee e
         JOIN
             employee_role er ON e.employee_id = er.employee_id
         JOIN
             role r ON er.role_id = r.role_id
+        CROSS JOIN party p
         WHERE
             e.is_deleted = false
             AND e.employee_id = :employee_id
         GROUP BY
-            e.employee_id, e.name, e.email, e.phone, e.hire_date
+            e.employee_id, e.name, e.email, e.phone, e.hire_date, p.party_code
         ORDER BY
             e.name;
     ''')

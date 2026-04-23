@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "wms-postgres": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "PG_USER=admin",
+        "-e", "PG_PASSWORD=strongpassword123",
+        "mochoa/mcp-postgres",
+        "postgresql://host.docker.internal:5432/wms"
+      ]
+    }
+  }
+}
