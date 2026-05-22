@@ -1,375 +1,98 @@
 import jsPDF from 'jspdf'
+import {
+  BasePdfGenerator,
+  formatDateTime,
+  MARGINS,
+  PdfDocumentBuilder,
+} from '@deliveroo/pdf-core'
 import { Document } from '../../model/documents'
 
-const DELIVEROO_LOGO_PATH = '/deliveroo-pdf-logo.png'
-
-interface PDFOptions {
+export interface PDFOptions {
   includeWatermark?: boolean
   includeFooter?: boolean
 }
 
-function getDocumentTypeLabel(type: Document['type']): string {
-  const labels = {
-    'contract': 'Contract',
-    'invoice': 'Invoice',
-    'registration': 'Vehicle Registration',
-    'insurance': 'Insurance Policy',
-    'inspection': 'Technical Inspection Certificate',
-    'tir-carnet': 'TIR Carnet',
-    'adr': 'ADR Certificate',
-    'hazmat-permit': 'Hazmat Transport Permit',
-    'license': 'License',
-    'certificate': 'Certificate',
-    'other': 'Document'
-  }
-  return labels[type]
+const DOCUMENT_TYPE_LABELS: Record<Document['type'], string> = {
+  contract: 'Contract',
+  invoice: 'Invoice',
+  registration: 'Vehicle Registration',
+  insurance: 'Insurance Policy',
+  inspection: 'Technical Inspection Certificate',
+  'tir-carnet': 'TIR Carnet',
+  adr: 'ADR Certificate',
+  'hazmat-permit': 'Hazmat Transport Permit',
+  license: 'License',
+  certificate: 'Certificate',
+  other: 'Document',
 }
 
-function getEntityTypeLabel(type: Document['entityType']): string {
-  const labels = {
-    'vehicle': 'Vehicle',
-    'customer': 'Customer',
-    'supplier': 'Supplier',
-    'driver': 'Driver',
-    'company': 'Company',
-    'other': 'Other'
-  }
-  return labels[type]
+const ENTITY_TYPE_LABELS: Record<Document['entityType'], string> = {
+  vehicle: 'Vehicle',
+  customer: 'Customer',
+  supplier: 'Supplier',
+  driver: 'Driver',
+  company: 'Company',
+  other: 'Other',
 }
 
-function formatDate(date: string | Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  }).format(new Date(date))
-}
+class DocumentPdfGenerator extends BasePdfGenerator<Document> {
+  protected override companyName = 'Deliveroo TMS Sp. z o.o.'
 
-// Utility function to generate and download a document PDF
-export async function generateDocumentPDF(document: Document, options: PDFOptions = {}): Promise<void> {
-  const doc = new jsPDF()
-  const pageHeight = doc.internal.pageSize.height
-  const pageWidth = doc.internal.pageSize.getWidth()
-  
-  // Load logo image
-  let logoDataUrl: string | null = null
-  try {
-    const response = await fetch(DELIVEROO_LOGO_PATH)
-    const blob = await response.blob()
-    logoDataUrl = await new Promise((resolve) => {
-      const reader = new FileReader()
-      reader.onloadend = () => resolve(reader.result as string)
-      reader.readAsDataURL(blob)
-    })
-  } catch (err) {
-    console.error('Failed to load local image', err)
+  protected getTitle(data: Document): string {
+    return DOCUMENT_TYPE_LABELS[data.type]
   }
 
-  // Add header with logo
-  if (logoDataUrl) {
-    doc.addImage(logoDataUrl, 'PNG', 20, 10, 40, 15)
+  protected getFilename(data: Document): string {
+    return `${data.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${data.id}.pdf`
   }
 
-  // Company info
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'normal')
-  doc.text('Transport Management System', pageWidth - 20 - 60, 15)
-  doc.text('Deliveroo TMS Sp. z o.o.', pageWidth - 20 - 60, 22)
-  
-  // Header line
-  doc.setLineWidth(0.5)
-  doc.line(20, 30, pageWidth - 20, 30)
-  
-  let yPos = 40
+  protected override getContentStartY(): number {
+    return 40
+  }
 
-  // Add watermark if requested
-  if (options.includeWatermark) {
-    doc.setFontSize(50)
-    doc.setTextColor(200, 200, 200)
-    doc.setFont('helvetica', 'bold')
-    doc.text('SAMPLE DOCUMENT', pageWidth / 2, pageHeight / 2, {
-      angle: 45,
-      align: 'center'
-    })
+  protected override async renderHeader(
+    doc: jsPDF,
+    logoDataUrl: string | null,
+    data: Document,
+  ): Promise<void> {
+    const pageWidth = doc.internal.pageSize.getWidth()
+
+    if (logoDataUrl) {
+      doc.addImage(logoDataUrl, 'PNG', 20, 10, 40, 15)
+    }
+
+    doc.setFontSize(10)
+    doc.setFont('helvetica', 'normal')
     doc.setTextColor(0, 0, 0)
-  }
+    doc.text('Transport Management System', pageWidth - 20 - 60, 15)
+    doc.text(this.companyName, pageWidth - 20 - 60, 22)
 
-  // Document title
-  doc.setFontSize(18)
-  doc.setFont('helvetica', 'bold')
-  doc.text(getDocumentTypeLabel(document.type), 20, yPos)
-  yPos += 15
-
-  // Document Information Section
-  if (yPos + 15 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(12)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Document Information', 20, yPos)
-  yPos += 8
-
-  // Document Name field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Document Name:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  let lines = doc.splitTextToSize(document.name, 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Document Type field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Document Type:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(getDocumentTypeLabel(document.type), 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Document ID field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Document ID:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(document.id, 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Document Number field (if exists)
-  if (document.number) {
-    if (yPos + 10 > pageHeight - 40) {
-      doc.addPage()
-      yPos = 20
-    }
-    doc.setFontSize(10)
-    doc.setFont('helvetica', 'bold')
-    doc.text('Document Number:', 20, yPos)
-    doc.setFont('helvetica', 'normal')
-    lines = doc.splitTextToSize(document.number, 80)
-    doc.text(lines, 60, yPos)
-    yPos += Math.max(lines.length * 4, 6)
-  }
-
-  yPos += 5
-
-  // Related Entity Section
-  if (yPos + 15 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(12)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Related Entity', 20, yPos)
-  yPos += 8
-
-  // Related To field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Related To:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(getEntityTypeLabel(document.entityType), 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Entity Name field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Entity Name:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(document.entityName, 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Entity ID field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Entity ID:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(document.entityId, 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  yPos += 5
-
-  // Important Dates Section
-  if (yPos + 15 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(12)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Important Dates', 20, yPos)
-  yPos += 8
-
-  // Issue Date field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Issue Date:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(formatDate(document.issueDate), 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Expiry Date field (if exists)
-  if (document.expiryDate) {
-    if (yPos + 10 > pageHeight - 40) {
-      doc.addPage()
-      yPos = 20
-    }
-    doc.setFontSize(10)
-    doc.setFont('helvetica', 'bold')
-    doc.text('Expiry Date:', 20, yPos)
-    doc.setFont('helvetica', 'normal')
-    lines = doc.splitTextToSize(formatDate(document.expiryDate), 80)
-    doc.text(lines, 60, yPos)
-    yPos += Math.max(lines.length * 4, 6)
-  }
-
-  // Created field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Created:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(formatDate(document.createdAt), 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Last Updated field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Last Updated:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(formatDate(document.updatedAt), 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  yPos += 5
-
-  // Issuing Authority Section (if exists)
-  if (document.issuingAuthority) {
-    if (yPos + 15 > pageHeight - 40) {
-      doc.addPage()
-      yPos = 20
-    }
-    doc.setFontSize(12)
-    doc.setFont('helvetica', 'bold')
-    doc.text('Issuing Authority', 20, yPos)
-    yPos += 8
-
-    if (yPos + 10 > pageHeight - 40) {
-      doc.addPage()
-      yPos = 20
-    }
-    doc.setFontSize(10)
-    doc.setFont('helvetica', 'bold')
-    doc.text('Authority:', 20, yPos)
-    doc.setFont('helvetica', 'normal')
-    lines = doc.splitTextToSize(document.issuingAuthority, 80)
-    doc.text(lines, 60, yPos)
-    yPos += Math.max(lines.length * 4, 6)
-
-    yPos += 5
-  }
-
-  // Notes Section (if exists)
-  if (document.notes) {
-    if (yPos + 15 > pageHeight - 40) {
-      doc.addPage()
-      yPos = 20
-    }
-    doc.setFontSize(12)
-    doc.setFont('helvetica', 'bold')
-    doc.text('Notes', 20, yPos)
-    yPos += 8
-    
-    doc.setFontSize(10)
-    doc.setFont('helvetica', 'normal')
-    
-    // Split notes into lines to handle long text
-    lines = doc.splitTextToSize(document.notes, pageWidth - 2 * 20)
-    lines.forEach((line: string) => {
-      if (yPos > pageHeight - 40) {
-        doc.addPage()
-        yPos = 20
-      }
-      doc.text(line, 20, yPos)
-      yPos += 5
-    })
-
-    yPos += 5
-  }
-
-  // Document Content Section
-  if (yPos + 15 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(12)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Document Content', 20, yPos)
-  yPos += 8
-  
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'normal')
-  doc.text('This is a sample document generated by the Deliveroo TMS system.', 20, yPos)
-  yPos += 6
-  doc.text('This document contains all the relevant information as stored in the system.', 20, yPos)
-
-  // Add footer if requested
-  if (options.includeFooter !== false) {
-    const footerY = pageHeight - 20
-    
-    // Footer line
     doc.setLineWidth(0.5)
-    doc.line(20, footerY - 5, pageWidth - 20, footerY - 5)
-    
-    // Footer text
+    doc.line(MARGINS.left, 30, pageWidth - MARGINS.right, 30)
+
+    doc.setFontSize(18)
+    doc.setFont('helvetica', 'bold')
+    doc.text(this.getTitle(data), MARGINS.left, 40)
+  }
+
+  protected override renderFooter(doc: jsPDF): void {
+    if (this.options.includeFooter === false) {
+      return
+    }
+
+    const pageHeight = doc.internal.pageSize.height
+    const pageWidth = doc.internal.pageSize.getWidth()
+    const footerY = pageHeight - 20
+
+    doc.setLineWidth(0.5)
+    doc.line(MARGINS.left, footerY - 5, pageWidth - MARGINS.right, footerY - 5)
+
     doc.setFontSize(8)
     doc.setFont('helvetica', 'normal')
-    doc.text('Generated by Deliveroo TMS', 20, footerY)
-    doc.text(`Generated on: ${formatDate(new Date())}`, pageWidth - 20 - 50, footerY)
-    
-    // Page number
+    doc.setTextColor(0, 0, 0)
+    doc.text('Generated by Deliveroo TMS', MARGINS.left, footerY)
+    doc.text(`Generated on: ${formatDateTime(new Date())}`, pageWidth - 20 - 50, footerY)
+
     const pageCount = doc.getNumberOfPages()
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i)
@@ -377,339 +100,66 @@ export async function generateDocumentPDF(document: Document, options: PDFOption
     }
   }
 
-  const filename = `${document.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${document.id}.pdf`
-  doc.save(filename)
+  protected renderSections(builder: PdfDocumentBuilder, document: Document): void {
+    builder
+      .sectionPlain('Document Information')
+      .fieldPair('Document Name:', document.name)
+      .fieldPair('Document Type:', DOCUMENT_TYPE_LABELS[document.type])
+      .fieldPair('Document ID:', document.id)
+
+    if (document.number) {
+      builder.fieldPair('Document Number:', document.number)
+    }
+
+    builder
+      .spacer(5)
+      .sectionPlain('Related Entity')
+      .fieldPair('Related To:', ENTITY_TYPE_LABELS[document.entityType])
+      .fieldPair('Entity Name:', document.entityName)
+      .fieldPair('Entity ID:', document.entityId)
+      .spacer(5)
+      .sectionPlain('Important Dates')
+      .fieldPair('Issue Date:', formatDateTime(document.issueDate))
+
+    if (document.expiryDate) {
+      builder.fieldPair('Expiry Date:', formatDateTime(document.expiryDate))
+    }
+
+    builder
+      .fieldPair('Created:', formatDateTime(document.createdAt))
+      .fieldPair('Last Updated:', formatDateTime(document.updatedAt))
+
+    if (document.issuingAuthority) {
+      builder
+        .spacer(5)
+        .sectionPlain('Issuing Authority')
+        .fieldPair('Authority:', document.issuingAuthority)
+    }
+
+    if (document.notes) {
+      builder.sectionPlain('Notes').fieldMultiline('', document.notes, builder.getPageWidth() - 2 * MARGINS.left)
+      builder.spacer(5)
+    }
+
+    builder
+      .sectionPlain('Document Content')
+      .rawText('This is a sample document generated by the Deliveroo TMS system.')
+      .rawText('This document contains all the relevant information as stored in the system.')
+  }
 }
 
-// Utility function to generate PDF blob for preview
-export async function generateDocumentPDFBlob(document: Document, options: PDFOptions = {}): Promise<Blob> {
-  const doc = new jsPDF()
-  const pageHeight = doc.internal.pageSize.height
-  const pageWidth = doc.internal.pageSize.getWidth()
-  
-  // Load logo image
-  let logoDataUrl: string | null = null
-  try {
-    const response = await fetch(DELIVEROO_LOGO_PATH)
-    const blob = await response.blob()
-    logoDataUrl = await new Promise((resolve) => {
-      const reader = new FileReader()
-      reader.onloadend = () => resolve(reader.result as string)
-      reader.readAsDataURL(blob)
-    })
-  } catch (err) {
-    console.error('Failed to load local image', err)
-  }
+const documentPdfGenerator = new DocumentPdfGenerator()
 
-  // Add header with logo
-  if (logoDataUrl) {
-    doc.addImage(logoDataUrl, 'PNG', 20, 10, 40, 15)
-  }
+export async function generateDocumentPDF(
+  document: Document,
+  options: PDFOptions = {},
+): Promise<void> {
+  return documentPdfGenerator.generate(document, options)
+}
 
-  // Company info
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'normal')
-  doc.text('Transport Management System', pageWidth - 20 - 60, 15)
-  doc.text('Deliveroo TMS Sp. z o.o.', pageWidth - 20 - 60, 22)
-  
-  // Header line
-  doc.setLineWidth(0.5)
-  doc.line(20, 30, pageWidth - 20, 30)
-  
-  let yPos = 40
-
-  // Add watermark if requested
-  if (options.includeWatermark) {
-    doc.setFontSize(50)
-    doc.setTextColor(200, 200, 200)
-    doc.setFont('helvetica', 'bold')
-    doc.text('SAMPLE DOCUMENT', pageWidth / 2, pageHeight / 2, {
-      angle: 45,
-      align: 'center'
-    })
-    doc.setTextColor(0, 0, 0)
-  }
-
-  // Document title
-  doc.setFontSize(18)
-  doc.setFont('helvetica', 'bold')
-  doc.text(getDocumentTypeLabel(document.type), 20, yPos)
-  yPos += 15
-
-  // Document Information Section
-  if (yPos + 15 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(12)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Document Information', 20, yPos)
-  yPos += 8
-
-  // Document Name field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Document Name:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  let lines = doc.splitTextToSize(document.name, 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Document Type field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Document Type:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(getDocumentTypeLabel(document.type), 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Document ID field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Document ID:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(document.id, 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Document Number field (if exists)
-  if (document.number) {
-    if (yPos + 10 > pageHeight - 40) {
-      doc.addPage()
-      yPos = 20
-    }
-    doc.setFontSize(10)
-    doc.setFont('helvetica', 'bold')
-    doc.text('Document Number:', 20, yPos)
-    doc.setFont('helvetica', 'normal')
-    lines = doc.splitTextToSize(document.number, 80)
-    doc.text(lines, 60, yPos)
-    yPos += Math.max(lines.length * 4, 6)
-  }
-
-  yPos += 5
-
-  // Related Entity Section
-  if (yPos + 15 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(12)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Related Entity', 20, yPos)
-  yPos += 8
-
-  // Related To field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Related To:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(getEntityTypeLabel(document.entityType), 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Entity Name field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Entity Name:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(document.entityName, 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Entity ID field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Entity ID:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(document.entityId, 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  yPos += 5
-
-  // Important Dates Section
-  if (yPos + 15 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(12)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Important Dates', 20, yPos)
-  yPos += 8
-
-  // Issue Date field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Issue Date:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(formatDate(document.issueDate), 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Expiry Date field (if exists)
-  if (document.expiryDate) {
-    if (yPos + 10 > pageHeight - 40) {
-      doc.addPage()
-      yPos = 20
-    }
-    doc.setFontSize(10)
-    doc.setFont('helvetica', 'bold')
-    doc.text('Expiry Date:', 20, yPos)
-    doc.setFont('helvetica', 'normal')
-    lines = doc.splitTextToSize(formatDate(document.expiryDate), 80)
-    doc.text(lines, 60, yPos)
-    yPos += Math.max(lines.length * 4, 6)
-  }
-
-  // Created field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Created:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(formatDate(document.createdAt), 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  // Last Updated field
-  if (yPos + 10 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Last Updated:', 20, yPos)
-  doc.setFont('helvetica', 'normal')
-  lines = doc.splitTextToSize(formatDate(document.updatedAt), 80)
-  doc.text(lines, 60, yPos)
-  yPos += Math.max(lines.length * 4, 6)
-
-  yPos += 5
-
-  // Issuing Authority Section (if exists)
-  if (document.issuingAuthority) {
-    if (yPos + 15 > pageHeight - 40) {
-      doc.addPage()
-      yPos = 20
-    }
-    doc.setFontSize(12)
-    doc.setFont('helvetica', 'bold')
-    doc.text('Issuing Authority', 20, yPos)
-    yPos += 8
-
-    if (yPos + 10 > pageHeight - 40) {
-      doc.addPage()
-      yPos = 20
-    }
-    doc.setFontSize(10)
-    doc.setFont('helvetica', 'bold')
-    doc.text('Authority:', 20, yPos)
-    doc.setFont('helvetica', 'normal')
-    lines = doc.splitTextToSize(document.issuingAuthority, 80)
-    doc.text(lines, 60, yPos)
-    yPos += Math.max(lines.length * 4, 6)
-
-    yPos += 5
-  }
-
-  // Notes Section (if exists)
-  if (document.notes) {
-    if (yPos + 15 > pageHeight - 40) {
-      doc.addPage()
-      yPos = 20
-    }
-    doc.setFontSize(12)
-    doc.setFont('helvetica', 'bold')
-    doc.text('Notes', 20, yPos)
-    yPos += 8
-    
-    doc.setFontSize(10)
-    doc.setFont('helvetica', 'normal')
-    
-    // Split notes into lines to handle long text
-    lines = doc.splitTextToSize(document.notes, pageWidth - 2 * 20)
-    lines.forEach((line: string) => {
-      if (yPos > pageHeight - 40) {
-        doc.addPage()
-        yPos = 20
-      }
-      doc.text(line, 20, yPos)
-      yPos += 5
-    })
-
-    yPos += 5
-  }
-
-  // Document Content Section
-  if (yPos + 15 > pageHeight - 40) {
-    doc.addPage()
-    yPos = 20
-  }
-  doc.setFontSize(12)
-  doc.setFont('helvetica', 'bold')
-  doc.text('Document Content', 20, yPos)
-  yPos += 8
-  
-  doc.setFontSize(10)
-  doc.setFont('helvetica', 'normal')
-  doc.text('This is a sample document generated by the Deliveroo TMS system.', 20, yPos)
-  yPos += 6
-  doc.text('This document contains all the relevant information as stored in the system.', 20, yPos)
-
-  // Add footer if requested
-  if (options.includeFooter !== false) {
-    const footerY = pageHeight - 20
-    
-    // Footer line
-    doc.setLineWidth(0.5)
-    doc.line(20, footerY - 5, pageWidth - 20, footerY - 5)
-    
-    // Footer text
-    doc.setFontSize(8)
-    doc.setFont('helvetica', 'normal')
-    doc.text('Generated by Deliveroo TMS', 20, footerY)
-    doc.text(`Generated on: ${formatDate(new Date())}`, pageWidth - 20 - 50, footerY)
-    
-    // Page number
-    const pageCount = doc.getNumberOfPages()
-    for (let i = 1; i <= pageCount; i++) {
-      doc.setPage(i)
-      doc.text(`Page ${i} of ${pageCount}`, pageWidth / 2 - 10, footerY)
-    }
-  }
-
-  return doc.output('blob')
+export async function generateDocumentPDFBlob(
+  document: Document,
+  options: PDFOptions = {},
+): Promise<Blob> {
+  return documentPdfGenerator.toBlob(document, options)
 }

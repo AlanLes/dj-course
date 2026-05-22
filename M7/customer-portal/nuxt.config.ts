@@ -1,5 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import tailwindcss from "@tailwindcss/vite";
+
+const rootDir = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
@@ -42,10 +46,18 @@ export default defineNuxtConfig({
     transpile: ['@jridgewell/sourcemap-codec', 'magic-string']
   },
   // Vite configuration for StackBlitz/WebContainer compatibility
+  alias: {
+    '@deliveroo/pdf-core': path.resolve(rootDir, '../packages/pdf-core/src/index.ts'),
+  },
   vite: {
     plugins: [
       tailwindcss(),
     ],
+    resolve: {
+      alias: {
+        '@deliveroo/pdf-core': path.resolve(rootDir, '../packages/pdf-core/src/index.ts'),
+      },
+    },
     optimizeDeps: {
       include: ['@jridgewell/sourcemap-codec'],
       force: true

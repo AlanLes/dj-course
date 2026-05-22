@@ -13,6 +13,7 @@
     "build-storybook": "ng run wms-frontend:build-storybook"
   },
   "dependencies": {
+    "@deliveroo/pdf-core": "*",
     "@angular/animations": "^19.2.1",
     "@angular/common": "^19.2.1",
     "@angular/compiler": "^19.2.1",
