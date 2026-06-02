@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 import { FinancialReport } from '../../reports.model';
 import { DropdownComponent } from '../../../../ui-library/Dropdown.component';
@@ -6,6 +6,7 @@ import { Heading3Component, Heading4Component } from '../../../../ui-library/Typ
 import { KpiCardComponent } from '../kpi-card/kpi-card.component';
 import { BillingStatusClassPipe } from '../../pipes/billing-status-class.pipe';
 import { ReportCurrencyPipe } from '../../pipes/report-currency.pipe';
+import { ActivityProgressCardComponent, ActivityProgressGoal, ActivityProgressMetric } from '../../../../ui-library/ActivityProgressCard.component';
 
 @Component({
   selector: 'app-financial-report-tab',
@@ -18,6 +19,7 @@ import { ReportCurrencyPipe } from '../../pipes/report-currency.pipe';
     KpiCardComponent,
     BillingStatusClassPipe,
     ReportCurrencyPipe,
+    ActivityProgressCardComponent,
   ],
   template: `
     <div class="p-6">
@@ -79,22 +81,16 @@ import { ReportCurrencyPipe } from '../../pipes/report-currency.pipe';
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="card p-6">
-          <ui-heading4>Revenue by Service Type</ui-heading4>
-          <div class="space-y-4">
-            @for (service of report()?.revenueByService; track service.serviceName) {
-              <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                  <div class="w-3 h-3 rounded-full mr-3" [style.background-color]="service.color"></div>
-                  <span class="text-sm text-gray-600 dark:text-gray-400">{{ service.serviceName }}</span>
-                </div>
-                <div class="text-right">
-                  <div class="text-sm font-medium text-gray-900 dark:text-white">\${{ service.revenue | reportCurrency }}</div>
-                  <div class="text-xs text-gray-500">{{ service.percentage }}%</div>
-                </div>
-              </div>
-            }
-          </div>
+        <div class="flex justify-center lg:justify-start">
+          <ui-activity-progress-card
+            title="Financial Goals"
+            [subtitle]="periodLabel()"
+            goalsTitle="Period Milestones"
+            detailsLabel="View Full Analysis"
+            detailsHref="#"
+            [metrics]="financialMetrics()"
+            [goals]="financialGoals()"
+          ></ui-activity-progress-card>
         </div>
 
         <div class="card p-6">
@@ -143,4 +139,77 @@ export class FinancialReportTabComponent {
     { value: 'year', label: 'This Year' },
     { value: 'custom', label: 'Custom Range' },
   ];
+
+  readonly periodLabel = computed(
+    () => this.periodOptions.find((o) => o.value === this.period())?.label ?? 'Report',
+  );
+
+  readonly financialMetrics = computed<ActivityProgressMetric[]>(() => {
+    const r = this.report();
+    if (!r) return [];
+    return [
+      {
+        label: 'Revenue',
+        value: this.formatCompact(r.totalRevenue),
+        unit: 'USD',
+        // % of a 15% growth target achieved
+        percentage: Math.min(100, Math.round((r.revenueGrowth / 15) * 100)),
+        color: '#22c55e',
+      },
+      {
+        label: 'Op. Costs',
+        value: this.formatCompact(r.operatingCosts),
+        unit: 'USD',
+        // efficiency score: cost increase above 5% penalised
+        percentage: Math.max(0, Math.min(100, Math.round(100 - (r.costIncrease - 5) * 8))),
+        color: '#3b82f6',
+      },
+      {
+        label: 'Net Profit',
+        value: this.formatCompact(r.netProfit),
+        unit: 'USD',
+        // % of 35% margin target
+        percentage: Math.min(100, Math.round((r.profitMargin / 35) * 100)),
+        color: '#f59e0b',
+      },
+    ];
+  });
+
+  readonly financialGoals = computed<ActivityProgressGoal[]>(() => {
+    const r = this.report();
+    if (!r) return [];
+    return [
+      {
+        id: 'revenue-target',
+        text: 'Achieve revenue growth target (15%)',
+        completed: r.revenueGrowth >= 15,
+      },
+      {
+        id: 'cost-budget',
+        text: 'Keep cost increase below 10%',
+        completed: r.costIncrease < 10,
+      },
+      {
+        id: 'profit-margin',
+        text: 'Maintain 30%+ profit margin',
+        completed: r.profitMargin >= 30,
+      },
+      {
+        id: 'overdue',
+        text: `Collect overdue invoices (${r.overdueCount} remaining)`,
+        completed: r.overdueCount === 0,
+      },
+    ];
+  });
+
+  private formatCompact(value: number): string {
+    if (value >= 1_000_000) {
+      const m = value / 1_000_000;
+      return (Number.isInteger(m) ? m : m.toFixed(1)) + 'M';
+    }
+    if (value >= 1_000) {
+      return Math.round(value / 1_000) + 'K';
+    }
+    return String(value);
+  }
 }
